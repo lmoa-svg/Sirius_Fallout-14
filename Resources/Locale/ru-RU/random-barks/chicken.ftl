@@ -1,0 +1,9 @@
+bark-chicken-1 = блин
+bark-chicken-2 = Кут
+bark-chicken-3 = Кут Кут Кут
+bark-chicken-4 = Еда
+bark-chicken-5 = Где трава?
+bark-chicken-6 = Нужно поесть
+bark-chicken-7 = Яйцо
+bark-chicken-8 = Лысуха лысуха
+bark-chicken-count = 8

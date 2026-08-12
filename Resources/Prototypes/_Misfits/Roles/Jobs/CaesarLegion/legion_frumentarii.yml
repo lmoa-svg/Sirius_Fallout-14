@@ -3,6 +3,7 @@
   setPreference: true
   hideIfPlaytimeRequirementsNotMet: false # #Misfits Tweak - all jobs visible in selection
   jobWhitelistBypassesRoleTimers: true # #Misfits Change
+  whitelisted: true # #Misfits Fix — allow job-whitelist fallback in lobby visibility filter
   weight: 110
   name: job-name-caesar-legion-frumentarii
   description: job-description-caesar-legion-frumentarii
@@ -17,11 +18,14 @@
     - !type:CharacterSpeciesRequirement
       species:
       - Human
-    # #Misfits Change: Frumentarii is now open to Female characters.
+    - !type:CharacterSexRequirement
+      sex: Male
+    - !type:CharacterGenderRequirement
+      gender: Male
   startingGear: CaesarLegionFrumentariiGear
   alwaysUseSpawner: true
   icon: "JobIconlegionerVenator"
-  supervisors: job-name-caesar-legion-supervisors
+  supervisors: job-supervisor-caesar-legion-legate
   canBeAntag: false
   accessGroups:
   - CaesarLegionFrumentarii
@@ -48,7 +52,6 @@
     gloves: N14ClothingHandsGlovesTribal
     belt: N14Gladius
     suitstorage: N14PilumSpear
-    pocket1: LegionVenatorloadoutkits  # #Misfits Fix - restore combat loadout kit selector (was accidentally replaced)
     pocket2: KitFrumentariiBlackOps    # #Misfits Add - deep-cover black ops cover kit in second pocket
     id: N14IDLegionaryMedalFrumentarii
   innerClothingSkirt: N14ClothingUniformJumpsuitLegionnaireOther

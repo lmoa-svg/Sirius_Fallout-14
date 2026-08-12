@@ -230,6 +230,9 @@
   id: SpeedLoader44
 
 - type: Tag
+  id: SpeedLoader45
+
+- type: Tag
   id: SpeedLoader45-70
 
 - type: Tag
@@ -281,6 +284,15 @@
 - type: Tag
   id: N14Cartridge308Rifle
 
+- type: Tag
+  id: N14Cartridge2mmEC
+
+- type: Tag
+  id: N14CartridgeOver308Rifle
+
+- type: Tag
+  id: N14MagazineOver308RifleSnipers
+
 #MARK: Ammo tags(Magazines).
 - type: Tag
   id: N14MagazinePistol44
@@ -328,7 +340,7 @@
   id: N14LMGMagazine556Rifle
 
 # Forge-Add-Start
-- type: Tag 
+- type: Tag
   id: Magazine556Rifle30
 # Forge-Add-End
 
@@ -395,6 +407,15 @@
 
 - type: Tag
   id: Magazine2mmEC
+
+- type: Tag
+  id: N14MagazineGaussMinigun2mmEC
+
+- type: Tag
+  id: N14MagazinePistol2mmEC
+
+- type: Tag
+  id: N14MagazineRifle2mmEC
 
 - type: Tag
   id: N14AmmoCell
@@ -481,3 +502,27 @@
 
 - type: Tag
   id: NightstalkerPelt
+
+- type: Tag
+  id: VehicleKey
+
+- type: Tag
+  id: JanicartKeys
+
+- type: Tag
+  id: MotorbikeKeys
+
+- type: Tag
+  id: N14MagazineSMG9mmP90
+
+- type: Tag
+  id: N14Magazine50ammoBelt
+
+- type: Tag
+  id: MechKey
+
+- type: Tag
+  id: MisfitsPipBoy
+
+- type: Tag
+  id: N14GaussCell

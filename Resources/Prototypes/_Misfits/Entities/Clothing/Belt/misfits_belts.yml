@@ -12,3 +12,37 @@
   - type: Clothing
     sprite: _Misfits/Clothing/Belt/leatherpouches.rsi
   - type: Appearance
+
+- type: entity
+  parent: N14ClothingBeltStorageBase
+  id: M14ClothingBeltVaultSecurity
+  name: vault security belt
+  description: A used belt used by vault security, it can carry a few magazines but not much else.
+  components:
+  - type: Sprite
+    sprite: _Misfits/Clothing/Belt/vaultsecuritybelt.rsi
+  - type: Clothing
+    sprite: _Misfits/Clothing/Belt/vaultsecuritybelt.rsi
+  - type: Appearance
+
+# #Misfits Add - BoS Squire webbing variants.
+- type: entity
+  parent: N14ClothingBeltBoSWebbing
+  id: MisfitsClothingBeltSquireWebbingBlack
+  name: black squire webbing
+  description: Lightweight Brotherhood webbing sized for a Squire, with pouches for medicine, tools, and ammunition.
+  components:
+  - type: Sprite
+    sprite: _Misfits/Clothing/Belt/squirewebbing_black.rsi
+  - type: Clothing
+    sprite: _Misfits/Clothing/Belt/squirewebbing_black.rsi
+
+- type: entity
+  parent: MisfitsClothingBeltSquireWebbingBlack
+  id: MisfitsClothingBeltSquireWebbingBrown
+  name: brown squire webbing
+  components:
+  - type: Sprite
+    sprite: _Misfits/Clothing/Belt/squirewebbing_brown.rsi
+  - type: Clothing
+    sprite: _Misfits/Clothing/Belt/squirewebbing_brown.rsi

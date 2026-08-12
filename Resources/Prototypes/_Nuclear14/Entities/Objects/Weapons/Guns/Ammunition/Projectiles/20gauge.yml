@@ -10,10 +10,10 @@
   - type: Projectile
     damage:
       types:
-        Piercing: 8
+        Piercing: 10 #sirius change
   # Misfits Add - 20 gauge pellets; same rapid falloff as 12 gauge
   - type: BallisticDamageFalloff
-    falloffStartTiles: 3.0
+    falloffStartTiles: 4.0
     maxFalloffTiles: 8.0
     minDamageMultiplier: 0.30
 

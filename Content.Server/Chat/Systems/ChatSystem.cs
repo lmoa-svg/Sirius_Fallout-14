@@ -15,6 +15,8 @@ using Content.Shared.Administration;
 using Content.Shared.ActionBlocker;
 using Content.Shared.CCVar;
 using Content.Shared.Chat;
+using Content.Shared._Misfits.Common.Speech;
+using Content.Shared._Misfits.Genetics.Abilities;
 using Content.Shared.Database;
 using Content.Shared.Ghost;
 using Content.Shared.Language;
@@ -25,6 +27,8 @@ using Content.Shared.Mobs.Systems;
 using Content.Shared.Players;
 using Content.Shared.Players.RateLimiting;
 using Content.Shared.Radio;
+using Content.Shared.Holopad;
+using Content.Shared.Silicons.StationAi;
 using Content.Shared.Speech;
 using Content.Shared.Whitelist;
 using Robust.Server.Player;
@@ -32,6 +36,7 @@ using Robust.Shared.Audio;
 using Robust.Shared.Audio.Systems;
 using Robust.Shared.Configuration;
 using Robust.Shared.Console;
+using Robust.Shared.Containers;
 using Robust.Shared.Network;
 using Robust.Shared.Physics;
 using Robust.Shared.Player;
@@ -40,7 +45,10 @@ using Robust.Shared.Random;
 using Robust.Shared.Replays;
 using Robust.Shared.Utility;
 using Content.Server.Shuttles.Components;
+using Content.Server._Misfits.Administration.MysteriousStranger; // #Misfits Add - stranger speech filtering
 using Content.Server._Misfits.Supporter; // #Misfits Add - Supporter chat integration
+using Content.Shared.Eye; // #Misfits Add - stranger speech filtering
+using Content.Shared._Misfits.Special;
 using Robust.Shared.Physics.Components;
 using Robust.Shared.Physics.Dynamics.Joints;
 
@@ -75,6 +83,8 @@ public sealed partial class ChatSystem : SharedChatSystem
     [Dependency] private readonly LanguageSystem _language = default!;
     [Dependency] private readonly TelepathicChatSystem _telepath = default!;
     [Dependency] private readonly EntityWhitelistSystem _whitelistSystem = default!;
+    [Dependency] private readonly SharedSpecialSystem _special = default!;
+    [Dependency] private readonly SharedContainerSystem _containers = default!;
 
     // Forge-Change Moved to shared
     // public const int VoiceRange = 10; // how far voice goes in world units
@@ -232,6 +242,14 @@ public sealed partial class ChatSystem : SharedChatSystem
         if (desiredType == InGameICChatType.Speak && message.StartsWith(LocalPrefix))
         {
             // prevent radios and remove prefix.
+            checkRadioPrefix = false;
+            message = message[1..];
+        }
+
+        // Misfits Fix: Handle whisper prefix (,) - switch to Whisper chat type
+        if (desiredType == InGameICChatType.Speak && message.StartsWith(WhisperPrefix))
+        {
+            desiredType = InGameICChatType.Whisper;
             checkRadioPrefix = false;
             message = message[1..];
         }
@@ -638,6 +656,19 @@ public sealed partial class ChatSystem : SharedChatSystem
         if (!_actionBlocker.CanEmote(source) && !ignoreActionBlocker)
             return;
 
+        if (TryResolveStationAiEmoteSource(source, out var stationAi, out var relaySource))
+        {
+            if (HasComp<HolopadUserComponent>(stationAi))
+            {
+                var ev = new StationAiHolopadEmoteRelayEvent(action, range);
+                RaiseLocalEvent(stationAi, ref ev);
+                return;
+            }
+
+            SendEntityNamelessEmote(relaySource, action, range, hideLog, true, author, VoiceRange);
+            return;
+        }
+
         // get the entity's apparent name (if no override provided).
         var ent = Identity.Entity(source, EntityManager);
         string name = FormattedMessage.EscapeText(nameOverride ?? Name(ent));
@@ -653,6 +684,57 @@ public sealed partial class ChatSystem : SharedChatSystem
                 _adminLogger.Add(LogType.Chat, LogImpact.Low, $"Emote from {ToPrettyString(source):user} as {name}: {action}");
             else
                 _adminLogger.Add(LogType.Chat, LogImpact.Low, $"Emote from {ToPrettyString(source):user}: {action}");
+    }
+
+    private bool TryResolveStationAiEmoteSource(EntityUid source, out EntityUid stationAi, out EntityUid relaySource)
+    {
+        stationAi = source;
+        relaySource = source;
+
+        if (HasComp<StationAiHeldComponent>(source))
+        {
+            relaySource = TryGetStationAiCoreForHeld(source) ?? source;
+            return true;
+        }
+
+        var query = EntityQueryEnumerator<StationAiCoreComponent>();
+        while (query.MoveNext(out var coreUid, out var core))
+        {
+            if (core.RemoteEntity != source)
+                continue;
+
+            if (!_containers.TryGetContainer(coreUid, StationAiCoreComponent.Container, out var container))
+                return false;
+
+            foreach (var contained in container.ContainedEntities)
+            {
+                if (!HasComp<StationAiHeldComponent>(contained))
+                    continue;
+
+                stationAi = contained;
+                relaySource = coreUid;
+                return true;
+            }
+
+            return false;
+        }
+
+        return false;
+    }
+
+    private EntityUid? TryGetStationAiCoreForHeld(EntityUid stationAi)
+    {
+        var query = EntityQueryEnumerator<StationAiCoreComponent>();
+        while (query.MoveNext(out var coreUid, out _))
+        {
+            if (!_containers.TryGetContainer(coreUid, StationAiCoreComponent.Container, out var container))
+                continue;
+
+            if (container.ContainedEntities.Contains(stationAi))
+                return coreUid;
+        }
+
+        return null;
     }
 
     // ReSharper disable once InconsistentNaming
@@ -779,6 +861,10 @@ public sealed partial class ChatSystem : SharedChatSystem
             if (session.AttachedEntity is not { Valid: true } playerEntity)
                 continue;
             EntityUid listener = session.AttachedEntity.Value;
+
+            // Genetics: deaf entities cannot receive spoken local chat. Emotes and LOOC remain visible.
+            if (HasComp<DeafComponent>(listener) && channel != ChatChannel.Emotes && channel != ChatChannel.LOOC)
+                continue;
 
 
             // If the channel does not support languages, or the entity can understand the message, send the original message, otherwise send the obfuscated version
@@ -958,13 +1044,16 @@ public sealed partial class ChatSystem : SharedChatSystem
         var languageDisplay = language.IsVisibleLanguage
             ? Loc.GetString("chat-manager-language-prefix", ("language", language.ChatName))
             : "";
+        var fontSize = _special.GetCharismaChatFontSize(source, language.SpeechOverride.FontSize ?? speech.FontSize);
+        var font = new SpeechFontOverrideEvent(source, language.SpeechOverride.FontId ?? speech.FontId);
+        RaiseLocalEvent(source, ref font);
 
         return Loc.GetString(wrapId,
             ("color", color),
             ("entityName", entityName),
             ("verb", Loc.GetString(verbId)),
-            ("fontType", language.SpeechOverride.FontId ?? speech.FontId),
-            ("fontSize", language.SpeechOverride.FontSize ?? speech.FontSize),
+            ("fontType", font.Font),
+            ("fontSize", fontSize),
             ("message", message),
             ("language", languageDisplay));
     }
@@ -1006,6 +1095,19 @@ public sealed partial class ChatSystem : SharedChatSystem
 
             if (observer)
                 recipients.Add(player, new ICChatRecipientData(-1, true));
+        }
+
+        // #Misfits Add - mysterious strangers are only heard by sessions whose eye can actually see them
+        // (their target and admin observers). Covers say, whisper and emotes, which all pass through here.
+        if (HasComp<MysteriousStrangerComponent>(source))
+        {
+            foreach (var session in recipients.Keys.ToArray())
+            {
+                if (session.AttachedEntity is not { } listener
+                    || !TryComp<EyeComponent>(listener, out var listenerEye)
+                    || (listenerEye.VisibilityMask & (int) VisibilityFlags.MysteriousStranger) == 0)
+                    recipients.Remove(session);
+            }
         }
 
         RaiseLocalEvent(new ExpandICChatRecipientsEvent(source, voiceGetRange, recipients));

@@ -4,6 +4,8 @@
   name: recruit pin
   description: A worn Republic Armed Forces badge showing the wearer's rank.
   components:
+  - type: RankTitle
+    rankTitle: Рекрут НКР
   - type: Sprite
     sprite: _Nuclear14/Clothing/Neck/Misc/pins.rsi
     layers:
@@ -19,6 +21,8 @@
   id: ClothingNeckPinNCRPrivate
   name: private pin
   components:
+  - type: RankTitle
+    rankTitle: Рядовой НКР
   - type: Sprite
     sprite: _Nuclear14/Clothing/Neck/Misc/pins.rsi
     layers:
@@ -32,8 +36,10 @@
 - type: entity
   parent: ClothingNeckPinNCRPrivate
   id: ClothingNeckPinNCRPrivate1st
-  name: private 1st pin
+  name: private first class pin
   components:
+  - type: RankTitle
+    rankTitle: Рядовой 1го кл. НКР
   - type: Sprite
     sprite: _Nuclear14/Clothing/Neck/Misc/pins.rsi
     layers:
@@ -44,6 +50,8 @@
   id: ClothingNeckPinNCRCorporal
   name: corporal pin
   components:
+  - type: RankTitle
+    rankTitle: Капрал НКР
   - type: Sprite
     sprite: _Nuclear14/Clothing/Neck/Misc/pins.rsi
     layers:
@@ -54,6 +62,8 @@
   id: ClothingNeckPinNCRSpecialist
   name: specialist pin
   components:
+  - type: RankTitle
+    rankTitle: Специалист НКР
   - type: Sprite
     sprite: _Nuclear14/Clothing/Neck/Misc/pins.rsi
     layers:
@@ -64,6 +74,8 @@
   id: ClothingNeckPinNCRSergeant
   name: sergeant pin
   components:
+  - type: RankTitle
+    rankTitle: Сержант НКР
   - type: Sprite
     sprite: _Nuclear14/Clothing/Neck/Misc/pins.rsi
     layers:
@@ -71,9 +83,26 @@
 
 - type: entity
   parent: ClothingNeckPinNCRPrivate
-  id: ClothingNeckPinNCRSergeant1st
-  name: sergeant 1st pin
+  id: ClothingNeckPinNCRStaffSergeant
+  name: staff sergeant pin
   components:
+  - type: RankTitle
+    rankTitle: Штаб-сержант НКР
+  - type: Sprite
+    sprite: _Nuclear14/Clothing/Neck/Misc/pins.rsi
+    layers:
+    - state: mastersergeant
+  - type: Tag
+    tags:
+    - SuperMutantWearable
+
+- type: entity
+  parent: ClothingNeckPinNCRPrivate
+  id: ClothingNeckPinNCRSergeant1st
+  name: sergeant first class pin
+  components:
+  - type: RankTitle
+    rankTitle: Sergeant First Class
   - type: Sprite
     sprite: _Nuclear14/Clothing/Neck/Misc/pins.rsi
     layers:
@@ -82,8 +111,10 @@
 - type: entity
   parent: ClothingNeckPinNCRPrivate
   id: ClothingNeckPinNCRMasterSergeant
-  name: master sergeant pin
+  name: sergeant first class pin
   components:
+  - type: RankTitle
+    rankTitle: Сержант 1го кл. НКР
   - type: Sprite
     sprite: _Nuclear14/Clothing/Neck/Misc/pins.rsi
     layers:
@@ -94,6 +125,8 @@
   id: ClothingNeckPinNCRSergeantMajor
   name: sergeant major pin
   components:
+  - type: RankTitle
+    rankTitle: Сержант-майор НКР
   - type: Sprite
     sprite: _Nuclear14/Clothing/Neck/Misc/pins.rsi
     layers:
@@ -101,9 +134,41 @@
 
 - type: entity
   parent: ClothingNeckPinNCRPrivate
+  id: ClothingNeckPinNCRCommandSergeantMajor
+  name: command sergeant major pin
+  components:
+  - type: RankTitle
+    rankTitle: Command Sergeant Major
+  - type: Sprite
+    sprite: _Nuclear14/Clothing/Neck/Misc/pins.rsi
+    layers:
+    - state: sergeantmajor
+  - type: Tag
+    tags:
+    - SuperMutantWearable
+
+- type: entity
+  parent: ClothingNeckPinNCRPrivate
+  id: ClothingNeckPinNCRWarrantOfficer
+  name: warrant officer pin
+  components:
+  - type: RankTitle
+    rankTitle: Warrant Officer
+  - type: Sprite
+    sprite: _Nuclear14/Clothing/Neck/Misc/pins.rsi
+    layers:
+    - state: secondlieutenant
+  - type: Tag
+    tags:
+    - SuperMutantWearable
+
+- type: entity
+  parent: ClothingNeckPinNCRPrivate
   id: ClothingNeckPinNCRSecondLieutenant
   name: second lieutenant pin
   components:
+  - type: RankTitle
+    rankTitle: 2й лейтенант НКР
   - type: Sprite
     sprite: _Nuclear14/Clothing/Neck/Misc/pins.rsi
     layers:
@@ -114,6 +179,8 @@
   id: ClothingNeckPinNCRFirstlLieutenant
   name: first lieutenant pin
   components:
+  - type: RankTitle
+    rankTitle: 1й лейтенант НКР
   - type: Sprite
     sprite: _Nuclear14/Clothing/Neck/Misc/pins.rsi
     layers:
@@ -129,6 +196,8 @@
   id: ClothingNeckPinNCRCaptain
   name: captain pin
   components:
+  - type: RankTitle
+    rankTitle: Капитан НКР
   - type: Sprite
     sprite: _Nuclear14/Clothing/Neck/Misc/pins.rsi
     layers:
@@ -144,6 +213,44 @@
   id: ClothingNeckPinNCRMajor
   name: major pin
   components:
+  - type: RankTitle
+    rankTitle: Майор НКР
+  - type: Sprite
+    sprite: _Nuclear14/Clothing/Neck/Misc/pins.rsi
+    layers:
+    - state: major
+
+- type: entity
+  parent: ClothingNeckPinNCRPrivate
+  id: ClothingNeckPinNCRLTC
+  name: lieutenant-colonel pin
+  components:
+  - type: RankTitle
+    rankTitle: Подполковник НКР
+  - type: Sprite
+    sprite: _Nuclear14/Clothing/Neck/Misc/pins.rsi
+    layers:
+    - state: major
+
+- type: entity
+  parent: ClothingNeckPinNCRPrivate
+  id: ClothingNeckPinNCRColonel
+  name: colonel pin
+  components:
+  - type: RankTitle
+    rankTitle: Полковник НКР
+  - type: Sprite
+    sprite: _Nuclear14/Clothing/Neck/Misc/pins.rsi
+    layers:
+    - state: major
+
+- type: entity
+  parent: ClothingNeckPinNCRPrivate
+  id: ClothingNeckPinNCRGeneralMajor
+  name: general major pin
+  components:
+  - type: RankTitle
+    rankTitle: Генерал-майор НКР
   - type: Sprite
     sprite: _Nuclear14/Clothing/Neck/Misc/pins.rsi
     layers:
@@ -154,6 +261,8 @@
   id: ClothingNeckPinNCRDoctor
   name: doctor pin
   components:
+  - type: RankTitle
+    rankTitle: Врач НКР
   - type: Sprite
     sprite: _Nuclear14/Clothing/Neck/Misc/pins.rsi
     layers:
@@ -167,8 +276,10 @@
 - type: entity
   parent: ClothingNeckPinNCRPrivate
   id: ClothingNeckPinNCRChiefPhysician
-  name: chiefphysician pin
+  name: chief physician pin
   components:
+  - type: RankTitle
+    rankTitle: Главный врач НКР
   - type: Sprite
     sprite: _Nuclear14/Clothing/Neck/Misc/pins.rsi
     layers:

@@ -75,6 +75,30 @@
   - type: PresetIdCard
     job: Overseer
 
+- type: entity
+  parent: N14IDCardVault
+  id: MisfitsIDCardVaultCargo
+  name: vault cargo specialist ID card
+  components:
+  - type: PresetIdCard
+    job: VaultCargoSpecialist
+
+- type: entity
+  parent: N14IDCardVault
+  id: MisfitsIDCardVaultCourier
+  name: vault courier ID card
+  components:
+  - type: PresetIdCard
+    job: VaultCourier
+
+- type: entity
+  parent: N14IDCardVault
+  id: MisfitsIDCardVaultSalvage
+  name: vault salvage specialist ID card
+  components:
+  - type: PresetIdCard
+    job: VaultSalvageSpecialist
+
 #MARK: Passports
 - type: entity
   parent: N14IDCard
@@ -285,7 +309,6 @@
   id: N14IDEnclaveTrooper
   name: holotag
   description: An ID holotag worn by the Enclave.
-  categories: [ HideSpawnMenu ]
   suffix: Trooper
   components:
   - type: Sprite
@@ -306,7 +329,6 @@
   id: N14IDEnclaveOfficer
   name: holotag
   description: An ID holotag worn by higher ranking memebers of the Enclave.
-  categories: [ HideSpawnMenu ]
   suffix: Officer
   components:
   - type: Sprite
@@ -323,7 +345,6 @@
   id: N14IDEnclaveNoncombat
   name: holotag
   description: An ID holotag worn by the non-combat members of Enclave.
-  categories: [ HideSpawnMenu ]
   suffix: Scientist , Noncombat
   components:
   - type: Sprite
@@ -334,6 +355,176 @@
     fullNameLocId: n14-id-holotag-full-name
   # - type: PresetIdCard
   #   job: EnclaveScientist
+
+#MARK: Sirius Stukov's Rework
+
+- type: entity
+  parent: N14IDPassportBlank
+  id: SiriusIDEnclaveReformer
+  name: Enclave state governor passport
+  description: An passport with ID holotag worn by higher ranking memebers of the Enclave. This one belongs to a President Representative.
+  suffix: Official; Governor
+  components:
+  - type: Sprite
+    sprite: _Nuclear14/Objects/Misc/identification.rsi
+    state: passport_presidential
+  - type: IdCard # #Misfits Add - display "holotags" instead of default "ID card"
+    nameLocId: n14-id-holotag-name
+    fullNameLocId: n14-id-holotag-full-name
+  - type: PresetIdCard
+    job: EnclaveReformer
+
+- type: entity
+  parent: N14IDPassportBlank
+  id: SiriusIDEnclaveCommander
+  name: Enclave commander holotag
+  description: An ID holotag worn by higher ranking memebers of the Enclave. This one belongs to a regional Enclave commander.
+  suffix: Commander; Lieutenant-colonel, Colonel, General
+  components:
+  - type: Sprite
+    sprite: _Nuclear14/Objects/Misc/identification.rsi
+    state: enclave_officer
+  - type: IdCard # #Misfits Add - display "holotags" instead of default "ID card"
+    nameLocId: n14-id-holotag-name
+    fullNameLocId: n14-id-holotag-full-name
+  - type: PresetIdCard
+    job: EnclaveCommander
+
+- type: entity
+  parent: N14IDPassportBlank
+  id: SiriusIDEnclaveSeniorOfficer
+  name: Enclave senior officer holotag
+  description: An ID holotag worn by higher ranking memebers of the Enclave. This one belongs to a senior officer.
+  suffix: Officer; Captain, Major
+  components:
+  - type: Sprite
+    sprite: _Nuclear14/Objects/Misc/identification.rsi
+    state: enclave_officer
+  - type: IdCard # #Misfits Add - display "holotags" instead of default "ID card"
+    nameLocId: n14-id-holotag-name
+    fullNameLocId: n14-id-holotag-full-name
+  - type: PresetIdCard
+    job: EnclaveSeniorOfficer
+
+- type: entity
+  parent: N14IDPassportBlank
+  id: SiriusIDEnclaveCommunicationsOfficer
+  name: Enclave communications officer holotag
+  description: An ID holotag worn by higher ranking memebers of the Enclave. This one belongs to a communications officer.
+  suffix: Communications Officer; 1st Lieutenant, Captain
+  components:
+  - type: Sprite
+    sprite: _Nuclear14/Objects/Misc/identification.rsi
+    state: enclave_officer
+  - type: IdCard # #Misfits Add - display "holotags" instead of default "ID card"
+    nameLocId: n14-id-holotag-name
+    fullNameLocId: n14-id-holotag-full-name
+  - type: PresetIdCard
+    job: EnclaveCommunicationsOfficer
+
+- type: entity
+  parent: N14IDPassportBlank
+  id: SiriusIDEnclaveJuniorOfficer
+  name: Enclave junior officer holotag
+  description: An ID holotag worn by higher ranking memebers of the Enclave. This one belongs to a junior officer.
+  suffix: Officer; 2nd Lieutenant, 1st Lieutenant
+  components:
+  - type: Sprite
+    sprite: _Nuclear14/Objects/Misc/identification.rsi
+    state: enclave_officer
+  - type: IdCard # #Misfits Add - display "holotags" instead of default "ID card"
+    nameLocId: n14-id-holotag-name
+    fullNameLocId: n14-id-holotag-full-name
+  - type: PresetIdCard
+    job: EnclaveJuniorOfficer
+
+- type: entity
+  parent: N14IDPassportBlank
+  id: SiriusIDEnclaveNCO
+  name: Enclave sergeant holotag
+  description: An ID holotag worn by the Enclave. This one is for sergeant. Don't call me sarge!
+  suffix: Trooper; Sergeant, Staff-Sergeant, Senior Sergeant, Sergeant-Major
+  components:
+  - type: Sprite
+    sprite: _Nuclear14/Objects/Misc/identification.rsi
+    state: enclave_trooper
+  - type: IdCard # #Misfits Add - display "holotags" instead of default "ID card"
+    nameLocId: n14-id-holotag-name
+    fullNameLocId: n14-id-holotag-full-name
+  - type: PresetIdCard
+    job: EnclaveNCO
+  # #Misfits Change - enables Enclave shared map (tactical helmet HUDs, Pip-Boy)
+  - type: Tag
+    tags:
+    - IdCardEnclave
+
+- type: entity
+  parent: N14IDPassportBlank
+  id: SiriusIDEnclaveEnlisted
+  name: Enclave enlisted holotag
+  description: An ID holotag worn by the Enclave. This one is for enlisted trooper. Did you put on your power armor?
+  suffix: Trooper; Private, Private 1st class, Corporal
+  components:
+  - type: Sprite
+    sprite: _Nuclear14/Objects/Misc/identification.rsi
+    state: enclave_trooper
+  - type: IdCard # #Misfits Add - display "holotags" instead of default "ID card"
+    nameLocId: n14-id-holotag-name
+    fullNameLocId: n14-id-holotag-full-name
+  - type: PresetIdCard
+    job: EnclaveEnlisted
+  # #Misfits Change - enables Enclave shared map (tactical helmet HUDs, Pip-Boy)
+  - type: Tag
+    tags:
+    - IdCardEnclave
+
+- type: entity
+  parent: N14IDPassportBlank
+  id: SiriusIDEnclaveHeadScientist
+  name: Enclave administrator's ID card
+  description: An ID card worn by the non-combat members of Enclave. This one is for the administrator.
+  suffix: Civilian; Administrator
+  components:
+  - type: Sprite
+    sprite: _Nuclear14/Objects/Misc/identification.rsi
+    state: enclave_noncombat
+  - type: IdCard # #Misfits Add - display "holotags" instead of default "ID card"
+    nameLocId: n14-id-holotag-name
+    fullNameLocId: n14-id-holotag-full-name
+  - type: PresetIdCard
+    job: EnclaveHeadScientist
+
+- type: entity
+  parent: N14IDPassportBlank
+  id: SiriusIDEnclaveScientist
+  name: Enclave specialist ID card
+  description: An ID card worn by the non-combat members of Enclave. This one is for the specialist.
+  suffix: Civilian; Specialist
+  components:
+  - type: Sprite
+    sprite: _Nuclear14/Objects/Misc/identification.rsi
+    state: enclave_noncombat
+  - type: IdCard # #Misfits Add - display "holotags" instead of default "ID card"
+    nameLocId: n14-id-holotag-name
+    fullNameLocId: n14-id-holotag-full-name
+  - type: PresetIdCard
+    job: EnclaveScientist
+
+- type: entity
+  parent: N14IDPassportBlank
+  id: SiriusIDEnclaveJuniorScientist
+  name: Enclave worker ID card
+  description: An ID card worn by the non-combat members of Enclave. This one is for the worker.
+  suffix: Civilian; Worker
+  components:
+  - type: Sprite
+    sprite: _Nuclear14/Objects/Misc/identification.rsi
+    state: enclave_noncombat
+  - type: IdCard # #Misfits Add - display "holotags" instead of default "ID card"
+    nameLocId: n14-id-holotag-name
+    fullNameLocId: n14-id-holotag-full-name
+  - type: PresetIdCard
+    job: EnclaveJuniorScientist
 
 # MARK: NCR
 - type: entity
@@ -409,12 +600,12 @@
     sprite: _Nuclear14/Objects/Misc/identification.rsi
     state: ncrdogtag
   - type: PresetIdCard
-    job: NCRSGT
+    job: NCRNCO
 
 - type: entity
   parent: N14IDNCRDogtag
   id: N14IDNCRDogtagOfficer
-  name: lieutenant's dogtags
+  name: officer's dogtags
   description: An ID dogtag worn by high ranking members of the NCR.
   suffix: Officer
   components:
@@ -422,7 +613,7 @@
     sprite: _Nuclear14/Objects/Misc/identification.rsi
     state: ncrdogtag
   - type: PresetIdCard
-    job: NCRLT
+    job: NCRExecutiveOfficer
 
 #MARK: Desert Rangers
 - type: entity
@@ -651,6 +842,11 @@
     state: sawbone
   - type: PresetIdCard
     job: TribalShaman # #Misfits Fix - updated job ID after TribalHealer was renamed to TribalShaman
+  # #Misfits Add - enables Tree TacMap tracking without dropping the inherited door tag.
+  - type: Tag
+    tags:
+    - IdCardTribe
+    - DoorBumpOpener
   - type: ClothingAddFaction
     faction: Tribal
 
@@ -665,6 +861,11 @@
     state: raider
   - type: PresetIdCard
     job: Tribal
+  # #Misfits Add - enables Tree TacMap tracking without dropping the inherited door tag.
+  - type: Tag
+    tags:
+    - IdCardTribe
+    - DoorBumpOpener
   - type: ClothingAddFaction
     faction: Tribal
 
@@ -679,6 +880,11 @@
     state: enforcer
   - type: PresetIdCard
     job: TribalFarmer
+  # #Misfits Add - enables Tree TacMap tracking without dropping the inherited door tag.
+  - type: Tag
+    tags:
+    - IdCardTribe
+    - DoorBumpOpener
   - type: ClothingAddFaction
     faction: Tribal
 
@@ -693,6 +899,11 @@
     state: boss
   - type: PresetIdCard
     job: TribalElder
+  # #Misfits Add - enables Tree TacMap tracking without dropping the inherited door tag.
+  - type: Tag
+    tags:
+    - IdCardTribe
+    - DoorBumpOpener
   - type: ClothingAddFaction
     faction: Tribal
 
@@ -733,6 +944,19 @@
     tags:
     - FotA
     - FotADoctor
+
+- type: entity
+  parent: N14IDDoctor
+  id: N14IDFollowerGuard
+  name: followers (guard) ID
+  description: An ID card worn by the Followers of the Apocalypse.
+  components:
+  - type: Tag
+    tags:
+    - IdCardFollowers
+  - type: Access
+    tags:
+    - FotA
 
 - type: entity
   parent: N14IDDoctor

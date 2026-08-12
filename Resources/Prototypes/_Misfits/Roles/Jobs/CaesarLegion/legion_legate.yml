@@ -22,7 +22,7 @@
   startingGear: CaesarLegionLegateGear
   alwaysUseSpawner: true
   icon: "JobIconlegionerCenturion"
-  supervisors: job-name-caesar-legion
+  supervisors: job-supervisor-caesar-legion-kaisar
   canBeAntag: false
   requireAdminNotify: true
   accessGroups:
@@ -46,8 +46,11 @@
         warcryMessage: warcry-message-legion
         warcryMessageCount: 6
         buffPopup: warcry-popup-buffed-legion
+        excludedJobs:
+        - SuperMutantGladiator
         cautionPopup: true
         activatorJobs:
+        - CaesarLegionVexillarius
         - CaesarLegionDean
         - CaesarLegionPrimeDecanus
         - CaesarLegionVeteranDecanus
@@ -76,7 +79,6 @@
     outerClothing: N14ClothingOuterLegateArmor
     belt: N14Gladius
     pocket1: LegionLegateloadoutkits
-    pocket2: N14WeaponPistol10mmPipe
     id: N14IDLegionaryMedalLegate
   innerClothingSkirt: N14ClothingUniformJumpsuitLegionnaireOther
   storage:

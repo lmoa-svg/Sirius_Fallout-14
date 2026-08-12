@@ -58,11 +58,9 @@
     items:
       - id: N14ClothingOuterNCRVestDesert # Forge-Change
       - id: ClothingBeltNCRPouches
-      - id: N14WeaponSniper556VarmintRifle
-      - id: MagazineBox556 # #Misfits Fix - was abstract BaseMagazineBox556Rifle (Spawn threw, aborting OnUseInHand before QueueDel; kit became infinite)
-      - id: N14WeaponPistol9mm
-      - id: N14MagazinePistol9mm
-        amount: 2
+      - id: N14WeaponSMG9mm
+      - id: N14MagazineSMG9mm
+        amount: 4
       - id: N14BoxCardboardMREBoxCFilled
       - id: SmokeGrenade
       - id: N14Stimpak
@@ -98,7 +96,7 @@
     sound:
       path: /Audio/Effects/unwrap.ogg
 
-# NCRA Soldier Kits
+# NCRA Trooper Kits
 
 - type: entity
   name: soldier's rifleman kit
@@ -112,9 +110,12 @@
     size: Huge
   - type: SpawnItemsOnUse
     items:
+      - id: N14ClothingOuterNCRVestDesert
+      - id: N14ClothingHeadHatNCRHelmetMetalDesert
       - id: ClothingBeltNCR
-      - id: N14WeaponSniper556VarmintRifle
-      - id: MagazineBox556 # #Misfits Fix - was abstract BaseMagazineBox556Rifle (Spawn threw, aborting OnUseInHand before QueueDel; kit became infinite)
+      - id: N14WeaponRifle556Service
+      - id: Magazine556Rifle
+        amount: 3
       - id: N14WeaponPistol9mm
       - id: N14MagazinePistol9mm
         amount: 2
@@ -138,12 +139,12 @@
     size: Huge
   - type: SpawnItemsOnUse
     items:
+      - id: N14ClothingOuterNCRVestDesert
+      - id: N14ClothingHeadHatNCRHelmetNoCover
       - id: ClothingBeltNCR
-      - id: N14WeaponSniper556VarmintRifle
-      - id: MagazineBox556 # #Misfits Fix - was abstract BaseMagazineBox556Rifle (Spawn threw, aborting OnUseInHand before QueueDel; kit became infinite)
-      - id: N14WeaponPistol9mm
-      - id: N14MagazinePistol9mm
-        amount: 2
+      - id: N14WeaponRifle556Butchered
+      - id: Magazine556Rifle
+        amount: 4
       - id: N14BoxCardboardMREBoxCFilled
       - id: SmokeGrenade
       - id: N14Stimpak
@@ -164,6 +165,10 @@
     size: Huge
   - type: SpawnItemsOnUse
     items:
+      - id: N14ClothingOuterNCRPouchedVestDesert # Super - Since the scout kit has no helmet, give them a pouched vest.
+      - id: N14ClothingUniformNCRRecon
+      - id: N14ClothingHeadHatNCRBeretRecon
+      - id: N14ClothingNeckTownGuardMantle
       - id: ClothingBeltNCR
       - id: N14WeaponSniper44LeverCarbine
       - id: MagazineBox44
@@ -179,7 +184,7 @@
       path: /Audio/Effects/unwrap.ogg
 
 - type: entity
-  name: soldier's pointman kit
+  name: soldier's trench raider kit
   parent: KitBase
   id: KitNCR_Point
   description: A crate containing all an NCR trooper needs to patrol the wasteland.
@@ -190,12 +195,17 @@
     size: Huge
   - type: SpawnItemsOnUse
     items:
-      - id: ClothingBeltNCRBandolier
+      - id: N14ClothingOuterNCRTrenchRaider
+      - id: N14ClothingHeadHatNCRHelmetNoCover
+      - id: N14ClothingMaskSkirmisher
+      - id: ClothingBeltNCRShotgunner
+      - id: N14ClothingNeckTownGuardMantle
       - id: N14WeaponShotgun
       - id: MagazineBox12gauge
       - id: N14WeaponPistol9mm
       - id: N14MagazinePistol9mm
         amount: 2
+      - id: N14TrenchClub #Misfits Add - Trench raiders need a trench club, right?
       - id: N14BoxCardboardMREBoxCFilled
       - id: N14Stimpak
       - id: N14RadXPill
@@ -220,11 +230,11 @@
       - id: N14ClothingMaskPlate
       - id: ClothingBeltNCR
       - id: N14WastelandFlagSpear
-      - id: N14ClothingHandsGlovesBlackBiker
+      #- id: N14ClothingHandsGlovesBlackBiker # Super - Get your gloves from your character's loadout menu!
       - id: N14Hatchet
-      - id: N14WeaponPistol9mm
-      - id: N14MagazinePistol9mm
-        amount: 2
+      - id: N14WeaponPistol45Colt
+      - id: N14MagazinePistol45
+        amount: 3
       - id: N14Psycho
       - id: N14BoxCardboardMREBoxCFilled
       - id: N14Stimpak
@@ -238,10 +248,10 @@
 # NCRA Engineer Kit
 
 - type: entity
-  name: engineer's mechanic kit
+  name: engineer's construction kit
   parent: KitBase
   id: KitNCR_EngiMechanic
-  description: A crate containing all an NCR engineer needs to perform their job.
+  description: A crate containing all an NCR engineer needs to build defenses and repair structures.
   components:
   - type: Sprite
     state: rifleman
@@ -250,12 +260,9 @@
   - type: SpawnItemsOnUse
     items:
       - id: N14ClothingBeltUtilityFilled
-      - id: N14WeaponSMG9mm
-      - id: N14MagazineSMG9mm
+      - id: N14WeaponRifle556Butchered
+      - id: Magazine556Rifle
         amount: 3
-      - id: N14WeaponPistol9mm
-      - id: N14MagazinePistol9mm
-        amount: 2
       - id: N14Scrap
       - id: SheetGlass10
       - id: MaterialWoodPlank
@@ -263,15 +270,16 @@
       - id: N14Stimpak
       - id: N14RadAwayBloodbag
       - id: N14CleanGauze10
-      - id: N14Flare
+      - id: Torch
     sound:
       path: /Audio/Effects/unwrap.ogg
 
+
 - type: entity
-  name: engineer's demolition kit
+  name: engineer's sapper kit
   parent: KitBase
   id: KitNCR_EngiDemo
-  description: A crate containing all an NCR engineer needs to perform their job.
+  description: A crate containing all an NCR engineer needs to kick in doors.
   components:
   - type: Sprite
     state: pointman
@@ -279,20 +287,19 @@
     size: Huge
   - type: SpawnItemsOnUse
     items:
-      - id: ClothingBeltNCR
-      - id: N14WeaponShotgun
+      - id: N14WeaponSMG9mm
+      - id: N14MagazineSMG9mm
+        amount: 3
+      - id: N14WeaponShotgunShort
+      - id: ClothingBeltNCRShotgunner
       - id: MagazineBox12gauge
-      - id: N14ToolboxMechanical
       - id: C4
       - id: N14ripper
-      - id: N14WeaponPistol9mm
-      - id: N14MagazinePistol9mm
-        amount: 2
       - id: N14BoxCardboardMREBoxCFilled
       - id: N14Stimpak
       - id: N14RadAwayBloodbag
       - id: N14CleanGauze10
-      - id: N14Flare
+      - id: Torch
     sound:
       path: /Audio/Effects/unwrap.ogg
 
@@ -308,7 +315,6 @@
     size: Huge
   - type: SpawnItemsOnUse
     items:
-      - id: ClothingBeltNCR
       - id: N14WeaponShotgunAuto
       - id: N14MagazineShotgun12
         amount: 3
@@ -316,21 +322,22 @@
       - id: N14WeaponPistol9mm
       - id: N14MagazinePistol9mm
         amount: 2
+      - id: ClothingBeltNCRShotgunner
       - id: N14BoxCardboardMREBoxCFilled
       - id: N14Stimpak
       - id: N14RadAwayBloodbag
       - id: N14CleanGauze10
-      - id: N14Flare
+      - id: Torch
     sound:
       path: /Audio/Effects/unwrap.ogg
 
 # NCRA Medic Kits
 
 - type: entity
-  name: medic's advanced field kit # #Misfits Change - retooled from surgeon to senior combat medic; surgery tools removed, defib + N14 meds added
+  name: medic's doctor kit
   parent: KitBase
   id: KitNCR_MedSurgeon
-  description: A crate containing advanced field medicine for an NCR senior combat medic — defibrillator, stimulants, and analgesics to keep soldiers fighting or stable for evac.
+  description: A crate containing all an NCR medic needs to perform their job.
   components:
   - type: Sprite
     state: medic
@@ -338,28 +345,25 @@
     size: Huge
   - type: SpawnItemsOnUse
     items:
-      - id: N14ClothingOuterCoatLab
+      - id: N14ClothingHeadHatNCRHelmetMetalMedic
+      - id: N14ClothingOuterNCRPouchedVestDesert
       - id: N14ClothingBeltMedicalFilled
       - id: N14ClothingHandsGlovesNitrile
-      - id: N14ClothingHeadHatNCRBeretMedic
-      - id: DefibrillatorCompact # portable defib for field revival
-      - id: N14WeaponSMG9mm
-      - id: N14MagazineSMG9mm
-        amount: 3
-      - id: N14WeaponPistol9mm
-      - id: N14MagazinePistol9mm
+      - id: ClothingMaskSterile
+      - id: ClothingBackpackDuffelSurgeryFilled
+      - id: N14WeaponPistol45Colt
+      - id: N14BaseMagazine45Pistol
         amount: 2
       - id: N14SuperStimpak
-      - id: N14Traumapack # #Misfits Change - N14 brute treatment replaces upstream Brutepack
+      - id: N14Stimpak
       - id: N14Ointment10
-      - id: N14Med-X # advanced analgesic for combat
+      - id: Bloodpack
       - id: N14Antidote
       - id: N14BoxCardboardMREBoxCFilled
-      - id: N14Stimpak
       - id: N14RadAwayBloodbag
       - id: N14CleanGauze10
         amount: 2
-      - id: N14Flare
+      - id: Torch
     sound:
       path: /Audio/Effects/unwrap.ogg
 
@@ -375,18 +379,18 @@
     size: Huge
   - type: SpawnItemsOnUse
     items:
+      - id: N14ClothingHeadHatNCRHelmetMetalMedic
+      - id: N14ClothingOuterNCRPouchedVestDesert
       - id: N14ClothingBeltMedicalFilled
+      #- id: N14ClothingOuterNCRPouchedVestWoods #Misfits Change medics already spawn with a vest.
       - id: N14ClothingHandsGlovesNitrile
-      - id: N14ClothingHeadHatNCRBeretMedic
+      - id: N14ClothingHeadHatNCRHelmetMetalMedic
       - id: N14SmellingSalts # #Misfits Change - N14 field revival item replaces upstream sterile wipes
         amount: 2
       - id: N14HandheldHealthAnalyzer # #Misfits Add - NCR medical doctors should spawn with health analyzer
       - id: N14WeaponSMG9mm
       - id: N14MagazineSMG9mm
         amount: 3
-      - id: N14WeaponPistol9mm
-      - id: N14MagazinePistol9mm
-        amount: 2
       - id: N14Traumapack # #Misfits Change - N14 brute treatment replaces upstream Brutepack
       - id: N14Ointment10
       - id: N14Antidote
@@ -401,10 +405,10 @@
       path: /Audio/Effects/unwrap.ogg
 
 - type: entity
-  name: NCR combat medic kit # #Misfits Change - consolidated from three separate medic kits into one field combat medic loadout
+  name: medic's combat kit
   parent: KitBase
   id: KitNCR_MedCombat
-  description: A crate containing everything an NCR combat medic needs to keep soldiers fighting and get the critically wounded back to base — defibrillator, stimulants, analgesics, and field stabilisation supplies.
+  description: A crate containing all an NCR medic needs to perform their job.
   components:
   - type: Sprite
     state: medic
@@ -412,28 +416,23 @@
     size: Huge
   - type: SpawnItemsOnUse
     items:
-      - id: N14ClothingBeltMedicalFilled
-      - id: N14ClothingHandsGlovesNitrile
+      - id: N14WeaponRifle556Service
       - id: N14ClothingHeadHatNCRHelmetMetalMedic
+      - id: N14ClothingOuterNCRPouchedVestDesert
       - id: DefibrillatorCompact # portable defib for frontline revival
-      - id: N14WeaponSMG9mm # SMG: lighter and better suppression for a medic pulling casualties out
-      - id: N14MagazineSMG9mm
-        amount: 3
+      - id: Magazine556Rifle
+        amount: 4
       - id: N14WeaponPistol9mm
       - id: N14MagazinePistol9mm
         amount: 2
-      - id: N14SuperStimpak
-      - id: N14Traumapack # N14 brute treatment
-      - id: N14Ointment10
-      - id: N14Med-X # analgesic keeps casualties combat-capable long enough for evac
-      - id: N14ChemicalSyringeAntidote
+      - id: N14MedkitCombatFilled
       - id: N14BoxCardboardMREBoxCFilled
       - id: N14Stimpak
         amount: 2
       - id: N14RadAwayBloodbag
       - id: N14CleanGauze10
         amount: 2
-      - id: N14Flare
+      - id: Torch
     sound:
       path: /Audio/Effects/unwrap.ogg
 
@@ -451,8 +450,9 @@
     size: Huge
   - type: SpawnItemsOnUse
     items:
+      - id: N14ClothingUniformNCRRecon
       - id: ClothingBeltNCR
-      - id: N14ClothingHeadHatNCRHelmetMetalDesert # Forge-Change
+      - id: N14ClothingHeadHatNCRBeretRecon # Forge-Change
       - id: N14ClothingNeckCloakNCR # Forge-Change
       - id: N14WeaponSniper50NCRRifle # Bill- the autorifle was too much. Kill tankies with skillful shots
       - id: MagazineBox50
@@ -511,11 +511,12 @@
     size: Huge
   - type: SpawnItemsOnUse
     items:
+      - id: N14ClothingUniformNCRRecon
       - id: ClothingBeltNCR
       - id: N14ClothingHeadHatNCRBeretRecon
       - id: N14ClothingNeckCloakNCR # Forge-Change
       - id: N14WeaponRifle308SniperRifle
-      - id: Magazine308RifleSniper
+      - id: MagazineOver308RifleSniper
       - id: N14WeaponPistol45Colt
       - id: N14MagazinePistol45
         amount: 2
@@ -542,13 +543,10 @@
       - id: N14ClothingOuterNCRVestCoatBlack
       - id: ClothingBeltNCR
       - id: N14ClothingMaskBlackBalaclava
-#      - id: N14ClothingEyesNCRNVGs #Forge-Change
+      - id: N14ClothingEyesNCRNVGs
       - id: N14WeaponSMG9mminfiltrator
       - id: N14MagazineSMG9mm
-        amount: 3
-      - id: N14WeaponPistol9mm
-      - id: N14MagazinePistol9mm
-        amount: 2
+        amount: 4
       - id: N14BoxCardboardMREBoxCFilled
       - id: N14Stimpak
       - id: N14RadAwayBloodbag
@@ -573,7 +571,6 @@
     items:
       - id: N14ClothingHeadHatNCRHelmetMetalDesert # Forge-Change
       - id: ClothingBeltNCR
-      - id: ClothingNeckPinNCRSergeant
       - id: N14WeaponRifle556Carbine
       - id: LongMagazine556Rifle
         amount: 3
@@ -602,7 +599,6 @@
     items:
       - id: N14ClothingHeadHatNCRHelmetMetalDesert # Forge-Change
       - id: ClothingBeltNCR
-      - id: ClothingNeckPinNCRSergeant
       # Misfits Tweak: AutoRifle was too powerful at roundstart; downgraded to standard LMG.
       - id: N14WeaponLMG
       - id: LMGMagazine556Rifle
@@ -630,9 +626,9 @@
     size: Huge
   - type: SpawnItemsOnUse
     items:
+      - id: N14ClothingUniformNCRRecon
       - id: N14ClothingHeadHatNCRBeretRecon
       - id: ClothingBeltNCR
-      - id: ClothingNeckPinNCRSergeant
       - id: N14WeaponRifle308Battle
       - id: ClipMagazine308Rifle
         amount: 6
@@ -661,7 +657,6 @@
     items:
       - id: N14ClothingHeadHatNCRHelmetMetalDesert # Forge-Change
       - id: ClothingBeltNCR
-      - id: ClothingNeckPinNCRSergeant
       - id: N14WeaponShotgunAuto
       - id: N14MagazineShotgun12
         amount: 3
@@ -1084,6 +1079,28 @@
     items:
       - id: N14WeaponLaserRifleCrude
       - id: N14MicrofusionCellRed
+        amount: 1
+      - id: N14WeaponPistol12mm
+      - id: N14MagazinePistol12mm
+        amount: 2
+      - id: N14CleanGauze10
+      - id: N14Stimpak
+      - id: N14BoxCardboardMREBoxKFilled
+
+- type: entity
+  name: BoS Senior Knight Ballistic Kit
+  parent: KitBase
+  id: KitMBoS_SKniBal
+  description: A crate containing everything a member of the Brotherhood might need.
+  components:
+  - type: Sprite
+    state: rifleman
+  - type: Item
+    size: Huge
+  - type: SpawnItemsOnUse
+    items:
+      - id: N14WeaponRifle556Carbine
+      - id: LongMagazine556Rifle
         amount: 3
       - id: N14WeaponPistol12mm
       - id: N14MagazinePistol12mm
@@ -1091,6 +1108,52 @@
       - id: N14CleanGauze10
       - id: N14Stimpak
       - id: N14BoxCardboardMREBoxKFilled
+      - id: N14ClothingOuterCombatArmorSeniorBOS
+
+- type: entity
+  name: BoS Senior Knight Laser Kit
+  parent: KitBase
+  id: KitMBoS_SKniLas
+  description: A crate containing everything a member of the Brotherhood might need.
+  components:
+  - type: Sprite
+    state: rifleman
+  - type: Item
+    size: Huge
+  - type: SpawnItemsOnUse
+    items:
+      - id: N14WeaponLaserRifle
+      - id: N14MicrofusionCell
+        amount: 1
+      - id: N14WeaponPistol12mm
+      - id: N14MagazinePistol12mm
+        amount: 2
+      - id: N14CleanGauze10
+      - id: N14Stimpak
+      - id: N14BoxCardboardMREBoxKFilled
+      - id: N14ClothingOuterCombatArmorSeniorBOS
+
+- type: entity
+  name: BoS Recon Knight Kit
+  parent: KitBase
+  id: KitMBoS_Recon
+  description: A crate containing everything a recon knight may need.
+  components:
+  - type: Sprite
+    state: rifleman
+  - type: Item
+    size: Huge
+  - type: SpawnItemsOnUse
+    items:
+      - id: N14WeaponRevolver44Magnun
+      - id: N14SpeedLoader44Magnum
+        amount: 2
+      - id: N14AmmoBox44Magnum
+      - id: N14CleanGauze10
+      - id: N14Stimpak
+      - id: N14BoxCardboardMREBoxKFilled
+      - id: N14ClothingOuterMidwestReconArmor
+      - id: N14ClothingHeadHatBrotherhoodMidwestHelmetRecon
 
 - type: entity
   name: BoS Knight Ballistic Kit
@@ -1137,6 +1200,9 @@
       - id: N14ClothingOuterBrotherhoodMidwestMedicalScribeRobes
       - id: ClothingHandsGlovesChemist
       - id: N14BoxCardboardMREBoxKFilled
+      - id: N14WeaponLaserPistol
+      - id: N14PowerCellSmall
+        amount: 2
 
 # MBoS Scribe Field Kit
 - type: entity
@@ -1153,10 +1219,15 @@
     items:
       - id: N14CleanGauze10
       - id: N14Ointment10
+      - id: N14MedkitCombatFilled
+      - id: N14HandheldHealthAnalyzer
       - id: N14ClothingHandsGlovesCombat
       - id: N14ClothingBeltBoSWebbing
       - id: N14ClothingOuterBrotherhoodMidwestFieldScribeCoat
       - id: N14BoxCardboardMREBoxKFilled
+      - id: N14WeaponLaserPistol
+      - id: N14PowerCellSmall
+        amount: 2
 
 # MBoS Scribe Engineer Kit
 - type: entity
@@ -1178,11 +1249,14 @@
       - id: ClothingHandsGlovesColorYellow
       - id: N14ClothingBeltUtilityFilled
       - id: N14BoxCardboardMREBoxKFilled
+      - id: N14WeaponLaserPistol
+      - id: N14PowerCellSmall
+        amount: 2
 
 # MBoS Paladin Kits
 #Misfits Change /Tweak/: Replaced auto laser rifle with auto shotgun + laser pistol sidearm.
 - type: entity
-  name: BoS Paladin Shotgun Kit
+  name: BoS Paladin Close Range Kit
   parent: KitBase
   id: KitMBoS_PalLas
   description: A crate containing everything a member of the Brotherhood might need.
@@ -1198,9 +1272,31 @@
         amount: 3
       - id: N14WeaponLaserPistol
       - id: N14PowerCellSmall
-        amount: 2
+        amount: 4
       - id: N14CleanGauze10
       - id: N14Stimpak
+        amount: 2
+      - id: N14BoxCardboardMREBoxKFilled
+
+- type: entity
+  name: BoS Paladin Enclave Slayer Kit
+  parent: KitBase
+  id: KitMBoS_PalSlay
+  description: A crate containing everything a member of the Brotherhood might need.
+  components:
+  - type: Sprite
+    state: rifleman
+  - type: Item
+    size: Huge
+  - type: SpawnItemsOnUse
+    items:
+      - id: MisfitsPlasmaCutter
+      - id: N14WeaponLaserPistol
+      - id: N14PowerCellSmall
+        amount: 4
+      - id: N14CleanGauze10
+      - id: N14Stimpak
+        amount: 2
       - id: N14BoxCardboardMREBoxKFilled
 
 - type: entity
@@ -1240,7 +1336,7 @@
     items:
       - id: N14WeaponLaserRifle
       - id: N14MicrofusionCell
-        amount: 3
+        amount: 1
       - id: N14WeaponPistol12mm
       - id: N14MagazinePistol12mm
         amount: 2
@@ -1261,8 +1357,8 @@
   - type: SpawnItemsOnUse
     items:
       - id: N14WeaponLaserRifleAuto # misfits change by bill; makes it easier to balance paladin kits, AER14 too much roundstart.
-      - id: N14MicrofusionCellBlue
-        amount: 3
+      - id: N14MicrofusionCell
+        amount: 1
       - id: N14WeaponPistol12mm
       - id: N14MagazinePistol12mm
         amount: 2
@@ -1644,8 +1740,8 @@
     items:
       - id: N14ClothingHeadHatTownGuard
       - id: N14ClothingOuterTownGuardCoat
-      - id: N14WeaponRifle308Battle
-      - id: ClipMagazine308Rifle
+      - id: N14WeaponSniper45-70BrushGun
+      - id: MagazineBox45-70
         amount: 3
       - id: N14WeaponRevolver44Magnun
       - id: SpeedLoader44
@@ -1669,9 +1765,9 @@
     items:
       - id: N14ClothingHeadTownGuardBrodie
       - id: N14ClothingOuterTownGuardLight
-      - id: N14WeaponSMG12mm
-      - id: N14MagazineSMG12mm
-        amount: 3
+      - id: N14WeaponSMG9mmCanadian
+      - id: N14MagazineSMG9mm
+        amount: 4
       - id: N14WeaponPistolWebley
       - id: N14MagazinePistol9mm
         amount: 2
@@ -1740,11 +1836,12 @@
     items:
       - id: N14ClothingHeadTownGuardBrodieVisor
       - id: N14ClothingOuterTownGuardRiot
-      - id: N14WastelandSpear
+      - id: N14WeaponRifle762Fal
+      - id: Magazine762AmmoShort
+        amount: 3
       - id: N14WeaponRevolver45-70Hunter
       - id: SpeedLoader45-70
         amount: 2
-      - id: N14ShieldMetalHeavy
       - id: N14ClothingNeckTownGuardCloak
       - id: N14CleanGauze10
       - id: N14JunkCeramicFlask

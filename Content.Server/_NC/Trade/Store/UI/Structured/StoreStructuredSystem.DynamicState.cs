@@ -106,7 +106,7 @@ public sealed partial class StoreStructuredSystem : EntitySystem
 
         if (hasSellTab && needCrateScan && crateUid is { } crate)
         {
-            var plan = _logic.ComputeMassSellPlanFromCachedItems(comp, crate, _deepCrateItemsScratch);
+            var plan = _logic.ComputeMassSellPlanFromCachedItems(comp, crate, _deepCrateItemsScratch, user);
             foreach (var kvp in plan.UnitsByListingId)
                 if (!string.IsNullOrWhiteSpace(kvp.Key) && kvp.Value > 0)
                     buf.CrateUnitsById[kvp.Key] = kvp.Value;
@@ -125,7 +125,7 @@ public sealed partial class StoreStructuredSystem : EntitySystem
         {
             foreach (var c in comp.Contracts.Values)
             {
-                var cd = MapContractToClient(c);
+                var cd = MapContractToClient(c, user);
                 // #Misfits Add — lock contract if this tier is not yet unlocked by the player
                 if (unlockedTiers != null && !unlockedTiers.Contains(c.Difficulty))
                     cd.Locked = true;
@@ -159,7 +159,7 @@ public sealed partial class StoreStructuredSystem : EntitySystem
                 hasSellTab,
                 hasContractsTab,
                 // #Misfits Add — tier progression data for the client
-                unlockedTiers ?? new HashSet<string> { "Bronze" },
+                unlockedTiers ?? new HashSet<string> { "Road Kill" },
                 roster
             )
         );

@@ -17,13 +17,20 @@
     - !type:CharacterSpeciesRequirement
       species:
       - Human
-      - Ghoul
-      - SuperMutant
     - !type:CharacterDepartmentTimeRequirement # #Misfits Add - admin-only timelock (70h Enclave)
       department: Enclave
       min: 252000 # 70 hours — admin role
-  startingGear: EnclaveCommanderGear # reuse Commander gear as base
-  icon: "JobIconCaptain"
+    - !type:CharacterSexRequirement
+      sex: Male
+    - !type:CharacterGenderRequirement
+      gender: Male
+    - !type:CharacterTraitRequirement
+      inverted: true
+      traits:
+        - N14Muted
+        - N14Pacifist
+  startingGear: EnclaveReformerGear
+  icon: "JobIconEnclaveReformer"
   supervisors: job-supervisors-enclave-reformer
   requireAdminNotify: true
   hideIfPlaytimeRequirementsNotMet: false
@@ -36,6 +43,26 @@
       - type: NpcFactionMember
         factions:
           - Enclave
+      - type: PowerArmorProficiency
+
+- type: startingGear
+  id: EnclaveReformerGear
+  equipment:
+    back: ClothingBackpackSatchelLeather
+    jumpsuit: SiriusClothingUniformJumpsuitGovernor
+    outerClothing: ClothingOuterCoatGentle
+    shoes: ClothingShoesBootsLaceup
+    neck: ClothingNeckPinEnclaveGovernor
+    belt: ClothingBeltEnclave
+    ears: N14ClothingHeadsetEnclave
+    pocket1: SiriusRubberStampEnclaveReformer
+    pocket2: RadioHandheld
+    id: SiriusIDEnclaveReformer
+  satchel: N14ClothingBackpackSatchelMilitaryFilled
+  duffelbag: N14ClothingBackpackDuffelMilitaryFilled
+  storage:
+    back:
+    - N14BoxPlasticFilledMilitary
 
 - type: playTimeTracker
   id: EnclaveReformer

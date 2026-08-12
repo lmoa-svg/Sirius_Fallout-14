@@ -1,0 +1,1 @@
+playtime-deny-reason-not-whitelisted = Вас нужно внести в белый список.

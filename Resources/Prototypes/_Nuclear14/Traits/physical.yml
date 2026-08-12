@@ -26,6 +26,7 @@
       jobs:
         - FollowerHead    # #Misfits Change - Followers job replaced by ranked hierarchy
         - FollowerDoctor
+        - FollowerGuard
         - FollowerVolunteer
     # Forge-Change-End
     - !type:CharacterTraitRequirement
@@ -115,6 +116,7 @@
       jobs:
         - FollowerHead    # #Misfits Change - Followers job replaced by ranked hierarchy
         - FollowerDoctor
+        - FollowerGuard
         - FollowerVolunteer
     # Forge-Change-End
     - !type:CharacterTraitRequirement
@@ -210,6 +212,7 @@
       jobs:
         - FollowerHead    # #Misfits Change - Followers job replaced by ranked hierarchy
         - FollowerDoctor
+        - FollowerGuard
         - FollowerVolunteer
     # Forge-Change-End
     - !type:CharacterTraitRequirement
@@ -252,7 +255,7 @@
 - type: trait
   id: N14UnnaturalReg
   category: Physical
-  points: -5
+  points: -7 # Slight nerf, still able to heal out of crit but its nowhere near as able now.
   requirements:
     - !type:CharacterTraitRequirement
       inverted: true
@@ -267,21 +270,22 @@
         - type: PassiveDamage
           allowedStates:
           - Alive # Forge-Change
-          damageCap: 200
+          - Critical # takes a bit to get out of crit, but if no one kills you and you don't lose all your blood, you live!
+          damageCap: 300 # makes it works with life giver
           damage:
             types:
-              # #Misfits Fix - PassiveDamage group healing is split across member types; direct types make burn regeneration visible.
-              Blunt: -0.035
-              Slash: -0.035
-              Piercing: -0.035
-              Heat: -0.035
-              Shock: -0.035
-              Cold: -0.035
-              Caustic: -0.035
-              Asphyxiation: -0.035
-              Bloodloss: -0.035
-              Poison: -0.015
-              Radiation: -0.015
+              # #Misfits Fix - PassiveDamage group healing is split across member types; direct types make burn regeneration visible. 1 Hp for every 4 seconds
+              Blunt: -0.20
+              Slash: -0.20
+              Piercing: -0.20
+              Heat: -0.20
+              Cold: -0.20
+              Shock: -0.20
+              Caustic: -0.20
+              Asphyxiation: -0.35 # Last longer in crit, takes a WHIIILE to get back up.
+              Bloodloss: -0.10
+              Poison: -0.10
+              Radiation: -0.10
 
 - type: trait
   id: N14WorldChampion
@@ -294,6 +298,7 @@
       jobs:
         - FollowerHead    # #Misfits Change - Followers job replaced by ranked hierarchy
         - FollowerDoctor
+        - FollowerGuard
         - FollowerVolunteer
   # Forge-Change-End
   functions:
@@ -383,7 +388,10 @@
       jobs:
         - FollowerHead    # #Misfits Change - Followers job replaced by ranked hierarchy
         - FollowerDoctor
+        - FollowerGuard
         - FollowerVolunteer
+        - CaesarLegionSlave # Restricted from Slaves & Prisoners - if they had these traits, they wouldn't be stuck in the first place!
+        - NCRPrisoner
     # Forge-Change-End
     # Misfits Fix: CharacterTraitRequirement block removed — all referenced N14ExtremeAug* traits are commented out
     #- !type:CharacterTraitRequirement
@@ -401,12 +409,12 @@
 - type: trait
   id: N14GammaShield
   category: Physical
-  points: -8
+  points: -4              # Misfits Change: Gamma Shield is kinda ass, reduced cost from 8 to 4
   requirements:
     - !type:CharacterSpeciesRequirement
       species:
         - Ghoul
-        - GhoulGlowing
+#        - GhoulGlowing   # Misfits Change: Glowing Ghouls get it for free now
   functions:
     - !type:TraitAddArmor
       damageModifierSets:
@@ -418,12 +426,12 @@
   category: Physical
   points: -5
   # Misfits Fix: CharacterTraitRequirement block removed — all referenced N14ExtremeAug* traits are commented out
-  #requirements:
-  #  - !type:CharacterTraitRequirement
-  #    inverted: true
-  #    traits:
-  #      - N14ExtremeAugKnight
-  #      - N14ExtremeAugScribe
+  requirements:
+  - !type:CharacterJobRequirement
+    inverted: true
+    jobs:
+    - CaesarLegionSlave # Restricted from Slaves & Prisoners - if they had these traits, they wouldn't be stuck in the first place!
+    - NCRPrisoner
   functions:
     - !type:TraitAddComponent
       components:
@@ -455,6 +463,7 @@
         - BoSWestElderCommander
         - FollowerHead    # #Misfits Change - Followers job replaced by ranked hierarchy
         - FollowerDoctor
+        - FollowerGuard
         - FollowerVolunteer
         # Forge-Change-End
     - !type:CharacterTraitRequirement

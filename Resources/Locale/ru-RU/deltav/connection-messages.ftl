@@ -1,0 +1,1 @@
+whitelist-not-whitelisted-peri = Вас нет в белом списке. Чтобы попасть на него, вам необходимо стать бета-тестером, подав заявку. Вы можете подать заявку на нашем канале Discord https://discord.gg/corvax-frontier.

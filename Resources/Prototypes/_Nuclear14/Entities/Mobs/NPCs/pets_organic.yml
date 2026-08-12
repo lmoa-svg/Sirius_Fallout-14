@@ -1,13 +1,13 @@
 - type: entity
   name: Basic Pet
   id: N14MobPetBasic
-  parent: N14MobBaseHostile
+  parent: N14MobBaseHostileNoAccent
   categories: [ HideSpawnMenu ]
   description: Why are you even reading this?
   components:
   - type: NpcFactionMember
     factions:
-      - Wastelander
+      - SimpleNeutral
   - type: NameIdentifier
     group: GenericNumber
   - type: Puller
@@ -107,6 +107,9 @@
       Parched: 50
       Dead: 0
     baseDecayRate: 0.0
+  - type: SiriusFollower
+  - type: Tameable
+    preset: TameablePetBasic
 
 - type: entity
   name: Basic Mutt
@@ -123,22 +126,57 @@
     interactSuccessSpawn: EffectHearts
     interactSuccessSound:
       collection: N14DogBark #Misfits Change
-  - type: ReplacementAccent
-    accent: dog
   - type: LanguageKnowledge
     speaks:
     - N14Dog
     understands:
     - N14Dog
     - N14Insect
-    - N14Robot
     - English
-    - Tribal
+    - Spanish
     - Chinese
+    - Latin
+    - Tribal
+    - N14Robot
+    - N14BrotherBeep
     - Sign
+  - type: GhostRole
+    name: ghost-role-information-n14pet-dog-name
+    description: ghost-role-information-n14pet-generic-description
+    rules: ghost-role-component-default-rules
+    makeSentient: false
+    allowMovement: true
+  - type: GhostTakeoverAvailable
   - type: Speech # Corvax-Change
     speechSounds: Dog
   #- type: DogVision # Corvax-Change | #Misfits Change: Disabled — greyscale shader should not apply to players inhabiting pet mobs
+  - type: Tag
+    tags:
+    - DoorBumpOpener
+    - VulpEmotes
+  - type: InventorySlots
+  - type: Strippable
+  - type: PetCollarHolder
+  - type: UserInterface
+    interfaces:
+      enum.StrippingUiKey.Key:
+        type: StrippableBoundUserInterface
+  - type: Inventory
+    speciesId: cat
+    templateId: cat_pet
+  - type: Emoting
+  - type: Hands # #Misfits Add - allows dragging and item handling
+  - type: BorgHands # #Misfits Add - gives cats actual holdable hand slots
+    handCount: 1
+  - type: ComplexInteraction # #Misfits Add - allows click-opening doors and other complex hand interactions
+  - type: RobotWeaponPickupBlacklist # #Misfits Add - cats should not be able to pick up guns/melee weapons
+    blacklist:
+      components:
+      - Gun
+      - MeleeWeapon
+  - type: SiriusFollower
+  - type: Tameable
+    preset: TameablePetDog 
 
 - type: entity
   name: BoS Mutt
@@ -215,12 +253,13 @@
     - N14BrotherBeep
     understands:
     - N14Dog
-    - N14BrotherBeep
-    - N14Robot
     - N14Insect
     - English
-    - Tribal
     - Chinese
+    - Latin
+    - Tribal
+    - N14Robot
+    - N14BrotherBeep
     - Sign
 
 - type: entity
@@ -418,17 +457,29 @@
   - type: NpcFactionMember # Corvax-Change
     factions:
     - Passive
+  - type: GhostRole
+    name: ghost-role-information-n14pet-roach-name
+    description: ghost-role-information-n14pet-generic-description
+    rules: ghost-role-component-default-rules
+    makeSentient: false
+    allowMovement: true
+  - type: GhostTakeoverAvailable
   - type: LanguageKnowledge
     speaks:
     - N14Insect
     understands:
     - N14Dog
     - N14Insect
-    - N14Robot
     - English
-    - Tribal
     - Chinese
+    - Latin
+    - Tribal
+    - N14Robot
+    - N14BrotherBeep
     - Sign
+  - type: SiriusFollower
+  - type: Tameable
+    preset: TameablePetRoach
 
 - type: entity
   name: Pet Ant
@@ -503,6 +554,9 @@
         Blunt: 6
         Slash: 6
         Radiation: 2
+  - type: SiriusFollower
+  - type: Tameable
+    preset: TameablePetAnt
 
 - type: entity
   name: Pet Rat
@@ -570,6 +624,29 @@
       path: /Audio/Animals/small_dog_bark_happy.ogg
   - type: ReplacementAccent
     accent: xeno
+  - type: LanguageKnowledge # Misfits Fix - pigrat was missing language knowledge entirely; mirror other organic pets
+    speaks:
+    - N14Insect
+    understands:
+    - N14Dog
+    - N14Insect
+    - English
+    - Chinese
+    - Latin
+    - Tribal
+    - N14Robot
+    - N14BrotherBeep
+    - Sign
   - type: NpcFactionMember # Corvax-Change
     factions:
     - Passive
+  - type: GhostRole
+    name: ghost-role-information-n14pet-pigrat-name
+    description: ghost-role-information-n14pet-generic-description
+    rules: ghost-role-component-default-rules
+    makeSentient: false
+    allowMovement: true
+  - type: GhostTakeoverAvailable
+  - type: SiriusFollower
+  - type: Tameable
+    preset: TameablePetRat

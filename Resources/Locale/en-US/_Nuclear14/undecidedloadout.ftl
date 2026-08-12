@@ -19,8 +19,8 @@ undecided-loadout-category-cadet-rifleman-description =
 
 undecided-loadout-category-cadet-storm-name = Cadet Stormtrooper Kit
 undecided-loadout-category-cadet-storm-description =
-    Includes 1 NCR leather vest, 1 NCR pouches bandolier, 1 varmit rifle,
-    1 5.56 box, 1 smoke grenade, 1 9mm pistol, 2 9mm pistol magazines,
+    Includes 1 NCR leather vest, 1 NCR pouches bandolier, 1 9mm SMG,
+    4 9mm SMG magazines, 1 smoke grenade,
     1 C ration MRE, 1 stimpak, 1 gauze pack, and 1 flare.
 
 undecided-loadout-category-cadet-scout-name = Cadet Scout Kit
@@ -33,85 +33,91 @@ undecided-loadout-category-cadet-scout-description =
 
 undecided-loadout-category-soldier-rifleman-name = Soldier Rifleman Kit
 undecided-loadout-category-soldier-rifleman-description =
-    Includes 1 NCR belt, 1 varmit rifle, 1 5.56 box,
+    Includes 1 desert leather NCR vest, 1 NCR desert metal helmet,
+    1 NCR belt, 1 service rifle, 3 5.56 service rifle magazines,
     1 9mm pistol, 2 9mm pistol magazines, 1 C ration MRE,
     1 stimpak, 1 Rad-X pill, 1 gauze pack, and 1 flare.
 
 undecided-loadout-category-soldier-storm-name = Soldier Stormtrooper Kit
 undecided-loadout-category-soldier-storm-description =
-    Includes 1 NCR belt, 1 varmit rifle, 1 5.56 box, 1 Smoke Grenade
-    1 9mm pistol, 2 9mm pistol magazines, 1 C ration MRE,
-    1 stimpak, 1 gauze pack, and 1 flare.
+    Includes 1 desert leather NCR vest, 1 NCR uncovered brodie helmet,
+    1 NCR belt, 1 butchered service rifle,
+    4 5.56 service rifle magazines, 1 smoke grenade,
+    1 C ration MRE, 1 stimpak, 1 gauze pack, and 1 flare.
 
 undecided-loadout-category-soldier-scout-name = Soldier Scout Kit
 undecided-loadout-category-soldier-scout-description =
-    Includes 1 NCR belt, 1 lever-action carbine, 1 box of .44 ammo,
+    Includes 1 pouched leather NCR vest, 1 NCR recon uniform, 1 NCR recon beret, 1 NCR belt,
+    1 army rain mantle, 1 lever-action carbine, 1 box of .44 ammo,
     1 9mm pistol, 2 9mm pistol magazines, 1 C ration MRE,
     1 stimpak, 1 Rad-X pill, 1 gauze pack, and 1 flare.
 
-undecided-loadout-category-soldier-point-name = Soldier Pointman Kit
+undecided-loadout-category-soldier-point-name = Soldier Trench Raider Kit
 undecided-loadout-category-soldier-point-description =
-    Includes 1 NCR bandolier, 1 pump-action shotgun, 1 box of 12 gauge shells,
-    1 9mm pistol, 2 9mm pistol magazines, 1 C ration MRE,
+    Includes 1 NCR trench raider vest, 1 NCR uncovered brodie helmet, 1 skirmisher mask, 1 NCR shotgun belt,
+    1 pump-action shotgun, 1 box of 12 gauge shells,
+    1 9mm pistol, 2 9mm pistol magazines, 1 trench club, 1 C ration MRE,
     1 stimpak, 1 Rad-X pill, 1 gauze pack, and 1 flare.
 
 undecided-loadout-category-soldier-morale-name = Morale Booster Kit
 undecided-loadout-category-soldier-morale-description =
-    Includes 1 NCR plate armor, 1 plate mask, 1 NCR belt, 1 NCR spear flag, bugle,
-    1 pair of black biker gloves, 1 hatchet, 1 9mm pistol, 2 9mm pistol magazines,
+    Includes 1 NCR plate armor, 1 plate mask, 1 NCR belt, 1 NCR spear flag, 1 bugle,
+    1 hatchet, 1 .45 Colt pistol, 3 .45 Colt magazines,
     1 Psycho, 1 C ration MRE, 1 stimpak, 1 Rad-X pill, 1 gauze pack, and 1 flare.
 
 # NCRA Engineer Kits
 
 undecided-loadout-category-engi-mechanic-name = Engineer Mechanic Kit
 undecided-loadout-category-engi-mechanic-description =
-    Includes 1 filled utility belt, 1 9mm SMG, 3 9mm SMG magazines,
-    1 9mm pistol, 2 9mm pistol magazines, scrap, 10 glass sheets, wood planks,
-    1 C ration MRE, 1 stimpak, 1 RadAway blood bag, 1 gauze pack, and 1 flare.
+    Includes 1 filled utility belt, 1 butchered service rifle,
+    3 5.56 service rifle magazines, scrap, 10 glass sheets, wood planks,
+    1 C ration MRE, 1 stimpak, 1 RadAway blood bag, 1 gauze pack, and 1 torch.
 
 undecided-loadout-category-engi-demo-name = Engineer Demolition Kit
 undecided-loadout-category-engi-demo-description =
-    Includes 1 NCR belt, 1 pump-action shotgun, 1 box of 12 gauge shells,
-    1 mechanical toolbox, 1 C4 charge, 1 ripper, 1 9mm pistol,
-    2 9mm pistol magazines, 1 C ration MRE, 1 stimpak,
-    1 RadAway blood bag, 1 gauze pack, and 1 flare.
+    Includes 1 NCR shotgun belt, 1 9mm SMG, 3 9mm SMG magazines,
+    1 short shotgun, 1 box of 12 gauge shells,
+    1 mechanical toolbox, 1 C4 charge, 1 ripper,
+    1 C ration MRE, 1 stimpak,
+    1 RadAway blood bag, 1 gauze pack, and 1 torch.
 
 undecided-loadout-category-engi-breach-name = Engineer Breacher Kit
 undecided-loadout-category-engi-breach-description =
-    Includes 1 NCR belt, 1 combat shotgun, 3 12 gauge drum magazines,
+    Includes 1 NCR shotgun belt, 1 combat shotgun, 3 12 gauge drum magazines,
     1 mechanical toolbox, 1 9mm pistol, 2 9mm pistol magazines,
-    1 C ration MRE, 1 stimpak, 1 RadAway blood bag, 1 gauze pack, and 1 flare.
+    1 C ration MRE, 1 stimpak, 1 RadAway blood bag, 1 gauze pack, and 1 torch.
 
 # NCRA Medic Kits
 
 undecided-loadout-category-med-surg-name = Medic Advanced Field Kit
 undecided-loadout-category-med-surg-description =
-    Includes 1 lab coat, 1 filled medical belt, 1 pair of nitrile gloves,
-    1 medic beret, 1 compact defibrillator, 1 9mm SMG, 3 9mm SMG magazines,
-    1 9mm pistol, 2 9mm pistol magazines, 1 super stimpak, 1 trauma pack,
-    1 ointment pack, 1 Med-X injector, 1 antidote bottle, 1 C ration MRE,
-    1 stimpak, 1 RadAway blood bag, 2 gauze packs, and 1 flare.
+    Includes 1 NCR medic helmet, 1 pouched leather NCR vest, 1 filled medical belt, 1 pair of nitrile gloves, 1 sterile mask,
+    1 filled surgery pack, 1 .45 Colt pistol, 2 .45 Colt magazines,
+    1 super stimpak, 1 stimpak, 1 ointment pack,
+    1 blood pack, 1 antidote, 1 C ration MRE,
+    1 RadAway blood bag, 2 gauze packs, and 1 torch.
 
 undecided-loadout-category-med-doc-name = Medic Field Kit
 undecided-loadout-category-med-doc-description =
-    Includes 1 filled medical belt, 1 pair of nitrile gloves, 1 medic beret,
-    2 smelling salts, 1 9mm SMG, 3 9mm SMG magazines, 1 9mm pistol,
-    2 9mm pistol magazines, 1 trauma pack, 1 ointment pack, 1 antidote bottle,
-    1 C ration MRE, 2 stimpaks, 1 RadAway blood bag, 2 gauze packs, and 1 flare.
+    Includes 1 NCR medic helmet, 1 pouched leather NCR vest, 1 filled medical belt, 1 pair of nitrile gloves,
+    1 medic beret, 2 smelling salts, 1 health analyzer,
+    1 9mm SMG, 3 9mm SMG magazines, 1 trauma pack,
+    1 ointment pack, 1 antidote bottle, 1 C ration MRE,
+    2 stimpaks, 1 RadAway blood bag, 2 gauze packs, and 1 flare.
 
 undecided-loadout-category-med-combat-name = NCR Combat Medic Kit
 undecided-loadout-category-med-combat-description =
-    Includes 1 filled medical belt, 1 pair of nitrile gloves, 1 medic metal helmet,
-    1 compact defibrillator, 1 9mm SMG with 3 magazines, 1 9mm pistol with 2 magazines,
-    1 super stimpak, 1 trauma pack, 1 ointment pack, 1 Med-X injector,
-    1 antidote syringe, 1 C ration MRE, 2 stimpaks,
-    1 RadAway blood bag, 2 gauze packs, and 1 flare.
+    Includes 1 NCR medic helmet, 1 pouched leather NCR vest, 1 NCR pouched desert vest, 1 medic metal helmet,
+    1 compact defibrillator, 1 service rifle with 4 magazines,
+    1 9mm pistol with 2 magazines, 1 filled combat medkit,
+    1 C ration MRE, 2 stimpaks,
+    1 RadAway blood bag, 2 gauze packs, and 1 torch.
 
 # NCRA Weapon Specialist Kits
 
 undecided-loadout-category-ws-gunner-name = Specialist heavy sniper Kit
 undecided-loadout-category-ws-gunner-description =
-    Includes 1 NCR belt, 1 metal helmet, 1 NCR cloak, 1 NCR .50 rifle,
+    Includes 1 NCR recon uniform, 1 NCR belt, 1 recon beret, 1 NCR cloak, 1 NCR .50 rifle,
     1 box of .50, 1 9mm pistol, 2 9mm pistol magazines,
     1 C ration MRE, 1 stimpak, 1 RadAway blood bag, 1 gauze pack, and 1 flare.
 
@@ -124,40 +130,40 @@ undecided-loadout-category-ws-grenadier-description =
 
 undecided-loadout-category-ws-sniper-name = Specialist Sniper Kit
 undecided-loadout-category-ws-sniper-description =
-    Includes 1 NCR belt, 1 recon beret, 1 NCR cloak, 1 .308 sniper rifle,
+    Includes 1 NCR recon uniform,1 NCR belt, 1 recon beret, 1 NCR cloak, 1 .308 sniper rifle,
     1 mag of .308, 1 .45 pistol, 2 .45 pistol magazines,
     1 C ration MRE, 1 stimpak, 1 RadAway blood bag, 1 gauze pack, and 1 flare.
 
 undecided-loadout-category-ws-stealth-name = Specialist Infiltrator Kit
 undecided-loadout-category-ws-stealth-description =
     Includes 1 dark NCR vest coat, 1 black balaclava, 1 NCR belt,
-    1 suppressed 9mm SMG, 3 9mm SMG magazines, 1 9mm pistol,
-    2 9mm pistol magazines, 1 C ration MRE, 1 stimpak,
+    1 pair of night-vision goggles, 1 suppressed 9mm SMG,
+    4 9mm SMG magazines, 1 C ration MRE, 1 stimpak,
     1 RadAway blood bag, 1 gauze pack, and 1 flare.
 
 # NCRA Sergeant Kits
 
 undecided-loadout-category-sgt-rifleman-name = Sergeant Rifleman Kit
 undecided-loadout-category-sgt-rifleman-description =
-    Includes 1 metal helmet, 1 NCR belt, 1 sergeant pin, 1 assault carbine,
+    Includes 1 metal helmet, 1 NCR belt, 1 assault carbine,
     3 long carbine magazines, 1 9mm pistol, 2 9mm pistol magazines,
     1 C ration MRE, 1 stimpak, 1 RadAway blood bag, 1 gauze pack, and 1 flare.
 
 undecided-loadout-category-sgt-gunner-name = Sergeant Gunner Kit
 undecided-loadout-category-sgt-gunner-description =
-    Includes 1 metal helmet, 1 NCR belt, 1 sergeant pin, 1 auto rifle,
-    3 .308 rifle magazines, 1 9mm pistol, 2 9mm pistol magazines,
+    Includes 1 metal helmet, 1 NCR belt, 1 light machine gun,
+    3 LMG magazines (5.56), 1 9mm pistol, 2 9mm pistol magazines,
     1 C ration MRE, 1 stimpak, 1 RadAway blood bag, 1 gauze pack, and 1 flare.
 
 undecided-loadout-category-sgt-scout-name = Sergeant Scout Kit
 undecided-loadout-category-sgt-scout-description =
-    Includes 1 recon beret, 1 NCR belt, 1 sergeant pin, 1 battle rifle,
+    Includes 1 NCR recon uniform, 1 recon beret, 1 NCR belt, 1 battle rifle,
     6 .308 clips, 1 9mm pistol, 2 9mm pistol magazines,
     1 C ration MRE, 1 stimpak, 1 RadAway blood bag, 1 gauze pack, and 1 flare.
 
 undecided-loadout-category-sgt-point-name = Sergeant Pointman Kit
 undecided-loadout-category-sgt-point-description =
-    Includes 1 metal helmet, 1 NCR belt, 1 sergeant pin, 1 combat shotgun,
+    Includes 1 metal helmet, 1 NCR belt, 1 combat shotgun,
     3 12 gauge drum magazines, 1 9mm pistol, 2 9mm pistol magazines,
     1 C ration MRE, 1 stimpak, 1 RadAway blood bag, 1 gauze pack, and 1 flare.
 
@@ -166,7 +172,7 @@ undecided-loadout-category-sgt-point-description =
 undecided-loadout-category-lt-pencil-name = LT's Pencilpusher Kit
 undecided-loadout-category-lt-pencil-description =
     Includes 1 NCR trench coat, 1 loaded captain's revolver belt,
-    1 lever-action carbine, 1 luxury pen, 1 C ration MRE,
+    1 lever-action carbine, 1 box of .44 ammo, 1 luxury pen, 1 C ration MRE,
     1 stimpak, 1 super stimpak, 1 RadAway blood bag, 2 gauze packs, and 1 flare.
 
 undecided-loadout-category-lt-scout-name = LT's Veteran Scout Kit
@@ -177,7 +183,7 @@ undecided-loadout-category-lt-scout-description =
 
 undecided-loadout-category-lt-tactical-name = LT's Tactical Kit
 undecided-loadout-category-lt-tactical-description =
-    Includes 1 NCR combat armor, 1 loaded revolver belt, 1 assault carbine,
+    Includes 1 NCR officer armor, 1 loaded revolver belt, 1 assault carbine,
     3 long carbine magazines, 1 C ration MRE, 1 stimpak,
     1 super stimpak, 1 RadAway blood bag, 2 gauze packs, and 1 flare.
 
@@ -242,46 +248,66 @@ undecided-loadout-category-veteran-ranger-marksman-description =
 
 # Brotherhood Kits
 
-#Misfits Change /Tweak/: Initiate kit simplified to wattz pistol only + stimpak.
-#Misfits Tweak: Removed rank prefix so the kit name is role-neutral.
+# Misfits Change /Tweak/: Initiate kit simplified to wattz pistol only + stimpak.
+# Misfits Tweak: Removed rank prefix so the kit name is role-neutral.
 undecided-loadout-category-mbos-init-las-name = Sidearm Kit
 undecided-loadout-category-mbos-init-las-description =
     A cache containing belongings of a Brotherhood chapter member.
     Includes 1 AEP-7, 2 energy cells, 1 roll of gauze, 1 stimpak,
     and 1 K ration MRE.
 
-#Misfits Tweak: Removed rank prefix so the kit name is role-neutral.
+# Misfits Tweak: Removed rank prefix so the kit name is role-neutral.
 undecided-loadout-category-mbos-init-bal-name = Carbine Kit
 undecided-loadout-category-mbos-init-bal-description =
     A cache containing belongings of a Brotherhood chapter member.
     Includes 1 old carbine, 3 5.56 magazines, 1 AEP-7, 2 energy
     cells, 1 roll of gauze, and 1 K ration MRE.
 
-#Misfits Change /Tweak/: Knight kits now include stimpak.
-#Misfits Tweak: Removed rank prefix so the kit name is role-neutral.
+# Misfits Change /Tweak/: Knight kits now include stimpak.
+# Misfits Tweak: Removed rank prefix so the kit name is role-neutral.
 undecided-loadout-category-mbos-kni-las-name = Laser Kit
 undecided-loadout-category-mbos-kni-las-description =
     A cache containing belongings of a Brotherhood chapter member.
-    Includes 1 crude laser rifle, 3 microfusion cells, 1 12.7mm pistol,
+    Includes 1 crude laser rifle, 1 microfusion cell, 1 12.7mm pistol,
     2 12.7mm pistol magazines, 1 roll of gauze, 1 stimpak,
     and 1 K ration MRE.
 
-#Misfits Tweak: Removed rank prefix so the kit name is role-neutral.
+undecided-loadout-category-mbos-skni-bal-name = Senior Ballistic Kit
+undecided-loadout-category-mbos-skni-bal-description =
+    A cache containing belongings of a Brotherhood chapter member.
+    Includes 1 assault carbine, 3 5.56 magazines, 1 12.7mm pistol,
+    2 12.7mm pistol magazines, 1 roll of gauze, 1 stimpak,
+    and 1 K ration MRE.
+
+undecided-loadout-category-mbos-skni-las-name = Senior Laser Kit
+undecided-loadout-category-mbos-skni-las-description =
+    A cache containing belongings of a Brotherhood chapter member.
+    Includes 1 AER-9, 1 microfusion cell, 1 12.7mm pistol,
+    2 12.7mm pistol magazines, 1 roll of gauze, 1 stimpak,
+    and 1 K ration MRE.
+
+undecided-loadout-category-mbos-skni-recon-name = Recon Kit
+undecided-loadout-category-mbos-skni-recon-description =
+    A cache containing belongings of a Brotherhood chapter member.
+    1 .44 revolver, 2 .44 speed loaders, 1 roll of gauze, 1 stimpak,
+    and 1 K ration MRE.
+
+# Misfits Tweak: Removed rank prefix so the kit name is role-neutral.
 undecided-loadout-category-mbos-kni-bal-name = Carbine Kit
 undecided-loadout-category-mbos-kni-bal-description =
     A cache containing belongings of a Brotherhood chapter member.
     Includes 1 old carbine, 3 5.56 magazines, 1 AEP-7, 2 energy
     cells, 1 roll of gauze, 1 stimpak, and 1 K ration MRE.
 
-#Misfits Tweak: Removed rank prefix so the kit name is role-neutral.
+# Misfits Tweak: Removed rank prefix so the kit name is role-neutral.
 undecided-loadout-category-mbos-scribe-medic-name = Medical Kit
 undecided-loadout-category-mbos-scribe-medic-description =
     A cache containing belongings of a Brotherhood chapter member.
-    Includes 1 pair of nitrile gloves,
-    1 medical robe, 1 filled medical belt, 1 stack of ointment, 1
-    super stimpak, 1 sterile mask, 1 roll of gauze, and 1 K ration MRE.
+    Includes 1 pair of chemist gloves, 1 medical robe, 1 filled medical belt,
+    1 health analyzer, 1 stack of ointment, 1 super stimpak,
+    1 sterile mask, 1 roll of gauze, and 1 K ration MRE.
 
-#Misfits Tweak: Removed rank prefix so the kit name is role-neutral.
+# Misfits Tweak: Removed rank prefix so the kit name is role-neutral.
 undecided-loadout-category-mbos-scribe-field-name = Field Kit
 undecided-loadout-category-mbos-scribe-field-description =
     A cache containing belongings of a Brotherhood chapter member.
@@ -289,117 +315,123 @@ undecided-loadout-category-mbos-scribe-field-description =
     1 field coat, 1 Brotherhood webbing, 1 stack of ointment,
     1 roll of gauze, and 1 K ration MRE.
 
-#Misfits Tweak: Removed rank prefix so the kit name is role-neutral.
+# Misfits Tweak: Removed rank prefix so the kit name is role-neutral.
 undecided-loadout-category-mbos-scribe-engineer-name = Engineer Kit
 undecided-loadout-category-mbos-scribe-engineer-description =
     A cache containing belongings of a Brotherhood chapter member.
-    Includes 1 pair of insulated gloves,
-    1 quilted armor, 1 filled utility belt, 1 stack of ointment,
+    Includes 1 pair of work gloves, 1 Brotherhood field coat,
+    1 filled utility belt, 1 stack of ointment,
     1 welding goggles, 1 roll of gauze, and 1 K ration MRE.
 
-#Misfits Change /Tweak/: Paladin laser kit replaced with auto shotgun + laser pistol sidearm.
-#Misfits Tweak: Removed rank prefix so the kit name is role-neutral.
-undecided-loadout-category-mbos-pal-las-name = Shotgun Kit
+# Misfits Change /Tweak/: Paladin laser kit replaced with auto shotgun + laser pistol sidearm.
+# Misfits Tweak: Removed rank prefix so the kit name is role-neutral.
+undecided-loadout-category-mbos-pal-las-name = Close Range Kit
 undecided-loadout-category-mbos-pal-las-description =
     A cache containing belongings of a Brotherhood chapter member.
-    Includes 1 auto shotgun, 3 shotgun magazines, 1 AEP-7,
-    2 energy cells, 1 roll of gauze, 1 stimpak,
+    Includes 1 combat shotgun, 1 laser pistol,
+    4 energy cells, 3 shotgun magazines, 1 roll of gauze, 2 stimpaks,
     and 1 K ration MRE.
 
-#Misfits Tweak: Removed rank prefix so the kit name is role-neutral.
+undecided-loadout-category-mbos-pal-slay-name = Enclave Slayer Kit
+undecided-loadout-category-mbos-pal-slay-description =
+    A cache containing belongings of a Brotherhood chapter member.
+    Includes 1 plasma cutter, 1 laser pistol, 4 energy cells, 1 roll of gauze,
+    2 stimpaks, and 1 K ration MRE.
+
+# Misfits Tweak: Removed rank prefix so the kit name is role-neutral.
 undecided-loadout-category-mbos-pal-bal-name = Ballistic Kit
 undecided-loadout-category-mbos-pal-bal-description =
     A cache containing belongings of a Brotherhood chapter member.
     Includes 1 assault carbine, 3 5.56 magazines, 1 AEP-7, 2 energy
     cells, 1 roll of gauze, 1 stimpak, and 1 K ration MRE.
 
-#Misfits Change /Tweak/: Replaced Wattz 2000 sniper with Bozar GRA across all ranks.
+# Misfits Change /Tweak/: Replaced Wattz 2000 sniper with Bozar GRA across all ranks.
 undecided-loadout-category-mbos-pal-sni-name = Advanced Laser Kit
 undecided-loadout-category-mbos-pal-sni-description =
     A cache containing belongings of a Brotherhood chapter member.
-    Includes 1 AER-9, 3 microfusion cells,
+    Includes 1 AER-9, 1 microfusion cell,
     1 12.7mm pistol, 2 12.7mm pistol magazines, 1 roll of gauze,
     1 stimpak, and 1 K ration MRE.
 
-#Misfits Tweak: Removed rank prefix so the kit name is role-neutral.
+# Misfits Tweak: Removed rank prefix so the kit name is role-neutral.
 undecided-loadout-category-mbos-pal-pla-name = Automatic Laser Kit
 undecided-loadout-category-mbos-pal-pla-description =
     A cache containing belongings of a Brotherhood chapter member.
-    Includes 1 Automatic AER-9, 3 microfusion cells, 1 12.7mm pistol,
+    Includes 1 Automatic AER-9, 1 microfusion cell1, 1 12.7mm pistol,
     2 12.7mm pistol magazines, 1 roll of gauze, 1 stimpak,
     and 1 K ration MRE.
 
 
-#Misfits Change /Comment-out/: Washington BoS kit locale removed — will create new prototypes.
+# Misfits Change /Comment-out/: Washington BoS kit locale removed — will create new prototypes.
 ## Washington Kits
 #
-#undecided-loadout-category-wbos-init-pla-name = Initiate Laser Kit
-#undecided-loadout-category-wbos-init-pla-description =
+# undecided-loadout-category-wbos-init-pla-name = Initiate Laser Kit
+# undecided-loadout-category-wbos-init-pla-description =
 #    A cache containing belongings of a Brotherhood Initiate.
 #    Includes 1 crude laser rifle, 3 microfusion cells, 1 Webley pistol,
 #    2 9mm pistol magazines, 1 roll of gauze, and 1 K ration MRE.
 #
-#undecided-loadout-category-wbos-init-bal-name = Initiate Ballistic Kit
-#undecided-loadout-category-wbos-init-bal-description =
+# undecided-loadout-category-wbos-init-bal-name = Initiate Ballistic Kit
+# undecided-loadout-category-wbos-init-bal-description =
 #    A cache containing belongings of a Brotherhood Initiate.
 #    Includes 1 old carbine, 3 5.56 magazines, 1 AEP-7, 2
 #    energy cells, 1 roll of gauze, and 1 K ration MRE.
 #
-#undecided-loadout-category-wbos-kni-pla-name = Knight Laser Kit
-#undecided-loadout-category-wbos-kni-pla-description =
+# undecided-loadout-category-wbos-kni-pla-name = Knight Laser Kit
+# undecided-loadout-category-wbos-kni-pla-description =
 #    A cache containing belongings of a Brotherhood Knight.
 #    Includes 1 laser rifle, 3 microfusion cells, 1 Webley pistol,
 #    2 9mm pistol magazines, 1 roll of gauze, 1 K ration MRE.
 #
-#undecided-loadout-category-wbos-kni-bal-name = Knight Ballistic Kit
-#undecided-loadout-category-wbos-kni-bal-description =
+# undecided-loadout-category-wbos-kni-bal-name = Knight Ballistic Kit
+# undecided-loadout-category-wbos-kni-bal-description =
 #    A cache containing belongings of a Brotherhood Knight.
 #    Includes 1 assault carbine, 3 5.56 magazines, 1 AEP-7,
 #    2 energy cells, 1 roll of gauze, and 1 K ration MRE.
 #
-#undecided-loadout-category-wbos-scribe-medic-name = Scribe Medical Kit
-#undecided-loadout-category-wbos-scribe-medic-description =
+# undecided-loadout-category-wbos-scribe-medic-name = Scribe Medical Kit
+# undecided-loadout-category-wbos-scribe-medic-description =
 #    A cache containing belongings of a Brotherhood Scribe.
 #    Includes 1 AEP-7, 2 energy cells, 1 pair of nitrile gloves,
 #    1 medical robe, 1 filled medical belt, 1 stack of ointment, 1
 #    super stimpak, 1 sterile mask, 1 roll of gauze, and 1 K ration MRE.
 #
-#undecided-loadout-category-wbos-scribe-field-name = Scribe Field Kit
-#undecided-loadout-category-wbos-scribe-field-description =
+# undecided-loadout-category-wbos-scribe-field-name = Scribe Field Kit
+# undecided-loadout-category-wbos-scribe-field-description =
 #    A cache containing belongings of a Brotherhood Scribe.
 #    Includes 1 AEP-7, 2 energy cells, 1 pair of combat gloves,
 #    1 field coat, 1 Brotherhood webbing, 1 stack of ointment,
 #    1 roll of gauze, and 1 K ration MRE.
 #
-#undecided-loadout-category-wbos-scribe-engineer-name = Scribe Engineer Kit
-#undecided-loadout-category-wbos-scribe-engineer-description =
+# undecided-loadout-category-wbos-scribe-engineer-name = Scribe Engineer Kit
+# undecided-loadout-category-wbos-scribe-engineer-description =
 #    A cache containing belongings of a Brotherhood Scribe.
 #    Includes 1 AEP-7, 2 energy cells, 1 pair of insulated gloves,
 #    1 technical vest, 1 filled utility belt, 1 stack of ointment,
 #    1 welding goggles, 1 roll of gauze, and 1 K ration MRE.
 #
-#undecided-loadout-category-wbos-pal-pla-name = Paladin Automatic Laser Kit
-#undecided-loadout-category-wbos-pal-pla-description =
+# undecided-loadout-category-wbos-pal-pla-name = Paladin Automatic Laser Kit
+# undecided-loadout-category-wbos-pal-pla-description =
 #    A cache containing belongings of a Brotherhood Paladin.
 #    Includes 1 automatic laser rifle, 3 high-capacity power cells,
 #    1 Webley pistol, 2 9mm pistol magazines, 1 roll of gauze,
 #    1 stimpak and 1 K ration MRE.
 #
-#undecided-loadout-category-wbos-pal-bal-name = Paladin Ballistic Kit
-#undecided-loadout-category-wbos-pal-bal-description =
+# undecided-loadout-category-wbos-pal-bal-name = Paladin Ballistic Kit
+# undecided-loadout-category-wbos-pal-bal-description =
 #    A cache containing belongings of a Brotherhood Paladin.
 #    Includes 1 assault carbine, 3 5.56 magazines, 1 AEP-7,
 #    2 energy cells, 1 roll of gauze, 1 stimpak, and 1 K ration MRE.
 #
-#undecided-loadout-category-wbos-pal-sni-name = Paladin Sniper Kit
-#undecided-loadout-category-wbos-pal-sni-description =
+# undecided-loadout-category-wbos-pal-sni-name = Paladin Sniper Kit
+# undecided-loadout-category-wbos-pal-sni-description =
 #    A cache containing belongings of a Brotherhood Paladin.
 #    Includes 1 F2 marksman rifle, 3 7.62 short magazines,
 #    1 AEP-7, 2 energy cells, 1 roll of gauze,
 #    1 stimpak, and 1 K ration MRE.
 #
-#undecided-loadout-category-wbos-pal-las-name = Paladin Laser Kit
-#undecided-loadout-category-wbos-pal-las-description =
+# undecided-loadout-category-wbos-pal-las-name = Paladin Laser Kit
+# undecided-loadout-category-wbos-pal-las-description =
 #    A cache containing belongings of a Brotherhood Paladin.
 #    Includes 1 AER-9, 3 microfusion cells, 1 AEP-7,
 #    2 energy cells, 1 roll of gauze, 1 stimpak, and 1 K ration MRE.
@@ -449,18 +481,18 @@ undecided-loadout-category-Tribal-pain-bringer-description =
 
 # Town Guard Kits
 
-undecided-loadout-category-town-cere-name = Ceremonial Kit
+undecided-loadout-category-town-cere-name = Rifle Kit
 undecided-loadout-category-town-cere-description =
     Sometimes you have to look fancy and not worry about protection.
-    Includes 1 guard hat, 1 guard greatcoat, 1 .308 battle rifle,
-    3 .308 clips, 1 .44 magnum, 2 .44 speedloaders,
+    Includes 1 guard hat, 1 guard greatcoat, 1 .45-70 rifle,
+    3 .45-70 boxes, 1 .44 magnum, 2 .44 speedloaders,
     1 stack of gauze and basic ration supplies.
 
 undecided-loadout-category-town-patr-name = Patrolman Kit
 undecided-loadout-category-town-patr-description =
     You don't ask much from life, all you want is vanilla.
-    Includes 1 brodie helmet, 1 light armour, 1 12.7mm SMG,
-    3 12.7mm SMG mags, 1 Webley pistol, 2 9mm pistol mags,
+    Includes 1 brodie helmet, 1 light armour, 1 9mm sten SMG,
+    4 9mm SMG mags, 1 Webley pistol, 2 9mm pistol mags,
     1 rain mantle, 1 stack of gauze and basic ration supplies.
 
 undecided-loadout-category-town-lawb-name = Lawbringer Kit
@@ -473,13 +505,15 @@ undecided-loadout-category-town-lawb-description =
 undecided-loadout-category-town-brea-name = Breacher Kit
 undecided-loadout-category-town-brea-description =
     Only when you don't have to worry about friendly fire!
-    Includes 1 blowback shotgun, 1 box of 12 gauge shells,
+    Includes 1 visor brodie helmet, 1 riot armor,
+    1 blowback shotgun, 1 box of 12 gauge shells,
     1 Webley pistol, 2 9mm pistol mags,
     1 stack of gauze and basic ration supplies.
 
-undecided-loadout-category-town-riot-name = Riot Control Kit
+undecided-loadout-category-town-riot-name = Rifleman Kit
 undecided-loadout-category-town-riot-description =
     Let me solo them! I mean send them home, peacefully!
-    Includes 1 spear, 1 heavy metal shield, 1 hunting revolver,
-    2 .45-70 speedloaders, 1 old cloak, 1 stack of gauze,
+    Includes 1 visor brodie helmet, 1 riot armor,
+    1 Fn FAL, 3 7.62 short magazines, 1 hunting revolver,
+    2 .45-70 speedloaders, 1 town guard cloak, 1 stack of gauze,
     and basic ration supplies.

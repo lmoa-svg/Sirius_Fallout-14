@@ -335,7 +335,10 @@
             - N14CartridgePistol10
   - type: StaticPrice
     price: 15
-
+  - type: GunDamageBonus
+    bonusDamage:
+      types:
+        Piercing: -2
 
 - type: entity
   parent: N14WeaponPistol10mmPipe
@@ -358,6 +361,10 @@
   - type: Construction
     graph: N14WeaponPistol10mmPipeEmpty
     node: start
+  - type: GunDamageBonus
+    bonusDamage:
+      types:
+        Piercing: -2
 
 - type: entity
   name: chinese pistol
@@ -446,7 +453,7 @@
   - type: Item
     sprite: _Nuclear14/Objects/Weapons/Guns/Pistols/22lr.rsi
   - type: Gun
-    fireRate: 4
+    fireRate: 5 #sirius change
     soundGunshot:
       collection: N14PistolSpyGunshot
   - type: ItemSlots
@@ -560,6 +567,10 @@
   - type: Item
     sprite: _Nuclear14/Objects/Weapons/Guns/Pistols/laserdeserteagle.rsi
   - type: Gun
+    minAngle: 1 #sirius change
+    maxAngle: 3 #sirius change
+    angleIncrease: 0.5 #sirius change
+    angleDecay: 4 #sirius change
     fireRate: 3
     soundGunshot:
       collection: N14PistolDesertEagleGunshot
@@ -643,6 +654,10 @@
     backStrength: 3
   - type: StaticPrice
     price: 70
+  - type: GunDamageBonus
+    bonusDamage:
+      types:
+        Piercing: 1
 
 - type: entity
   name: M1911 custom
@@ -669,6 +684,10 @@
       collection: N14PistolColtGunshot
   - type: StaticPrice
     price: 250
+  - type: GunDamageBonus
+    bonusDamage:
+      types:
+        Piercing: 2
 
 - type: entity
   name: Maria
@@ -722,10 +741,14 @@
     backStrength: 3
   - type: StaticPrice
     price: 500
+  - type: GunDamageBonus
+    bonusDamage:
+      types:
+        Piercing: 7
 
 - type: entity
   name: That Gun
-  parent: N14WeaponRevolverBase
+  parent: N14BaseWeaponPistol
   id: N14WeaponPistolThatGun
   description: A bizarre-looking pistol modelled after a prop from a pre-war TV show, chambered in .223. Five rounds, semi-automatic, and oddly accurate. Whoever built this knew what they were doing.
   components:
@@ -747,7 +770,7 @@
     - 0,0,0,1
   - type: Gun
     fireRate: 2
-    minAngle: 0
+    minAngle: 1
     maxAngle: 6
     angleIncrease: 1
     angleDecay: 8
@@ -755,12 +778,257 @@
     availableModes:
     - SemiAuto
     soundGunshot:
-      collection: N14SniperVarmintGunshot
+      collection: N14RevolverMagnunGunshot
   - type: RevolverAmmoProvider
     whitelist:
       tags:
         - N14Cartridge556Rifle
     proto: N14Cartridge556Rifle
-    capacity: 5
+    capacity: 6
   - type: StaticPrice
     price: 350
+
+#sirius change start
+
+- type: entity
+  name: Kolibri
+  parent: N14WeaponShotgunBase
+  id: N14BaseWeaponPistolKolibriSirius
+  description: The Kolibri was the smallest commercially available centerfire cartridge, patented in 1910 and introduced in 1914 by Franz Pfannl, an Austrian watchmaker, with financial support from Georg Grabner.
+  components:
+  - type: Sprite
+    sprite: _Nuclear14/Objects/Weapons/Guns/Pistols/kolibri.rsi
+    layers:
+    - state: base
+      map: ["enum.GunVisualLayers.Base"]
+    - state: mag-0
+      map: ["enum.GunVisualLayers.Mag"]
+  - type: Item
+    size: Tiny
+    shape:
+    - 0,0,0,0
+    sprite: _Nuclear14/Objects/Weapons/Guns/Pistols/kolibri.rsi
+  - type: Gun
+    fireRate: 4
+    soundGunshot:
+      collection: N14PistolSpyGunshot
+  - type: BallisticAmmoProvider
+    whitelist:
+      tags:
+      - N14CartridgePistol22
+    capacity: 6
+    proto: N14CartridgePistol22
+  - type: StaticPrice
+    price: 100
+
+- type: entity
+  name: 9mm minipm
+  parent: N14BaseWeaponPistol
+  id: N14WeaponPistol9mmMinipmSirius
+  description: The cheap and ubiquitous sidearm, chambered in 9mm ammo.
+  components:
+  - type: Tag
+    tags:
+    - Sidearm
+  - type: Sprite
+    sprite: _Nuclear14/Objects/Weapons/Guns/Pistols/minipm.rsi
+    layers:
+    - state: base
+      map: ["enum.GunVisualLayers.Base"]
+    - state: mag-0
+      map: ["enum.GunVisualLayers.Mag"]
+  - type: Item
+    size: Small
+    shape:
+    - 0,0,0,1
+    - 0,0,0,1
+    sprite: _Nuclear14/Objects/Weapons/Guns/Pistols/minipm.rsi
+  - type: Gun
+    fireRate: 4
+    soundGunshot:
+      collection: N14Pistol9mmGunshot
+  - type: ItemSlots
+    slots:
+      gun_magazine:
+        name: Magazine
+        startingItem: N14MagazinePistol9mm
+        whitelist:
+          tags:
+            - N14MagazinePistol9mm
+      gun_chamber:
+        name: Chamber
+        startingItem: N14CartridgePistol9
+        priority: 1
+        whitelist:
+          tags:
+            - N14CartridgePistol9
+  - type: StaticPrice
+    price: 30
+
+- type: entity
+  name: Sig Sauer
+  parent: N14WeaponPistol9mm
+  id: N14WeaponPistol9mmSigSauerSirius
+  description: The cheap and ubiquitous sidearm, chambered in 9mm ammo.
+  components:
+  - type: Tag
+    tags:
+    - Sidearm
+  - type: Sprite
+    sprite: _Nuclear14/Objects/Weapons/Guns/Pistols/sigsauer.rsi
+    layers:
+    - state: base
+      map: ["enum.GunVisualLayers.Base"]
+    - state: mag-0
+      map: ["enum.GunVisualLayers.Mag"]
+  - type: Item
+    sprite: _Nuclear14/Objects/Weapons/Guns/Pistols/sigsauer.rsi
+  - type: Gun
+    minAngle: 1
+    maxAngle: 2
+    angleIncrease: 0.5
+    angleDecay: 2
+    fireRate: 6.5
+    selectedMode: SemiAuto
+    availableModes:
+      - SemiAuto
+    soundGunshot:
+      path: /Audio/Weapons/Guns/Gunshots/pistol.ogg
+  - type: ItemSlots
+    slots:
+      gun_magazine:
+        name: Magazine
+        startingItem: N14MagazinePistol9mm
+        whitelist:
+          tags:
+            - N14MagazinePistol9mm
+      gun_chamber:
+        name: Chamber
+        startingItem: N14CartridgePistol9
+        priority: 1
+        whitelist:
+          tags:
+            - N14CartridgePistol9
+  - type: StaticPrice
+    price: 50
+
+- type: entity
+  name: Gauss Pistol PPK12
+  parent: N14BaseWeaponPistol
+  id: N14WeaponPistol2mmECPPK12Sirius
+  description: Gauss pistol PPK12
+  components:
+  - type: Tag
+    tags:
+    - Sidearm
+  - type: Sprite
+    sprite: _Nuclear14/Objects/Weapons/Guns/Pistols/2mmPistol.rsi
+    layers:
+    - state: base
+      map: ["enum.GunVisualLayers.Base"]
+    - state: mag-1
+      map: ["enum.GunVisualLayers.Mag"]
+  - type: Item
+    sprite: _Nuclear14/Objects/Weapons/Guns/Pistols/2mmPistol.rsi
+  - type: Gun
+    fireRate: 4
+    soundGunshot:
+      path: /Audio/Weapons/Guns/Gunshots/GaussPistol_SingleShot_1.ogg
+  - type: ItemSlots
+    slots:
+      gun_magazine:
+        name: Magazine
+        startingItem: N14MagazinePistol2mmEC
+        whitelist:
+          tags:
+            - N14MagazinePistol2mmEC
+      gun_chamber:
+        name: Chamber
+        startingItem: N14Cartridge2mmEC
+        priority: 1
+        whitelist:
+          tags:
+            - N14Cartridge2mmEC
+  - type: StaticPrice
+    price: 1000
+
+- type: entity
+  name: Zipgun
+  parent: N14WeaponShotgunBase
+  id: N14WeaponPistolZipgunSirius
+  description: A pirate's companion. Yarrr! Uses .60 anti-materiel ammo.
+  components:
+  - type: Gun
+    minAngle: 0
+    maxAngle: 30 #miss him entirely because the barrel is smoothbore
+    fireOnDropChance: 1
+  - type: Item
+    size: Small
+    storedRotation: 90
+  - type: Sprite
+    sprite: _Nuclear14/Objects/Weapons/Guns/Pistols/zipgun.rsi
+    layers:
+    - state: base
+      map: [ "enum.GunVisualLayers.Base" ]
+  - type: Clothing
+    sprite: _Nuclear14/Objects/Weapons/Guns/Pistols/zipgun.rsi
+  - type: UseDelayOnShoot
+  - type: UseDelay
+    delay: 1
+  - type: BallisticAmmoProvider
+    whitelist:
+      tags:
+        - N14CartridgePistol22
+        - N14CartridgePistol9
+        - N14CartridgePistol10
+        - N14CartridgePistol45
+        - N14CartridgePistol127
+        - N14Cartridge44Magnum
+        - N14Cartridge45-70
+    capacity: 1
+    proto: N14CartridgePistol9
+  - type: StaticPrice
+    price: 10
+  - type: MeleeWeapon
+    attackRate: 1.2
+    damage:
+      types:
+        Blunt: 7.5
+    bluntStaminaDamageFactor: 1.0
+    wideAnimationRotation: 135
+  - type: DamageOtherOnHit
+    staminaCost: 5
+
+- type: entity
+  name: .50 Thunder
+  parent: N14BaseWeaponPistol
+  id: N14WeaponPistol50ThunderSirius
+  description: The cheap and ubiquitous sidearm, chambered in 9mm ammo.
+  components:
+  - type: Tag
+    tags:
+    - Sidearm
+  - type: Sprite
+    sprite: _Nuclear14/Objects/Weapons/Guns/Pistols/.50thunder.rsi
+    layers:
+    - state: base
+      map: ["enum.GunVisualLayers.Base"]
+  - type: Item
+    sprite: _Nuclear14/Objects/Weapons/Guns/Pistols/.50thunder.rsi
+  - type: Gun
+    fireRate: 1
+    soundGunshot:
+      collection: N14AntiMaterielGunshot
+  - type: ItemSlots
+    slots:
+      gun_chamber:
+        name: Chamber
+        startingItem: N14Cartridge50
+        priority: 1
+        whitelist:
+          tags:
+            - N14Cartridge50
+  - type: StaticPrice
+    price: 250
+
+#sirius change end

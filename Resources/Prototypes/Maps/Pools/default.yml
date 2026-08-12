@@ -2,7 +2,8 @@
   id: DefaultMapPool
   maps:
   #- Wave1
-  #- Sunnyvale
+  - Sunnyvale
   #- Snowyvale
   - Wendover
   #- Pahrump
+  - NewIsland

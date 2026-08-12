@@ -9,19 +9,13 @@
   description: job-description-caesar-legion-auxilia
   playTimeTracker: CaesarLegionAuxilia
   requirements:
-    - !type:CharacterDepartmentTimeRequirement # #Misfits Tweak - T2 faction timelock (4h Legion)
-      department: CaesarLegion
-      min: 14400 # 4 hours
-    #- !type:CharacterPlaytimeRequirement # TEMP REMOVED
-    #  tracker: CaesarLegionRecruit
-    #  min: 10800 # 3 hours
     - !type:CharacterSpeciesRequirement
       species:
       - Human
   startingGear: CaesarLegionAuxiliaGear
   alwaysUseSpawner: true
   icon: "JobIconlegionerRecruit"
-  supervisors: job-name-caesar-legion-other
+  supervisors: job-supervisor-caesar-legion-auxillari
   canBeAntag: false
   accessGroups:
   - CaesarLegionRecruit
@@ -47,7 +41,10 @@
     shoes: N14ClothingBootsLeather
     head: N14ClothingHeadHatTribalOutcastHood
     gloves: N14ClothingHandsGlovesTribal
-    pocket1: LegionAuxilialoadoutkits
+    belt: ClothingBeltMedical
+    outerClothing: N14ClothingOuterLegionnaireRecruitArmor
+    pocket1: N14WeaponPistol45Colt
+    pocket2: N14Hydra
     id: N14IDLegionaryBadge
   innerClothingSkirt: N14ClothingUniformJumpsuitLegionnaireOther
   storage:

@@ -12,6 +12,9 @@
     - !type:CharacterDepartmentTimeRequirement # #Misfits Tweak - T7 faction timelock (40h Legion)
       department: CaesarLegion
       min: 144000 # 40 hours
+    - !type:CharacterPlaytimeRequirement
+      tracker: CaesarLegionOrator
+      min: 28800 # 8 hrs
     - !type:CharacterSpeciesRequirement
       species:
       - Human
@@ -22,7 +25,7 @@
   startingGear: CaesarLegionCenturionGear
   alwaysUseSpawner: true
   icon: "JobIconlegionerCenturion"
-  supervisors: job-name-caesar-legion
+  supervisors: job-supervisor-caesar-legion-legate
   canBeAntag: false
   accessGroups:
   - CaesarLegionCenturion
@@ -45,8 +48,11 @@
         warcryMessage: warcry-message-legion
         warcryMessageCount: 6
         buffPopup: warcry-popup-buffed-legion
+        excludedJobs:
+        - SuperMutantGladiator
         cautionPopup: true
         activatorJobs:
+        - CaesarLegionVexillarius
         - CaesarLegionDean
         - CaesarLegionPrimeDecanus
         - CaesarLegionVeteranDecanus
@@ -73,7 +79,6 @@
     # #Misfits Change - head and outerClothing removed; armor kit (pocket2) now provides both helmet + armor so Centurion can choose their variant
     gloves: N14ClothingHandsGlovesCenturion
     belt: N14Gladius
-    pocket1: LegionCenturionloadoutkits
     pocket2: LegionCenturionArmorloadoutkits  # #Misfits Add - armor selection kit: Standard / Paladin-Slayer / Ranger-Hunter
     id: N14IDLegionaryMedalGold
   innerClothingSkirt: N14ClothingUniformJumpsuitLegionnaireOther
@@ -81,7 +86,6 @@
     back:
     - N14BoxPlasticFilledMilitaryLegion #Misfits Change /Tweak/: Legion uses tribal medicine, not stimpaks
     - N14HealingPowder
-    - N14WeaponPistol10mmPipe  # #Misfits Change - moved from pocket2 to storage; pocket2 now holds armor kit
 
 - type: playTimeTracker
   id: CaesarLegionCenturion

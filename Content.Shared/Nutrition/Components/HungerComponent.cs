@@ -9,7 +9,7 @@ using Robust.Shared.Serialization.TypeSerializers.Implementations.Generic;
 
 namespace Content.Shared.Nutrition.Components;
 
-[RegisterComponent, NetworkedComponent, Access(typeof(HungerSystem), typeof(Content.Shared._Misfits.SpecialStats.SpecialEnduranceSystem))] // #Misfits Change - allow SpecialEnduranceSystem to reduce BaseDecayRate via Endurance SPECIAL buff.
+[RegisterComponent, NetworkedComponent, Access(typeof(HungerSystem), typeof(Content.Shared._Misfits.SpecialStats.SpecialEnduranceSystem), typeof(Content.Shared._Misfits.Nightkin.SharedNightkinStealthSystem))] // #Misfits Change - SpecialEnduranceSystem tweaks decay via Endurance; Nightkin cloak raises it while hidden.
 [AutoGenerateComponentState, AutoGenerateComponentPause]
 public sealed partial class HungerComponent : Component
 {
@@ -108,10 +108,17 @@ public sealed partial class HungerComponent : Component
     public float DeadHungerSlowdownModifier = 0.40f;
 
     /// <summary>
-    /// Damage dealt when your current threshold is at HungerThreshold.Dead
+    /// Damage dealt when your current threshold is at or below HungerThreshold.Starving
     /// </summary>
     [DataField("starvationDamage")]
     public DamageSpecifier? StarvationDamage;
+
+    // Misfits Add
+    /// <summary>
+    /// Damage recovered when your current threshold is at or above HungerThreshold.Peckish
+    /// </summary>
+    [DataField("recoveryDamage")]
+    public DamageSpecifier? RecoveryDamage;
 
     /// <summary>
     /// The time when the hunger will update next.

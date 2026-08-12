@@ -30,11 +30,16 @@
       collection: N14RifleCasingEject
       params:
         volume: -1
+  - type: GunDamageBonus
+    bonusDamage:
+      types:
+        Piercing: 20
+    fireCostMultiplier: 1.0
 
 - type: entity
   parent: BaseCartridge
   id: N14Cartridge50HEIAP
-  name: cartridge (.50 anti-materiel)
+  name: cartridge (.50 HEIAP anti-materiel)
   suffix: HEIAP
   components:
   - type: Tag

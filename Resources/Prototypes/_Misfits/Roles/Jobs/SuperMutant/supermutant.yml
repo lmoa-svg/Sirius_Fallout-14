@@ -16,7 +16,7 @@
   whitelisted: true # #Misfits Fix — allow job-whitelist fallback in lobby visibility filter
   hideWithoutWhitelist: true # #Misfits Change
   spawnLoadout: true
-  startingGear: SuperMutantVaultSuitGear # #Misfits Add - prevents naked spawns
+  startingGear: SuperMutantRagsGear # #Misfits Add - prevents naked spawns
   applyTraits: true # #Misfits Change - enable perks tab for Supermutants
   requirements:
     - !type:CharacterSpeciesRequirement
@@ -29,18 +29,20 @@
         factions:
           - PlayerSuperMutant
           - Wastelander
-      
+
 
 - type: playTimeTracker
   id: SuperMutant
 
 # #Misfits Add - startingGear for the base Supermutant: a vault suit so they don't spawn naked.
 - type: startingGear
-  id: SuperMutantVaultSuitGear
+  id: SuperMutantRagsGear
   equipment:
-    jumpsuit: ClothingSuperMutantVaultSuit
+    jumpsuit: ClothingSuperMutantJumpsuit
+    id: N14ClothingNeckDogtags # #Misfits Change - wastelander supermutants get dogtag IDs
+    ears: MisfitsClothingHeadsetWastelandScrap
 
-# #Misfits Add - Nightkin variant with its own whitelist entry.
+# #Misfits Add - Nightkin variant with its own whitelist entry. -REMOVED AT REUQEST OF https://github.com/Misfit-Sanctuary/nuclear-14/issues/666  -pierow
 - type: job
   id: Nightkin
   jobWhitelistBypassesRoleTimers: true
@@ -50,12 +52,12 @@
   icon: JobIconBorg
   supervisors: job-supervisors-supermutant
   canBeAntag: false
-  setPreference: true
+  setPreference: true # #Misfits Change - re-enabled, gated by the nightkin whitelist
   overrideConsoleVisibility: true
   whitelisted: true
   hideWithoutWhitelist: true
   spawnLoadout: true
-  startingGear: SuperMutantVaultSuitGear
+  startingGear: NightkinVaultSuitGear # #Misfits changed to nightkin starting gear
   applyTraits: true
   requirements:
     - !type:CharacterSpeciesRequirement
@@ -69,6 +71,13 @@
           - PlayerSuperMutant
           - Wastelander
 
+# #Misfits changed to nightkin starting gear
+- type: startingGear
+  id: NightkinVaultSuitGear
+  equipment:
+    jumpsuit: ClothingSuperMutantVaultSuit
+    ears: MisfitsClothingHeadsetWastelandScrap
+  # #Misfits Change - removed spawn stealthboy, the implant is innate now
 - type: playTimeTracker
   id: Nightkin
 
@@ -80,13 +89,14 @@
   name: job-name-supermutant-gladiator
   description: job-description-supermutant-gladiator
   playTimeTracker: SuperMutantGladiator
-  icon: JobIconBorg
-  supervisors: job-supervisors-supermutant
+  icon: JobIconLegionSlave
+  supervisors: job-supervisor-caesar-legion-slaves
   canBeAntag: false
   setPreference: true
   overrideConsoleVisibility: true
   whitelisted: true # #Misfits Change
   hideWithoutWhitelist: true # #Misfits Change
+  showBorder: true
   spawnLoadout: true
   applyTraits: true # #Misfits Change - enable perks tab for Supermutants
   startingGear: SuperMutantGladiatorGear
@@ -101,6 +111,7 @@
         factions:
           - PlayerSuperMutant
           - CaesarLegion
+          - Wastelander
   - !type:AddTraitSpecial
     traits: [ LanguageLatin ]
 - type: startingGear
@@ -114,8 +125,6 @@
     id: N14IDLegionaryBadgeSlave # Gladiator serves under Legion authority
     back: N14ClothingBackpackMilitary # #Misfits Add - backslot for storing a secondary weapon
     suitstorage: N14WastelandTribalSpear # #Misfits Add - back holster slot; starts with a spear stowed on the back
-  inhand:
-    - N14WastelandTribalSpear # Starts with a tribal spear for close-combat
 
 - type: playTimeTracker
   id: SuperMutantGladiator
@@ -148,11 +157,13 @@
       - type: NpcFactionMember
         factions:
           - PlayerSuperMutant
+          - Wastelander
 
 - type: startingGear
   id: SuperMutantRangerGear
   equipment:
-    head: ClothingSuperMutantRangerHat
+    mask: ClothingSuperRangerGasmask
+    head: ClothingSuperMutantRangerHelmet
     jumpsuit: ClothingSuperMutantRangerShirt
     outerClothing: ClothingSuperMutantRangerArmor
     back: N14ClothingBackpackMilitary
@@ -182,16 +193,20 @@
     - !type:CharacterSpeciesRequirement
       species:
         - SuperMutant
+  access:
+  - NCR
   special:
   - !type:AddComponentSpecial
     components:
       - type: NpcFactionMember
         factions:
           - PlayerSuperMutant
+          - Wastelander
 
 - type: startingGear
   id: SuperMutantTrooperGear
   equipment:
+    head: ClothingSuperMutantTrooperHelmet
     outerClothing: ClothingSuperMutantTrooperArmor
     back: N14ClothingBackpackMilitary
 
@@ -207,13 +222,14 @@
   name: job-name-supermutant-ncr-ranger
   description: job-description-supermutant-ncr-ranger
   playTimeTracker: SuperMutantNCRRanger
-  icon: JobIconBorg
+  icon: JobIconSecurityOfficer
   supervisors: job-supervisors-ncr-ranger
   canBeAntag: false
   setPreference: true
   overrideConsoleVisibility: true
   whitelisted: true
   hideWithoutWhitelist: true
+  showBorder: true
   spawnLoadout: true
   applyTraits: true
   startingGear: SuperMutantNCRRangerGear
@@ -231,12 +247,14 @@
       - type: NpcFactionMember
         factions:
           - PlayerSuperMutant  # keeps Loremaster/perk detection working
-          - NCR                # recognised as ally by NCR faction AI and tabs
+          - Rangers            # recognised as ally by NCR faction AI and tabs
+          - Wastelander
 
 - type: startingGear
   id: SuperMutantNCRRangerGear
   equipment:
-    head: ClothingSuperMutantRangerHat
+    mask: ClothingSuperRangerGasmask
+    head: ClothingSuperMutantRangerHelmet
     shoes: ClothingSuperMutantGladiatorBoots # Placeholder untill we get NCR boots
     jumpsuit: ClothingSuperMutantRangerShirt
     outerClothing: ClothingSuperMutantRangerArmor
@@ -256,18 +274,20 @@
   name: job-name-supermutant-ncr-trooper
   description: job-description-supermutant-ncr-trooper
   playTimeTracker: SuperMutantNCRTrooper
-  icon: JobIconBorg
+  icon: JobIconNcrSerg
   supervisors: job-supervisors-ncr
-  access:
-    - NCR
   canBeAntag: false
   setPreference: true
   overrideConsoleVisibility: true
   whitelisted: true
   hideWithoutWhitelist: true
+  showBorder: true
   spawnLoadout: true
   applyTraits: true
   startingGear: SuperMutantNCRTrooperGear
+  access:
+  - NCR
+  - NCRSGT
   requirements:
     - !type:CharacterSpeciesRequirement
       species:
@@ -279,10 +299,12 @@
         factions:
           - PlayerSuperMutant  # keeps Loremaster/perk detection working
           - NCR                # recognised as ally by NCR faction AI and tabs
+          - Wastelander
 
 - type: startingGear
   id: SuperMutantNCRTrooperGear
   equipment:
+    head: ClothingSuperMutantTrooperHelmet
     shoes: ClothingSuperMutantGladiatorBoots # Placeholder untill we get NCR boots
     jumpsuit: ClothingSuperMutantJumpsuit
     outerClothing: ClothingSuperMutantTrooperArmor
@@ -301,8 +323,8 @@
   name: job-name-supermutant-tribal
   description: job-description-supermutant-tribal
   playTimeTracker: SuperMutantTribal
-  icon: JobIconBorg
-  supervisors: job-supervisors-ncr
+  icon: JobIconTribal
+  supervisors: job-supervisors-tribal
   canBeAntag: false
   setPreference: true
   access:
@@ -311,6 +333,7 @@
   overrideConsoleVisibility: true
   whitelisted: true
   hideWithoutWhitelist: true
+  showBorder: true
   spawnLoadout: true
   applyTraits: true
   startingGear: SuperMutantTribalGear
@@ -323,9 +346,9 @@
     components:
       - type: NpcFactionMember
         factions:
-          - Wastelander
-          - Tribal
-          - PlayerSuperMutant
+        - PlayerSuperMutant
+        - Wastelander
+        - Tribal
       - type: Warcry
         action: ActionTribalWarcry
         targetDepartment: Tribe
@@ -337,6 +360,8 @@
         warcryMessage: warcry-message-tribal
         warcryMessageCount: 6
         buffPopup: warcry-popup-buffed-tribal
+        excludedJobs:
+        - SuperMutantTribal
       - type: TribalHuntParticipant
         targetDepartment: Tribe
   - !type:AddTraitSpecial
@@ -345,12 +370,13 @@
 - type: startingGear
   id: SuperMutantTribalGear
   equipment:
+    hands: ClothingSuperMutantTribalGloves
+    head: ClothingSuperMutantSkullHelmetTribal
     jumpsuit: ClothingSuperMutantTribalLoincloth
     shoes: ClothingSuperMutantGladiatorBoots
     back: N14ClothingBackpackTrekker # Corvax-Change
     neck: ClothingSuperMutantNeckCapeTribal
     pocket1: N14TribalKnife
-    pocket2: Triballoadoutkits
     id: N14IDTribeBulletsPendant
   satchel: N14ClothingBackpackSatchelTribalFilled
   storage: # Corvax-Change
@@ -370,16 +396,21 @@
 - type: job
   id: SuperMutantFollowerDoctor
   jobWhitelistBypassesRoleTimers: true
-  name: Supermutant Follower Doctor
-  description: A SuperMutant trained in the ways of medicine.
+  name: job-name-supermutant-follower-doctor
+  description: job-description-supermutant-follower-doctor
   playTimeTracker: SuperMutantFollowerDoctor
-  icon: JobIconBorg
-  supervisors: job-supervisors-follower-head
+  icon: JobIconPassenger
+  supervisors: job-supervisors-follower-doctor
+  accessGroups:
+  - FollowersApocalypse
+  - FotADoctor
+  - FotA
   canBeAntag: false
   setPreference: true
   overrideConsoleVisibility: true
   whitelisted: true
   hideWithoutWhitelist: true
+  showBorder: true
   spawnLoadout: true
   applyTraits: true
   startingGear: SuperMutantFollowerDoctorGear
@@ -393,22 +424,72 @@
         - type: NpcFactionMember
           factions:
             - PlayerSuperMutant
+            - Wastelander
             - Followers
         - type: CPRTraining
         - type: Sanitized
+    - !type:AddTraitSpecial
+      traits:
+      - FiremanCarry
 - type: startingGear
   id: SuperMutantFollowerDoctorGear
   equipment:
     jumpsuit: ClothingSuperMutantLabcoat
+    outerClothing: MisfitsFOTASuperMutantArmoredLabcoat
     mask: ClothingSuperMutantSterileMask
+    head: ClothingSuperMutantDoctorBeret
     back: ClothingBackpackDuffelSurgeryFilled
     belt: N14ClothingBeltMedicalFilled
     shoes: ClothingSuperMutantGladiatorBoots
     gloves: SupermutantFollowerGloves
     neck: ClothingNeckStethoscope
-    id: N14IDFollowerDoctor
+    id: N14IDDoctorFollower
     ears: N14ClothingHeadsetFollowers
     pocket1: N14HandheldHealthAnalyzer
     pocket2: SurgicalSterilanSpray
 - type: playTimeTracker
   id: SuperMutantFollowerDoctor
+
+# Enclave Supermutant.
+
+- type: job
+  id: SuperMutantEnclave
+  jobWhitelistBypassesRoleTimers: true
+  name: job-name-supermutant-enclave
+  description: job-description-supermutant-enclave
+  playTimeTracker: SuperMutantEnclave
+  icon: "JobIconEnclaveEnlisted"
+  supervisors: job-supervisors-enclave
+  canBeAntag: false
+  setPreference: true
+  overrideConsoleVisibility: true
+  whitelisted: true
+  hideWithoutWhitelist: true
+  spawnLoadout: true
+  applyTraits: true
+  startingGear: SuperMutantEnclaveGear
+  accessGroups:
+  - EnclaveEnlisted
+  requirements:
+    - !type:CharacterSpeciesRequirement
+      species:
+        - SuperMutant
+  special:
+    - !type:AddComponentSpecial
+      components:
+        - type: NpcFactionMember
+          factions:
+            - PlayerSuperMutant
+            - Enclave
+        - type: PowerArmorProficiency
+- type: startingGear
+  id: SuperMutantEnclaveGear
+  equipment:
+    outerClothing: MisfitsEnclavePowerArmor
+    jumpsuit: ClothingSuperMutantLabcoat
+    ears: N14ClothingHeadsetEnclave
+    id: N14EnclaveTrooperPipboy
+    belt: ClothingBeltMilitary
+    pocket1: EnclaveSoldierloadoutkits
+- type: playTimeTracker
+  id: SuperMutantEnclave

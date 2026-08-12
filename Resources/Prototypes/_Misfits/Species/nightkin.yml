@@ -4,7 +4,7 @@
 - type: species
   id: Nightkin
   name: species-name-nightkin
-  roundStart: true
+  roundStart: true # #Misfits Change - needed so whitelisted players get it in the species dropdown
   order: 4
   whitelistRequired: true
   restrictedCustomization: true
@@ -21,7 +21,7 @@
   - Shoes
   - Head
   - Mask
-  - Accessories
+#  - Accessories
   allowedTraitCategories: # #Misfits Change: allow traits via same mechanism as loadouts
   - Uncategorized
   - Auditory

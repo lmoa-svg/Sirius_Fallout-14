@@ -8,6 +8,7 @@ using Content.Shared.Humanoid;
 using Content.Shared.Humanoid.Prototypes;
 using Content.Shared.Roles;
 using Content.Shared._Misfits.Chat; // #Misfits Add - name slur filter
+using Content.Shared._Misfits.Special;
 using Content.Shared._NC.Speech.Synthesis;
 using Content.Shared._NC.TTS; // Corvax-Fallout-Barks
 using Content.Shared.Speech; // #Misfits Add - vocal style
@@ -27,7 +28,7 @@ namespace Content.Shared.Preferences;
 [Serializable, NetSerializable]
 public sealed partial class HumanoidCharacterProfile : ICharacterProfile
 {
-    private static readonly Regex RestrictedNameRegex = new(@"[^a-zA-Z-'0-9 '\-]");
+    private static readonly Regex RestrictedNameRegex = new(@"[^a-zA-Zа-яА-ЯёЁ0-9' \-]");
     private static readonly Regex ICNameCaseRegex = new(@"^(?<word>\w)|\b(?<word>\w)(?=\w*$)");
 
     public const int MaxNameLength = 37; // #Misfits Tweak - reduced from 64 to cap character name length
@@ -90,7 +91,7 @@ public sealed partial class HumanoidCharacterProfile : ICharacterProfile
 
     [DataField] // #Misfits Add - vocal style preference
     public string SpeechVerbPreference { get; set; } = "Default";
-    
+
     [DataField] // Corvax-TTS
     public string Voice { get; set; } = SharedHumanoidAppearanceSystem.DefaultVoice; // Corvax-TTS
 
@@ -109,6 +110,9 @@ public sealed partial class HumanoidCharacterProfile : ICharacterProfile
     /// Stores markings, eye colors, etc for the profile
     [DataField]
     public HumanoidCharacterAppearance Appearance { get; set; } = new();
+
+    [DataField]
+    public SpecialProfile Special { get; private set; } = SpecialProfile.Default();
 
     [DataField]
     public ClothingPreference Clothing { get; set; }
@@ -213,6 +217,7 @@ public sealed partial class HumanoidCharacterProfile : ICharacterProfile
             other.BarkVoice, // Corvax-Fallout-Barks
             other.SpeechVerbPreference) // #Misfits Add - vocal style
     {
+        Special = SpecialProfile.EnsureValid(other.Special);
     }
 
     /// <summary>
@@ -276,7 +281,7 @@ public sealed partial class HumanoidCharacterProfile : ICharacterProfile
             sex = random.Pick(speciesPrototype.Sexes);
             age = random.Next(speciesPrototype.MinAge, speciesPrototype.OldAge); // people don't look and keep making 119 year old characters with zero rp, cap it at middle aged
         }
-        
+
         // Corvax-TTS-Start
         var voiceId = random.Pick(prototypeManager
             .EnumeratePrototypes<TTSVoicePrototype>()
@@ -386,6 +391,9 @@ public sealed partial class HumanoidCharacterProfile : ICharacterProfile
         return new(this) { _traitPreferences = list };
     }
 
+    public HumanoidCharacterProfile WithSpecial(SpecialProfile special) =>
+        new(this) { Special = SpecialProfile.EnsureValid(special) };
+
     public HumanoidCharacterProfile WithLoadoutPreference(
         string loadoutId,
         bool pref,
@@ -426,6 +434,7 @@ public sealed partial class HumanoidCharacterProfile : ICharacterProfile
             && _traitPreferences.SequenceEqual(other._traitPreferences)
             && LoadoutPreferences.SequenceEqual(other.LoadoutPreferences)
             && Appearance.MemberwiseEquals(other.Appearance)
+            && SpecialProfile.EnsureValid(Special).MemberwiseEquals(SpecialProfile.EnsureValid(other.Special))
             && FlavorText == other.FlavorText
             && BarkVoice == other.BarkVoice // Corvax-Fallout-Barks
             && SpeechVerbPreference == other.SpeechVerbPreference; // #Misfits Add - vocal style
@@ -582,13 +591,39 @@ public sealed partial class HumanoidCharacterProfile : ICharacterProfile
 
         var traits = TraitPreferences
             .Where(prototypeManager.HasIndex<TraitPrototype>)
+            .Where(t => !prototypeManager.Index<TraitPrototype>(t).Hidden)
             .Distinct()
             .ToList();
+
+        // #Misfits Fix - Strip traits for species with restricted customization that don't
+        // explicitly allow any trait categories (e.g. robot/assaultron species). Without this,
+        // players can select traits on a human, switch species to assaultron in char setup,
+        // and have those traits carry over.
+        if (speciesPrototype.RestrictedCustomization
+            && speciesPrototype.AllowedTraitCategories is not { Count: > 0 })
+        {
+            traits.Clear();
+        }
+        else if (speciesPrototype.AllowedTraitCategories is { Count: > 0 })
+        {
+            traits = traits
+                .Where(t => speciesPrototype.AllowedTraitCategories.Contains(
+                    prototypeManager.Index<TraitPrototype>(t).Category))
+                .ToList();
+        }
+
+        var maxTraits = configManager.GetCVar(CCVars.GameTraitsMax);
+        var defaultPoints = configManager.GetCVar(CCVars.GameTraitsDefaultPoints);
+        var pointTotal = defaultPoints + traits.Sum(t => prototypeManager.Index<TraitPrototype>(t).Points);
+        if (traits.Count > maxTraits || pointTotal < 0)
+            traits.Clear();
 
         var loadouts = LoadoutPreferences
             .Where(l => prototypeManager.HasIndex<LoadoutPrototype>(l.LoadoutName))
             .Distinct()
             .ToList();
+
+        var special = SpecialProfile.EnsureValid(Special);
 
         // #Misfits Add - vocal style: fall back to Default if the stored proto no longer exists
         if (!prototypeManager.HasIndex<SpeechVerbPrototype>(SpeechVerbPreference))
@@ -620,8 +655,10 @@ public sealed partial class HumanoidCharacterProfile : ICharacterProfile
 
         _loadoutPreferences.Clear();
         _loadoutPreferences.UnionWith(loadouts);
+
+        Special = special;
     }
-    
+
     // Corvax-TTS-Start
     // SHOULD BE NOT PUBLIC, BUT....
     public static bool CanHaveVoice(TTSVoicePrototype voice, Sex sex)
@@ -664,6 +701,7 @@ public sealed partial class HumanoidCharacterProfile : ICharacterProfile
         hashCode.Add((int) Sex);
         hashCode.Add((int) Gender);
         hashCode.Add(Appearance);
+        hashCode.Add(Special);
         hashCode.Add(BarkVoice); // Corvax-Fallout-Barks
         hashCode.Add(SpeechVerbPreference); // #Misfits Add - vocal style
         hashCode.Add((int) SpawnPriority);

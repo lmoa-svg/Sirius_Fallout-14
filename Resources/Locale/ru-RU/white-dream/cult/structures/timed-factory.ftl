@@ -1,0 +1,1 @@
+﻿timed-factory-cooldown = Завод перезагружается. Осталось времени: {$cooldown}

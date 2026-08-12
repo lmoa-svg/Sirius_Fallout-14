@@ -15,7 +15,7 @@
     - !type:TileNotBlocked
 
 - type: construction
-  name: NCR Flag
+  name: Flag of the New California Republic
   id: N14DecorationFlagNCR # NCR
   graph: DecorationFlagNCR
   startNode: start
@@ -31,26 +31,27 @@
   conditions:
     - !type:TileNotBlocked
 
-- type: construction
-  id: N14DecorationFlagYuma # Yuma Tribe
-  name: Yuma Tribe Flag
-  graph: DecorationFlagYuma
-  startNode: start
-  targetNode: FlagYuma
-  category: construction-category-furniture
-  objectType: Structure
-  placementMode: SnapgridCenter
-  canBuildInImpassable: false
-  hide: false
-  icon:
-    sprite: _Nuclear14/Structures/Decoration/flags.rsi
-    state: cornflag
-  conditions:
-    - !type:TileNotBlocked
+# Misfits Change: No more constructing Yuma flags
+#- type: construction
+#  id: N14DecorationFlagYuma # Yuma Tribe
+#  name: Yuma Tribe Flag
+#  graph: DecorationFlagYuma
+#  startNode: start
+#  targetNode: FlagYuma
+#  category: construction-category-furniture
+#  objectType: Structure
+#  placementMode: SnapgridCenter
+#  canBuildInImpassable: false
+#  hide: false
+#  icon:
+#    sprite: _Nuclear14/Structures/Decoration/flags.rsi
+#    state: cornflag
+#  conditions:
+#    - !type:TileNotBlocked
 
 - type: construction
   id: N14DecorationFlagBrotherhoodMidwest # MW Brotherhood
-  name: Brotherhood of Steel Flag
+  name: Flag of the Brotherhood of Steel
   graph: DecorationFlagBrotherhoodMidwest
   startNode: start
   targetNode: FlagBrotherhoodMidwest
@@ -67,7 +68,7 @@
 
 - type: construction
   id: N14DecorationFlagLocust # Raiders / Locust
-  name: Raider Flag
+  name: Flag of the Locust Tribe
   graph: DecorationFlagLocust
   startNode: start
   targetNode: FlagLocust
@@ -84,7 +85,7 @@
 
 - type: construction
   id: N14DecorationFlagGunner # Gunners
-  name: Gunner Flag
+  name: Flag of the Gunner Mercenary Corps
   graph: DecorationFlagGunner
   startNode: start
   targetNode: FlagGunner
@@ -101,7 +102,7 @@
 
 - type: construction
   id: N14DecorationFlagFollowers # Followers
-  name: Followers Flag
+  name: Flag of the Followers of the Apocalypse
   graph: DecorationFlagFollowers
   startNode: start
   targetNode: FlagFollowers
@@ -118,7 +119,7 @@
 
 - type: construction
   id: N14DecorationFlagLegion # Legion
-  name: Legion Flag
+  name: Flag of Caesar's Legion
   graph: DecorationFlagLegion
   startNode: start
   targetNode: FlagLegion

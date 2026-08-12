@@ -1,5 +1,6 @@
 using Content.Server.Actions;
 using Content.Server.Chat.Systems;
+using Content.Shared._Misfits.Special;
 using Content.Shared._Misfits.Warcry;
 using Content.Shared.Chat;
 using Content.Shared.Mind;
@@ -30,6 +31,7 @@ public sealed class WarcrySystem : EntitySystem
     [Dependency] private readonly SharedPopupSystem _popup = default!;
     [Dependency] private readonly IPrototypeManager _prototype = default!;
     [Dependency] private readonly IRobustRandom _random = default!;
+    [Dependency] private readonly SharedSpecialSystem _special = default!;
     [Dependency] private readonly IGameTiming _timing = default!;
 
     private readonly HashSet<EntityUid> _targets = new();
@@ -102,20 +104,23 @@ public sealed class WarcrySystem : EntitySystem
 
         args.Handled = true;
 
-        var expiry = _timing.CurTime + component.Duration;
+        var scaledRange = _special.GetCharismaWarcryRange(uid, component.Range);
+        var scaledDuration = _special.GetCharismaWarcryDuration(uid, component.Duration);
+        var scaledSpeedBonus = _special.GetCharismaWarcrySpeedBonus(uid, component.SpeedBonus);
+        var expiry = _timing.CurTime + scaledDuration;
         _targets.Clear();
         _targets.Add(uid);
-        _lookup.GetEntitiesInRange(Transform(uid).Coordinates, component.Range, _targets);
+        _lookup.GetEntitiesInRange(Transform(uid).Coordinates, scaledRange, _targets);
 
         var buffedAny = false;
 
         foreach (var target in _targets)
         {
-            if (!IsValidTarget(target, component.TargetDepartment))
+            if (!IsValidTarget(target, component))
                 continue;
 
             var buff = EnsureComp<WarcryBuffComponent>(target);
-            buff.SpeedBonus = Math.Max(buff.SpeedBonus, component.SpeedBonus);
+            buff.SpeedBonus = Math.Max(buff.SpeedBonus, scaledSpeedBonus);
             if (expiry > buff.ExpiresAt)
                 buff.ExpiresAt = expiry;
 
@@ -127,7 +132,7 @@ public sealed class WarcrySystem : EntitySystem
         }
 
         var active = EnsureComp<ActiveWarcryComponent>(uid);
-        active.Radius = component.Range;
+        active.Radius = scaledRange;
         active.Color = component.OverlayColor;
         active.ExpiresAt = expiry;
         Dirty(uid, active);
@@ -172,7 +177,7 @@ public sealed class WarcrySystem : EntitySystem
         return component.ActivatorJobs.Contains(prototype.ID);
     }
 
-    private bool IsValidTarget(EntityUid uid, string departmentId)
+    private bool IsValidTarget(EntityUid uid, WarcryComponent component)
     {
         if (_mobState.IsDead(uid))
             return false;
@@ -186,6 +191,9 @@ public sealed class WarcrySystem : EntitySystem
         if (!_jobs.MindTryGetJob(mindId, out _, out var jobPrototype))
             return false;
 
-        return _jobs.TryGetDepartment(jobPrototype.ID, out var department) && department.ID == departmentId;
+        if (component.ExcludedJobs != null && component.ExcludedJobs.Contains(jobPrototype.ID))
+            return false;
+
+        return _jobs.TryGetDepartment(jobPrototype.ID, out var department) && department.ID == component.TargetDepartment;
     }
 }

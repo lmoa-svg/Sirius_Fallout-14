@@ -12,13 +12,13 @@
   restrictedCustomization: true # #Misfits Add - keep marking choices controlled per faction skin
   allowedLoadoutCategories: # #Misfits Add - show loadout tab despite restrictedCustomization (armor from kit; accessories/weapons still selectable)
   - Weapons
-  - Accessories
+#  - Accessories
   - Bags
   - Backpacks
   - Duffel
   - Satchel
   jobWhitelistUnlock: C27 # #Misfits Add (Phase G) - C27 job whitelist also unlocks species visibility
-  restrictedJobs: # #Misfits Add (Phase G) - C-27 chassis can only take the C27 job
+  restrictedJobs: # #Misfits Add (Phase G) - C-27 chassis can only take the generic C27 job
   - C27
   prototype: N14MobC27
   sprites: MobC27Sprites
@@ -100,6 +100,18 @@
       points: 1
       required: false
 
+- type: markingPoints
+  id: MobC27MarkingLimitsZAX
+  onlyWhitelisted: true
+  points:
+    Chest:
+      points: 1
+      required: true
+      defaultMarkings: [C27ModelZAX]
+    Head:
+      points: 1
+      required: false
+
 # #Misfits Add - Hidden NCR variant. Selected via the Robot Model picker in the lobby; not
 # shown directly in the species dropdown (UI hides it via IsHiddenProtectronVariantSpecies).
 - type: species
@@ -111,14 +123,14 @@
   restrictedCustomization: true
   allowedLoadoutCategories: # #Misfits Add - show loadout tab for NCR variant
   - Weapons
-  - Accessories
+#  - Accessories
   - Bags
   - Backpacks
   - Duffel
   - Satchel
-  jobWhitelistUnlock: C27
+  jobWhitelistUnlock: C27NCR
   restrictedJobs:
-  - C27
+  - C27NCR
   prototype: N14MobC27NCR
   sprites: MobC27Sprites
   markingLimits: MobC27MarkingLimitsNCR
@@ -148,14 +160,14 @@
   restrictedCustomization: true
   allowedLoadoutCategories: # #Misfits Add - show loadout tab for BoS variant
   - Weapons
-  - Accessories
+#  - Accessories
   - Bags
   - Backpacks
   - Duffel
   - Satchel
-  jobWhitelistUnlock: C27
+  jobWhitelistUnlock: C27BoS
   restrictedJobs:
-  - C27
+  - C27BoS
   prototype: N14MobC27BoS
   sprites: MobC27Sprites
   markingLimits: MobC27MarkingLimitsBoS
@@ -173,6 +185,41 @@
   # #Misfits Add - Brotherhood rank-flavored callsigns (Knight-Alpha … Knight-Zulu).
   maleFirstNames: C27FirstBoS
   femaleFirstNames: C27FirstBoS
+  naming: First
+
+- type: species
+  id: C27ZAX
+  name: species-name-c27-zax
+  roundStart: true
+  order: 7
+  whitelistRequired: true
+  restrictedCustomization: true
+  allowedLoadoutCategories:
+  - Weapons
+#  - Accessories
+  - Bags
+  - Backpacks
+  - Duffel
+  - Satchel
+  jobWhitelistUnlock: C27ZAX
+  restrictedJobs:
+  - C27ZAX
+  prototype: N14MobC27ZAX
+  sprites: MobC27Sprites
+  markingLimits: MobC27MarkingLimitsZAX
+  dollPrototype: N14MobC27ZAXDummy
+  skinColoration: Hues
+  defaultSkinTone: "#7fb6bf"
+  minHeight: 1.25
+  defaultHeight: 1.25
+  maxHeight: 1.25
+  minWidth: 1.25
+  defaultWidth: 1.25
+  maxWidth: 1.25
+  sexes:
+  - Unsexed
+  maleFirstNames: C27FirstZAX
+  femaleFirstNames: C27FirstZAX
   naming: First
 
 # --- Per-bodypart sprite definitions ---

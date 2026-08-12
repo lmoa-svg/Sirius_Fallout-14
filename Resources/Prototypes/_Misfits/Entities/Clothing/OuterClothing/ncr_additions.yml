@@ -22,7 +22,13 @@
         Blunt: 0.55
         Slash: 0.60
         Piercing: 0.68
-        Heat: 0.83
+        Heat: 0.7  #sirius change
+      flatReductions:  #sirius change
+        Blunt: 2
+        Slash: 3
+        Piercing: 2
+        Heat: 4
+        Caustic: 1
   - type: ExplosionResistance
     damageCoefficient: 0.78
 
@@ -42,7 +48,11 @@
         Blunt: 0.82
         Slash: 0.82
         Piercing: 0.82
-        
+      flatReductions:  #sirius change
+        Piercing: 1
+        Heat: 1
+        Caustic: 1
+
 - type: entity
   parent: [N14FalloutArmorBase, N14ClothingOuterBase]
   id: falloutNCRmilitarypolicevest
@@ -53,9 +63,77 @@
     sprite: _Nuclear14/Clothing/OuterClothing/Armor/falloutNCRmilitarypolicevest.rsi
   - type: Clothing
     sprite: _Nuclear14/Clothing/OuterClothing/Armor/falloutNCRmilitarypolicevest.rsi
-  - type: Armor
+  - type: Armor #sirius change
     modifiers:
       coefficients:
         Blunt: 0.80
         Slash: 0.80
         Piercing: 0.85
+
+- type: entity
+  parent: falloutNCRmilitarypolicevest
+  id: MisfitsNCRMPRecruitArmor
+  name: NCR military police recruit armor
+  description: Reinforced NCR Military Police armor issued to recruits for base defense and riot control.
+  components:
+  - type: Armor
+    modifiers:
+      coefficients:
+        Blunt: 0.75
+        Slash: 0.75
+        Piercing: 0.75
+        Heat: 0.75
+      flatReductions:  #sirius change
+        Blunt: 1
+        Slash: 1
+        Piercing: 2
+        Heat: 1
+    priceMultiplier: 0.6
+  - type: ExplosionResistance
+    damageCoefficient: 0.80
+
+- type: entity
+  parent: falloutNCRmilitarypolicevest
+  id: MisfitsNCRMPCombatArmor
+  name: NCR military police combat armor
+  description: Reinforced NCR Military Police armor for base defense and riot control.
+  components:
+  - type: Armor
+    modifiers:
+      coefficients:
+        Blunt: 0.70
+        Slash: 0.70
+        Piercing: 0.65
+        Heat: 0.65
+      flatReductions:  #sirius change
+        Blunt: 2
+        Slash: 2
+        Piercing: 2
+        Heat: 2
+        Caustic: 1
+    priceMultiplier: 0.6
+  - type: ExplosionResistance
+    damageCoefficient: 0.75
+
+- type: entity
+  parent: falloutNCRmilitarypolicevest
+  id: MisfitsNCRMPLieutenantArmor
+  name: NCR military police lieutenant armor
+  description: Command-grade NCR Military Police armor issued to First Lieutenants.
+  components:
+  - type: Armor
+    modifiers:
+      coefficients:
+        Blunt: 0.65
+        Slash: 0.65
+        Piercing: 0.60
+        Heat: 0.65
+      flatReductions:  #sirius change
+        Blunt: 2
+        Slash: 2
+        Piercing: 2
+        Heat: 2
+        Caustic: 1
+    priceMultiplier: 0.7
+  - type: ExplosionResistance
+    damageCoefficient: 0.70

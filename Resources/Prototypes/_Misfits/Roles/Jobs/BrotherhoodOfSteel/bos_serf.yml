@@ -1,9 +1,14 @@
 - type: job
   id: BoSMidSerf
-  setPreference: false
+  setPreference: true
+  hideIfPlaytimeRequirementsNotMet: false # #Misfits Tweak - all jobs visible in selection
+  jobWhitelistBypassesRoleTimers: true
+  weight: 5
+  showBorder: true
   overrideConsoleVisibility: true
   canBeAntag: false
   name: job-name-bos-mid-serf #Misfits Change
+  overwatchCategory: OverwatchBosSupport
   description: job-description-bos-mid-Serf
   playTimeTracker: BoSMidSerf
   requirements:
@@ -18,7 +23,7 @@
   startingGear: BoSMidSerfGear
   alwaysUseSpawner: true
   icon: "JobIconRabMBos"
-  supervisors: job-supervisors-bos-mid-Serf
+  supervisors: job-supervisors-bos-mid-serf
   accessGroups:
   - BOSInitiate
   special:

@@ -60,15 +60,21 @@
     maxAngle: 105
     angleIncrease: 4
     angleDecay: 16
-    fireRate: 1.5
+    fireRate: 2 #sirius change
     soundGunshot:
       collection: N14SniperHuntingGunshot
   - type: BallisticAmmoProvider
     whitelist:
       tags:
       - N14Cartridge308Rifle
+    capacity: 8
+    proto: N14Cartridge308Rifle
   - type: StaticPrice
     price: 100
+  - type: GunDamageBonus
+    bonusDamage:
+      types:
+        Piercing: 3
   # #Misfits Add — scope attachment slot on Lee Enfield
   # - type: ItemSlots
   #   slots:
@@ -109,7 +115,7 @@
     maxAngle: 105
     angleIncrease: 4
     angleDecay: 16
-    fireRate: 1.2
+    fireRate: 0.9
     soundGunshot:
       collection: N14AntiMaterielGunshot
     selectedMode: SemiAuto
@@ -150,6 +156,10 @@
     backStrength: 3
   - type: StaticPrice
     price: 200
+  - type: GunDamageBonus
+    bonusDamage:
+      types:
+        Piercing: 25
 
 - type: entity
   name: .50 NCR rifle
@@ -196,6 +206,10 @@
   #       whitelist:
   #         tags:
   #         - RifleScope
+  - type: GunDamageBonus
+    bonusDamage:
+      types:
+        Piercing: 20
 
 - type: entity
   name: lever action carbine
@@ -253,6 +267,11 @@
     backStrength: 3
   - type: StaticPrice
     price: 90
+  - type: BallisticAmmoProvider
+    whitelist:
+      tags:
+      - SpeedLoaderInternal
+      - N14Cartridge308Rifle
 
 - type: entity
   name: brush gun
@@ -422,12 +441,16 @@
     backStrength: 3
   - type: StaticPrice
     price: 10
+  - type: GunDamageBonus
+    bonusDamage:
+      types:
+        Piercing: 10
 
 - type: entity
   name: huntstick
   parent: N14WeaponSniperHunting
   id: N14WeaponSniper308Tribal
-  description: A tribal lever action rifle. Uses .308 ammo.
+  description: A tribal lever action rifle. Uses .45-70gov't ammo.
   components:
   - type: Clothing
     sprite: _Nuclear14/Objects/Weapons/Guns/Snipers/tribalhuntstick.rsi
@@ -437,6 +460,13 @@
     fireRate: 1.2
     soundGunshot:
       collection: N14LeverRifleGunshot
+  - type: BallisticAmmoProvider
+    whitelist:
+      tags:
+      - N14Cartridge45-70 #sirius change
+      - SpeedLoaderInternal
+    capacity: 8
+    proto: N14Cartridge45-70 #sirius change
   - type: FollowDistance
     backStrength: 3
   - type: StaticPrice
@@ -446,7 +476,7 @@
   name: master huntstick
   parent: N14WeaponSniperHunting
   id: N14WeaponSniper308TribalUpgraded
-  description: A tribal decorated lever action rifle. Uses .308 ammo.
+  description: A tribal decorated lever action rifle. Uses .45-70gov't ammo.
   components:
   - type: Clothing
     sprite: _Nuclear14/Objects/Weapons/Guns/Snipers/tribalhuntstick2.rsi
@@ -456,10 +486,21 @@
     fireRate: 2
     soundGunshot:
       collection: N14LeverRifleGunshot
+  - type: BallisticAmmoProvider
+    whitelist:
+      tags:
+      - N14Cartridge45-70 #sirius change
+      - SpeedLoaderInternal
+    capacity: 10 #sirius change
+    proto: N14Cartridge45-70 #sirius change
   - type: FollowDistance
     backStrength: 3
   - type: StaticPrice
     price: 90
+  - type: GunDamageBonus
+    bonusDamage:
+      types:
+        Piercing: 2
 
 - type: entity
   name: F1 sniper rifle
@@ -495,7 +536,7 @@
     minAngle: -23
     maxAngle: -104
   - type: Gun
-    fireRate: 1.5
+    fireRate: 2.5 #sirius change
   - type: BallisticAmmoProvider
     whitelist:
       tags:
@@ -512,7 +553,7 @@
   name: 308 Sniper Rifle
   parent: N14WeaponRifleBase
   id: N14WeaponRifle308SniperRifle
-  description:  sniper rifle chambered in .308.
+  description:  sniper rifle chambered in .308, its chamber can handle overpressured .308 ammo.
   components:
   - type: Clothing
     sprite: _Nuclear14/Objects/Weapons/Guns/Snipers/308SniperRifle.rsi
@@ -537,7 +578,7 @@
     angleDecay: 16
     soundGunshot:
       collection: N14MarksmanGunshot
-    fireRate: 2
+    fireRate: 2.0 #sirius change
     selectedMode: SemiAuto
     availableModes:
     - SemiAuto
@@ -545,19 +586,21 @@
     slots:
       gun_magazine:
         name: Magazine
-        startingItem: Magazine308RifleSniper
+        startingItem: MagazineOver308RifleSniper
         insertSound: /Audio/Weapons/Guns/MagIn/ltrifle_magin.ogg
         ejectSound: /Audio/Weapons/Guns/MagOut/ltrifle_magout.ogg
         priority: 2
         whitelist:
           tags:
+            - N14MagazineOver308RifleSnipers
             - N14Magazine308RifleSnipers
       gun_chamber:
         name: Chamber
-        startingItem: N14Cartridge308Rifle
+        startingItem: N14CartridgeOver308Rifle
         priority: 1
         whitelist:
           tags:
+            - N14CartridgeOver308Rifle
             - N14Cartridge308Rifle
   - type: FollowDistance
     backStrength: 3
@@ -572,7 +615,7 @@
   name: cowboy repeater
   parent: N14WeaponSniperHunting
   id: N14WeaponSniperCowboyRepeater
-  description: A lever-action rifle in .357 Magnum with worn brown furniture. The weapon of gunslingers and honest wastelanders. Holds twelve rounds in the tubular magazine and cycles fast enough to feel semi-automatic.
+  description: A lever-action rifle in .45-70gov't with worn brown furniture. The weapon of gunslingers and honest wastelanders. Holds twelve rounds in the tubular magazine and cycles fast enough to feel semi-automatic.
   components:
   - type: Clothing
     sprite: _Nuclear14/Objects/Weapons/Guns/Snipers/cowboyrepeater.rsi
@@ -601,13 +644,18 @@
   - type: BallisticAmmoProvider
     whitelist:
       tags:
-      - N14CartridgePistol357
+      - N14Cartridge45-70 #sirius change
+      - SpeedLoaderInternal
     capacity: 12
-    proto: N14CartridgePistol357
+    proto: N14Cartridge45-70 #sirius change
   - type: FollowDistance
     backStrength: 3
   - type: StaticPrice
     price: 80
+  - type: GunDamageBonus
+    bonusDamage:
+      types:
+        Piercing: 2
 
 - type: entity
   name: Paciencia
@@ -638,9 +686,10 @@
   - type: BallisticAmmoProvider
     whitelist:
       tags:
-      - N14Cartridge308Rifle
+      - N14Cartridge45-70 #sirius change
+      - SpeedLoaderInternal
     capacity: 3
-    proto: N14Cartridge308Rifle
+    proto: N14Cartridge45-70 #sirius change
   - type: FollowDistance
     backStrength: 4
   - type: StaticPrice
@@ -667,14 +716,18 @@
     maxAngle: 80
     angleIncrease: 3
     angleDecay: 16
-    fireRate: 2.2
+    fireRate: 3 #sirius change
     selectedMode: SemiAuto
     availableModes:
     - SemiAuto
     soundGunshot:
       collection: N14SniperVarmintGunshot
   - type: StaticPrice
-    price: 500
+    price: 100
+  - type: GunDamageBonus
+    bonusDamage:
+      types:
+        Piercing: 2
 
 - type: entity
   name: M1 carbine
@@ -714,9 +767,9 @@
   - type: BallisticAmmoProvider
     whitelist:
       tags:
-      - N14CartridgePistol10
+      - N14Cartridge556Rifle #sirius change
     capacity: 12
-    proto: N14CartridgePistol10
+    proto: N14Cartridge556Rifle #sirius change
   - type: FollowDistance
     backStrength: 4
   - type: StaticPrice
@@ -767,3 +820,147 @@
     backStrength: 4
   - type: StaticPrice
     price: 150
+
+#sirius change start
+
+- type: entity
+  name: M72 Gauss rifle
+  parent: N14WeaponRifleBase
+  id: N14WeaponSniperM72GaussRifleSirius67
+  description: "An anti-materiel rifle with an ergonomic, sleek, skeletonized design. Simply looking at it can you tell it'll rip some limbs apart. Uses .50 anti-material ammo."
+  components:
+  - type: Clothing
+    sprite: _Nuclear14/Objects/Weapons/Guns/Snipers/gaussrifle.rsi
+    quickEquip: false
+    slots:
+    - Back
+    - suitStorage
+  - type: Sprite
+    sprite: _Nuclear14/Objects/Weapons/Guns/Snipers/gaussrifle.rsi
+    layers:
+    - state: base
+      map: ["enum.GunVisualLayers.Base"]
+    - state: mag-0
+      map: ["enum.GunVisualLayers.Mag"]
+  - type: Item
+    size: Huge
+  - type: Wieldable
+    wieldedSpeedModifier: 0.75
+  - type: GunWieldBonus
+    minAngle: -23
+    maxAngle: -104
+  - type: Gun
+    minAngle: 24
+    maxAngle: 105
+    angleIncrease: 4
+    angleDecay: 16
+    fireRate: 1.5
+    soundGunshot:
+      path: /Audio/Weapons/Guns/Gunshots/GaussRifle_SingleShot_1.ogg
+    selectedMode: SemiAuto
+    availableModes:
+    - SemiAuto
+  - type: ItemSlots
+    slots:
+      gun_magazine:
+        name: Magazine
+        startingItem: N14MagazineRifle2mmEC
+        insertSound: /Audio/Weapons/Guns/MagIn/batrifle_magin.ogg
+        ejectSound: /Audio/Weapons/Guns/MagOut/batrifle_magout.ogg
+        priority: 2
+        whitelist:
+          tags:
+            - N14MagazineRifle2mmEC
+      gun_chamber:
+        name: Chamber
+        startingItem: N14Cartridge2mmEC
+        priority: 1
+        whitelist:
+          tags:
+            - N14Cartridge2mmEC
+      # #Misfits Add — scope attachment slot on anti-materiel rifle
+      # gun_scope:
+      #   name: Scope Slot
+      #   whitelist:
+      #     tags:
+      #     - RifleScope
+  - type: MagazineVisuals
+    magState: mag
+    steps: 1
+    zeroVisible: true
+  - type: Appearance
+  - type: FollowDistance
+    backStrength: 3
+  - type: StaticPrice
+    price: 200
+  - type: GunDamageBonus
+    bonusDamage:
+      types:
+        Piercing: 38
+
+- type: entity
+  name: M72 Gauss rifle
+  parent: BaseItem
+  id: N14WeaponSniperM72GaussRifleSirius
+  description: An advanced gauss rifle that consumes both energy and 2mmEC ammunition.
+  components:
+  - type: Clothing
+    sprite: _Nuclear14/Objects/Weapons/Guns/Snipers/gaussrifle.rsi
+    quickEquip: false
+    slots:
+    - Back
+    - suitStorage
+  - type: Sprite
+    sprite: _Nuclear14/Objects/Weapons/Guns/Snipers/gaussrifle.rsi
+    layers:
+    - state: base
+      map: ["enum.GunVisualLayers.Base"]
+    - state: mag-0
+      map: ["enum.GunVisualLayers.Mag"]
+  - type: Item
+    size: Huge
+  - type: Wieldable
+    wieldedSpeedModifier: 0.75
+  - type: GunWieldBonus
+    minAngle: -23
+    maxAngle: -104
+  - type: HybridAmmoProvider
+    proto: N14Bullet2mmEC
+    fireCost: 50
+    magazineSlot: gun_magazine
+  - type: Gun
+    minAngle: 24
+    maxAngle: 60
+    angleIncrease: 4
+    angleDecay: 16
+    fireRate: 1.5
+    soundGunshot:
+      path: /Audio/Weapons/Guns/Gunshots/GaussRifle_SingleShot_1.ogg
+    soundEmpty:
+      path: /Audio/Weapons/Guns/Empty/empty.ogg
+    selectedMode: SemiAuto
+    availableModes:
+    - SemiAuto
+  - type: ItemSlots
+    slots:
+      gun_magazine:
+        name: Magazine
+        startingItem: N14MagazineRifle2mmEC
+        insertSound: /Audio/Weapons/Guns/MagIn/batrifle_magin.ogg
+        ejectSound: /Audio/Weapons/Guns/MagOut/batrifle_magout.ogg
+        whitelist:
+          tags:
+            - N14MagazineRifle2mmEC
+  - type: ContainerContainer
+    containers:
+      gun_magazine: !type:ContainerSlot
+  - type: MagazineVisuals
+    magState: mag
+    steps: 1
+    zeroVisible: true
+  - type: Appearance
+  - type: AmmoCounter
+  - type: StaticPrice
+    price: 200
+  # - type: Craftable  # #Misfits Remove: Stalker14 crafting system
+#sirius change end

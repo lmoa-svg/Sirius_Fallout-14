@@ -711,6 +711,10 @@ namespace Content.Server.Database.Migrations.Sqlite
                         .HasColumnType("TEXT")
                         .HasColumnName("last_read_rules");
 
+                    b.Property<string>("DiscordId")
+                        .HasColumnType("TEXT")
+                        .HasColumnName("discord_id");
+
                     b.Property<string>("LastSeenAddress")
                         .IsRequired()
                         .HasColumnType("TEXT")
@@ -734,6 +738,9 @@ namespace Content.Server.Database.Migrations.Sqlite
 
                     b.HasAlternateKey("UserId")
                         .HasName("ak_player_user_id");
+
+                    b.HasIndex("DiscordId")
+                        .IsUnique();
 
                     b.HasIndex("LastSeenUserName");
 
@@ -898,6 +905,34 @@ namespace Content.Server.Database.Migrations.Sqlite
                         .IsRequired()
                         .HasColumnType("TEXT")
                         .HasColumnName("speech_verb_preference");
+
+                    b.Property<int>("SpecialAgility")
+                        .HasColumnType("INTEGER")
+                        .HasColumnName("special_agility");
+
+                    b.Property<int>("SpecialCharisma")
+                        .HasColumnType("INTEGER")
+                        .HasColumnName("special_charisma");
+
+                    b.Property<int>("SpecialEndurance")
+                        .HasColumnType("INTEGER")
+                        .HasColumnName("special_endurance");
+
+                    b.Property<int>("SpecialIntelligence")
+                        .HasColumnType("INTEGER")
+                        .HasColumnName("special_intelligence");
+
+                    b.Property<int>("SpecialLuck")
+                        .HasColumnType("INTEGER")
+                        .HasColumnName("special_luck");
+
+                    b.Property<int>("SpecialPerception")
+                        .HasColumnType("INTEGER")
+                        .HasColumnName("special_perception");
+
+                    b.Property<int>("SpecialStrength")
+                        .HasColumnType("INTEGER")
+                        .HasColumnName("special_strength");
 
                     b.Property<string>("Voice")
                         .IsRequired()

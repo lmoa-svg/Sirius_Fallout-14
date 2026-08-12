@@ -150,6 +150,32 @@
   - type: Construction
     graph: N14Paper
     node: paper
+  - type: Flammable
+    fireSpread: true
+    canResistFire: false
+    alwaysCombustible: true
+    canExtinguish: false
+    damage:
+      types:
+        Heat: 1
+  - type: FireVisuals
+    sprite: Effects/fire.rsi
+    normalState: fire
+  - type: Damageable
+    damageModifierSet: Wood
+  - type: Destructible
+    thresholds:
+    - trigger:
+        !type:DamageTrigger
+        damage: 15
+      behaviors:
+      - !type:SpawnEntitiesBehavior
+        spawn:
+          Ash:
+            min: 1
+            max: 1
+      - !type:DoActsBehavior
+        acts: [ "Destruction" ]
   - type: PhysicalComposition
     materialComposition:
       N14Paper: 100
@@ -711,17 +737,16 @@
   components:
   - type: Stack
     stackType: N14Cement
-    baseLayer: powder_lead
+    baseLayer: cement
   - type: PhysicalComposition
     materialComposition:
       Cement: 100
   - type: Sprite
-    sprite: /Textures/_Nuclear14/Objects/Misc/materials.rsi
-    state: powder_brass
-    layers:
-    - state: powder_brass
-      map: ["base"]
+    sprite: _Nuclear14/Objects/Misc/materials_new/cement.rsi
+    state: cement
+    scale: 0.7, 0.7
   - type: Item
+    sprite: _Nuclear14/Objects/Misc/materials_new/cement.rsi
     size: Small
   - type: SolutionContainerManager
     solutions:
@@ -781,16 +806,27 @@
   description: Clay brick for construction.
   categories: [ HideSpawnMenu ]
   components:
-  - type: Stack
-    stackType: N14Brick
+  - type: Sprite
+    sprite: _Nuclear14/Objects/Misc/materials_new/bricks.rsi
+    state: bricks_3
+    layers:
+    - state: bricks_3
+      map: ["base"]
+    color: "#8b4513"
+    scale: 0.7, 0.7
   - type: PhysicalComposition
     materialComposition:
       Brick: 100
-  - type: Sprite
-    sprite: /Textures/_Nuclear14/Objects/Misc/materials.rsi
-    state: scrap_copper
-    color: "#8b4513"
+  - type: Material
+  - type: Stack
+    stackType: N14Brick
+    baseLayer: base
+    layerStates:
+    - bricks
+    - bricks_2
+    - bricks_3
   - type: Item
+    sprite: _Nuclear14/Objects/Misc/materials_new/bricks.rsi
     size: Small
   - type: Tag
     tags:

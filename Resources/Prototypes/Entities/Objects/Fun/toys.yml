@@ -1455,7 +1455,7 @@
   parent: BaseItem
   id: BeachBall
   name: beach ball
-  description: The simple beach ball is one of Nanotrasen's most popular products. 'Why do we make beach balls? Because we can! (TM)' - Nanotrasen
+  description: The simple beach ball was one of the most popular products in America pre-collapse. Demand for them in the current day has mostly deflated.
   components:
   - type: Sprite
     sprite: Objects/Fun/toys.rsi
@@ -2019,7 +2019,7 @@
       params:
         variation: 0.05
   - type: EmitSoundOnLand
-    sound: 
+    sound:
       path: /Audio/DeltaV/Voice/Harpy/caw1.ogg
       params:
         variation: 0.05
@@ -2043,3 +2043,89 @@
       path: /Audio/DeltaV/Voice/Harpy/caw1.ogg
       params:
         variation: 0.05
+
+- type: entity
+  parent: BasePlushie
+  id: PlushiePeterPro
+  name: PeterPro plushie
+  description: A plushie of Peter Poley. He pro.
+  components:
+  - type: Sprite
+    state: plushie_peterpro
+  - type: EmitSoundOnUse
+    sound:
+      path: /Audio/Voice/Human/peterpro.ogg
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Voice/Human/malescream_3.ogg
+  - type: EmitSoundOnActivate
+    sound:
+      path: /Audio/Voice/Human/peterpro.ogg
+  - type: Food
+    requiresSpecialDigestion: true
+    useSound:
+      path: /Audio/Voice/Human/malescream_4.ogg
+  - type: MeleeWeapon
+    soundHit:
+      path: /Audio/Voice/Human/malescream_2.ogg
+  - type: EmitSoundOnTrigger
+    sound:
+      path: /Audio/Voice/Human/malescream_5.ogg
+
+- type: entity
+  parent: BasePlushie
+  id: PlushieDangerouslyJoyful
+  name: Dangerously Joyful Plushie
+  description: HOIHOI!
+  components:
+  - type: Sprite
+    state: plushie_dangerouslyjoyful
+  - type: EmitSoundOnUse
+    sound:
+      path: /Audio/Animals/mouse_squeak.ogg
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Voice/Human/femalescream_3.ogg
+  - type: EmitSoundOnActivate
+    sound:
+      path: /Audio/Animals/mouse_squeak.ogg
+  - type: Food
+    requiresSpecialDigestion: true
+    useSound:
+      path: /Audio/Voice/Human/femalescream_4.ogg
+  - type: MeleeWeapon
+    soundHit:
+      path: /Audio/Voice/Human/femalescream_2.ogg
+  - type: EmitSoundOnTrigger
+    sound:
+      path: /Audio/Voice/Human/femalescream_5.ogg
+
+- type: entity
+  parent: BasePlushie
+  id: PlushieMechanicalIdol
+  name: Mechanical Idol Plushie
+  description: "It has no eyes, but you feel watched by it at all times. Electronic devices whir and hum within its presence..."
+  components:
+  - type: Sprite
+    state: plushie_mechanicalidol
+  - type: EmitSoundOnUse
+    sound:
+      path: /Audio/Effects/PowerSink/electric.ogg
+  - type: EmitSoundOnActivate
+    sound:
+      path: /Audio/Effects/PowerSink/electric.ogg
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/metal_break4.ogg
+  - type: EmitSoundOnTrigger
+    sound:
+      path: /Audio/Effects/metal_slam3.ogg
+ ## - type: PopupOnInteract
+ ##   popup: "The Mechanical Idol seems to try to align with something in the sky..."
+  - type: Food
+    requiresSpecialDigestion: true
+    useSound:
+      path: /Audio/Effects/metal_break3.ogg
+  - type: MeleeWeapon
+    soundHit:
+      path: /Audio/Effects/metal_thud1.ogg

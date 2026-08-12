@@ -17,6 +17,7 @@
   icon: JobIconBorg
   supervisors: job-supervisors-synthetic
   canBeAntag: false
+  overwatchCategory: OverwatchRobotics
   setPreference: true
   overrideConsoleVisibility: true
   whitelisted: true # #Misfits Change
@@ -36,6 +37,7 @@
       - type: NpcFactionMember
         factions:
           - PlayerRobot
+          - Wastelander
 
 - type: job
   id: SyntheticProtectron
@@ -45,6 +47,7 @@
   icon: JobIconBorg
   supervisors: job-supervisors-synthetic
   canBeAntag: false
+  overwatchCategory: OverwatchRobotics
   setPreference: true
   overrideConsoleVisibility: true
   whitelisted: true # #Misfits Change
@@ -67,6 +70,7 @@
       - type: NpcFactionMember
         factions:
           - PlayerRobot
+          - Wastelander
 
 - type: job
   id: SyntheticMrGutsy
@@ -76,6 +80,7 @@
   icon: JobIconBorg
   supervisors: job-supervisors-synthetic
   canBeAntag: false
+  overwatchCategory: OverwatchRobotics
   setPreference: true
   overrideConsoleVisibility: true
   whitelisted: true # #Misfits Change
@@ -96,6 +101,7 @@
       - type: NpcFactionMember
         factions:
           - PlayerRobot
+          - Wastelander
 
 - type: job
   id: SyntheticAssaultron
@@ -105,6 +111,7 @@
   icon: JobIconBorg
   supervisors: job-supervisors-synthetic
   canBeAntag: false
+  overwatchCategory: OverwatchRobotics
   setPreference: true
   overrideConsoleVisibility: true
   whitelisted: true # #Misfits Change
@@ -123,6 +130,7 @@
       - type: NpcFactionMember
         factions:
           - PlayerRobot
+          - Wastelander
 
 - type: playTimeTracker
   id: SyntheticMrHandy
@@ -164,6 +172,7 @@
         factions:
           - PlayerRobot
           - PlayerSentryBot
+          - Wastelander
 
 - type: job
   id: SyntheticRobobrain
@@ -193,9 +202,44 @@
       - type: NpcFactionMember
         factions:
           - PlayerRobot
+          - Wastelander
 
 - type: playTimeTracker
   id: SyntheticSentryBot
 
 - type: playTimeTracker
   id: SyntheticRobobrain
+
+- type: job
+  id: SyntheticProtectronTribal
+  name: job-name-synthetic-protectron-tribal
+  description: job-description-synthetic-protectron-tribal
+  playTimeTracker: SyntheticProtectronTribal
+  icon: JobIconBorg
+  supervisors: job-supervisors-tribal
+  canBeAntag: false
+  setPreference: true
+  overrideConsoleVisibility: true
+  whitelisted: true
+  hideWithoutWhitelist: true
+  showBorder: true
+  startingGear: SyntheticGear # triggers EquipIdCard so tribe access is applied to nav card
+  access: # tribe access for the tribal bot
+  - TribeMember
+  spawnLoadout: false
+  applyTraits: false
+  requirements: # lock to species
+  - !type:CharacterSpeciesRequirement
+    species:
+    - RobotProtectronTribal
+  special: # register with PlayerRobot faction so Loremaster tab can detect this job
+  - !type:AddComponentSpecial
+    components:
+    - type: NpcFactionMember
+      factions:
+      - PlayerRobot
+      - Wastelander
+      - Tribal
+
+- type: playTimeTracker
+  id: SyntheticProtectronTribal

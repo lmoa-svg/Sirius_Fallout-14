@@ -6,7 +6,7 @@
 - type: job
   id: CaesarLegionPriestessOfMars
   setPreference: true
-  hideWithoutJobWhitelist: false  # visible in all menus regardless of whitelist
+  hideWithoutJobWhitelist: true  # visible in all menus regardless of whitelist
   overrideConsoleVisibility: true # force display in crew manifest + job picker
   hideIfPlaytimeRequirementsNotMet: false
   jobWhitelistBypassesRoleTimers: true
@@ -30,7 +30,7 @@
   startingGear: CaesarLegionPriestessOfMarsGear
   alwaysUseSpawner: true
   icon: "JobIconlegionerRecruit"
-  supervisors: job-name-caesar-legion-other
+  supervisors: job-supervisor-caesar-legion-centurion
   canBeAntag: false
   # Priestesses share base Legion access; they are not combatants and gain
   # no additional restricted-area access beyond a standard Recruit.
@@ -56,8 +56,11 @@
           warcryMessage: warcry-message-mars
           warcryMessageCount: 6
           buffPopup: warcry-popup-buffed-mars
+          excludedJobs:
+          - SuperMutantGladiator
           cautionPopup: true
           activatorJobs:
+          - CaesarLegionVexillarius
           - CaesarLegionDean
           - CaesarLegionPrimeDecanus
           - CaesarLegionVeteranDecanus
@@ -80,16 +83,14 @@
     belt: N14PriestessOfMarsSatchel
     ears: N14ClothingHeadsetLegion
     back: N14ClothingBackpackMilitary
-    id: N14IDLegionaryMedalRecruit
-    pocket1: LegionPriestessLoadoutKits
+    id: N14IDLegionaryBadgePriestessOfMars
+    outerClothing: N14ClothingOuterLegionnaireReconnaissanceArmor
+    pocket2: N14Whip
   storage:
     back:
       - N14BoxPlasticFilledMilitaryLegion
       - N14HealingPowder
-      - N14HealingPowder
       - N14HealingPoultice
-      - N14HealingPoultice
-      - N14Hydra
 
 # Playtime tracker — accumulated hours unlock future female Legion ranks.
 - type: playTimeTracker

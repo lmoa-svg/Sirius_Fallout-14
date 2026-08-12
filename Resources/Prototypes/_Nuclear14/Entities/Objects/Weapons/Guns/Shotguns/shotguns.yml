@@ -279,13 +279,16 @@
     proto: N14ShellShotgun20
     soundInsert:
       path: /Audio/_Nuclear14/Weapons/Effects/Reload/Shotguns/shotgun_insert.ogg
-  - type: GunRequiresWield
+  - type: Wieldable
+  - type: GunWieldBonus
+    minAngle: -15
+    maxAngle: -40
   - type: Gun
     minAngle: 23
     maxAngle: 104
     angleIncrease: 4
     angleDecay: 16
-    fireRate: 1
+    fireRate: 1.5 #sirius change
     soundGunshot:
       collection: N14LeverShotgunGunshot
   - type: StaticPrice
@@ -397,7 +400,7 @@
   description: A semi automatic combat shotgun with a integrated drum mag, uses 12 gauge shells.
   components:
   - type: Gun
-    fireRate: 2
+    fireRate: 3 #sirius change
     soundGunshot:
       collection: N14ShotgunGunshot
   - type: GunRequiresWield
@@ -515,7 +518,7 @@
     whitelist:
       tags:
       - N14ShellShotgun12
-    capacity: 2
+    capacity: 3 #sirius change
     proto: N14ShellShotgun12
     soundInsert:
       path: /Audio/_Nuclear14/Weapons/Effects/Reload/Shotguns/shotgun_insert.ogg
@@ -537,7 +540,7 @@
   - type: IncreaseDamageOnWield
     damage:
       types:
-        Blunt: 12
+        Blunt: 24 #sirius change
   - type: DamageOtherOnHit
     damage:
       types:
@@ -572,7 +575,7 @@
     whitelist:
       tags:
       - N14ShellShotgun12
-    capacity: 2
+    capacity: 3 #sirius change
     proto: N14ShellShotgun12
     soundInsert:
       path: /Audio/_Nuclear14/Weapons/Effects/Reload/Shotguns/shotgun_insert.ogg
@@ -595,8 +598,8 @@
   - type: IncreaseDamageOnWield
     damage:
       types:
-        Piercing: 6
-        Slash: 4
+        Piercing: 12 #sirius change
+        Slash: 8 #sirius change
   - type: DamageOtherOnHit
     damage:
       types:
@@ -686,12 +689,16 @@
     backStrength: 4
   - type: StaticPrice
     price: 90
+  - type: GunDamageBonus
+    bonusDamage:
+      types:
+        Piercing: 3
 
 - type: entity
   name: Neostead 2000
   parent: N14WeaponShotgunBase
   id: N14WeaponShotgunNeostead
-  description: A Brotherhood-issue semi-automatic shotgun fed from twin underbarrel tubes holding twelve shells total. Technology well ahead of the pre-war mainstream — and very hard to find outside Brotherhood hands.
+  description: A Brotherhood-issue semi-automatic shotgun fed from twin underbarrel tubes holding ten shells total. Technology well ahead of the pre-war mainstream — This one has the markings of Legion make.
   components:
   - type: Clothing
     sprite: _Nuclear14/Objects/Weapons/Guns/Shotguns/neostead.rsi
@@ -710,7 +717,7 @@
     maxAngle: 50
     angleIncrease: 4
     angleDecay: 14
-    fireRate: 3
+    fireRate: 2.5
     selectedMode: SemiAuto
     availableModes:
     - SemiAuto
@@ -720,7 +727,7 @@
     whitelist:
       tags:
       - N14ShellShotgun12
-    capacity: 12
+    capacity: 12 #sirius change
     proto: N14ShellShotgun12
     soundInsert:
       path: /Audio/_Nuclear14/Weapons/Effects/Reload/Shotguns/shotgun_insert.ogg
@@ -728,3 +735,7 @@
     backStrength: 4
   - type: StaticPrice
     price: 350
+  - type: GunDamageBonus
+    bonusDamage:
+      types:
+        Piercing: 3

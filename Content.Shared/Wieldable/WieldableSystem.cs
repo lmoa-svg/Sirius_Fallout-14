@@ -1,8 +1,10 @@
 using System.Linq;
+using Content.Shared._Misfits.Wielding;
 using Content.Shared.Examine;
 using Content.Shared.Hands;
 using Content.Shared.Hands.Components;
 using Content.Shared.Hands.EntitySystems;
+using Content.Shared.Humanoid;
 using Content.Shared.IdentityManagement;
 using Content.Shared.Interaction.Events;
 using Content.Shared.Inventory.VirtualItem;
@@ -113,6 +115,16 @@ public sealed class WieldableSystem : EntitySystem
     private void OnRefreshMovementSpeedModifiers(EntityUid uid, WieldableComponent component, ref HeldRelayedEvent<RefreshMovementSpeedModifiersEvent> args)
     {
         if (!component.Wielded)
+            return;
+
+        if (HasComp<MeleeWeaponComponent>(uid) &&
+            TryComp<HumanoidAppearanceComponent>(args.Holder, out var humanoid) &&
+            (humanoid.Species == "SuperMutant" || humanoid.Species == "Nightkin"))
+            return;
+
+        // #Misfits Change - gun handling modifier holders (player nightkin) don't slow down with guns
+        if (HasComp<GunComponent>(uid) &&
+            HasComp<Content.Shared._Misfits.Nightkin.GunHandlingModifierComponent>(args.Holder))
             return;
 
         var speedModifier = component.WieldedSpeedModifier;
@@ -258,7 +270,7 @@ public sealed class WieldableSystem : EntitySystem
         if (!CanWield(used, component, user))
             return false;
 
-        var ev = new BeforeWieldEvent();
+        var ev = new BeforeWieldEvent(user);
         RaiseLocalEvent(used, ev);
 
         if (ev.Cancelled)
@@ -304,6 +316,10 @@ public sealed class WieldableSystem : EntitySystem
         var othersMessage = Loc.GetString("wieldable-component-successful-wield-other", ("user", Identity.Entity(user, EntityManager)), ("item", used));
         _popupSystem.PopupPredicted(selfMessage, othersMessage, user, user);
 
+        // Misfits Change - more functional ItemWieldedEvent
+        var misfEv = new MisfitsItemWieldedEvent(user);
+        RaiseLocalEvent(used, misfEv);
+        // Misfits Change End
         var targEv = new ItemWieldedEvent();
         RaiseLocalEvent(used, ref targEv);
 

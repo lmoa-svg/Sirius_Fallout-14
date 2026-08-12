@@ -33,6 +33,13 @@ public sealed partial class StencilOverlay : Overlay
     private IRenderTexture? _blep;
 
     private readonly ShaderInstance _shader;
+    private readonly ShaderInstance _weatherDrawShader;
+
+    // #Misfits Fix - Stencil mask throttle: while the view is static the roofed-tile
+    // stencil mask only needs rebuilding at 4 Hz to catch tile/roof changes, instead
+    // of every frame. Any view change rebuilds it, since the mask is screen space.
+    private float _stencilAccum;
+    private Matrix3x2 _lastStencilMatrix;
 
     public StencilOverlay(ParallaxSystem parallax, SharedTransformSystem transform, SpriteSystem sprite, WeatherSystem weather)
     {
@@ -43,6 +50,7 @@ public sealed partial class StencilOverlay : Overlay
         _weather = weather;
         IoCManager.InjectDependencies(this);
         _shader = _protoManager.Index<ShaderPrototype>("WorldGradientCircle").InstanceUnique();
+        _weatherDrawShader = _protoManager.Index<ShaderPrototype>("WeatherDraw").InstanceUnique();
     }
 
     protected override void Draw(in OverlayDrawArgs args)

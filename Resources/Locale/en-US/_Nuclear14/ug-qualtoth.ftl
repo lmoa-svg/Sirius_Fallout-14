@@ -69,15 +69,15 @@ ug-qualtoth-stage1-private =
 ug-qualtoth-stage1-emote =
     clutches their right hand, bones audibly cracking as the fingers twist into something inhuman.
 
-# ── Stage 2: full right arm ────────────────────────────────────────────────
+# ── Stage 2: full left arm ────────────────────────────────────────────────
 
 ug-qualtoth-stage2-private =
-    The corruption crawls upward from your hand. Your entire right arm reshapes —
+    The corruption crawls upward from your hand. Your entire left arm reshapes —
     tendons snap and re-knot, muscle thickens into something alien.
     You flex it. It responds. It is no longer entirely yours.
 
 ug-qualtoth-stage2-emote =
-    seizes as their right arm convulses from wrist to shoulder, the limb twisting into a grotesque new form.
+    seizes as their left arm convulses from wrist to shoulder, the limb twisting into a grotesque new form.
 
 # ── Stage 3: chest and legs, head untouched ───────────────────────────────
 
@@ -101,3 +101,6 @@ ug-qualtoth-stage4-private =
 ug-qualtoth-stage4-emote =
     is consumed from the inside out in a cascade of splitting flesh — and then something
     entirely different rises from what remains.
+
+ug-qualtoth-stage4-announcement =
+    Wasteland reports say another worshipper of Ug-Qualtoth has completed a foul ascension. Identifiable features include a obelisk like structure protruding from the individuals head (KOS-ABLE, Combat-rules do not apply)

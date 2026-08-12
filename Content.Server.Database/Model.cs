@@ -228,6 +228,11 @@ namespace Content.Server.Database
                 .HasIndex(p => p.UserId)
                 .IsUnique();
 
+            // #Misfits Add - Keep one Discord account linked to one existing player account.
+            modelBuilder.Entity<Player>()
+                .HasIndex(p => p.DiscordId)
+                .IsUnique();
+
             modelBuilder.Entity<Player>()
                 .HasIndex(p => p.LastSeenUserName);
 
@@ -454,6 +459,13 @@ namespace Content.Server.Database
         public string BarkVoice { get; set; } = null!; // Corvax-Fallout-Barks
         public string Voice { get; set; } = null!; // Corvax-TTS
         public string SpeechVerbPreference { get; set; } = "Default"; // #Misfits Add - vocal style
+        public int SpecialStrength { get; set; } = 5; // #Misfits Add - character profile SPECIAL
+        public int SpecialPerception { get; set; } = 5;
+        public int SpecialEndurance { get; set; } = 5;
+        public int SpecialCharisma { get; set; } = 5;
+        public int SpecialIntelligence { get; set; } = 5;
+        public int SpecialAgility { get; set; } = 5;
+        public int SpecialLuck { get; set; } = 5;
         public float Height { get; set; } = 1f;
         public float Width { get; set; } = 1f;
         [Column(TypeName = "jsonb")] public JsonDocument? Markings { get; set; } = null!;
@@ -556,6 +568,7 @@ namespace Content.Server.Database
 
         // Data that gets updated on each join.
         public string LastSeenUserName { get; set; } = null!;
+        public string? DiscordId { get; set; } // #Misfits Add - Discord account linked to this existing player account
         public DateTime LastSeenTime { get; set; }
         public IPAddress LastSeenAddress { get; set; } = null!;
         public TypedHwid? LastSeenHWId { get; set; }
@@ -1073,13 +1086,13 @@ namespace Content.Server.Database
         [Required]
         public string CharacterName { get; set; } = null!;
 
-        public int Strength { get; set; } = 1;
-        public int Perception { get; set; } = 1;
-        public int Endurance { get; set; } = 1;
-        public int Charisma { get; set; } = 1;
-        public int Intelligence { get; set; } = 1;
-        public int Agility { get; set; } = 1;
-        public int Luck { get; set; } = 1;
+        public int Strength { get; set; } = 5;
+        public int Perception { get; set; } = 5;
+        public int Endurance { get; set; } = 5;
+        public int Charisma { get; set; } = 5;
+        public int Intelligence { get; set; } = 5;
+        public int Agility { get; set; } = 5;
+        public int Luck { get; set; } = 5;
 
         public int MobKills { get; set; }
         public int Deaths { get; set; }

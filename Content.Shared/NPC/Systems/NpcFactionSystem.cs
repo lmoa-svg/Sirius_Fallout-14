@@ -1,7 +1,11 @@
+using Content.Shared._Misfits.StealthBoy;
 using Content.Shared.NPC.Components;
 using Content.Shared.NPC.Events;
 using Content.Shared.NPC.Prototypes;
+using Content.Shared.Stealth;
+using Content.Shared.Stealth.Components;
 using Robust.Shared.Prototypes;
+using Robust.Shared.Timing;
 using System.Collections.Frozen;
 using System.Linq;
 
@@ -15,7 +19,13 @@ public sealed partial class NpcFactionSystem : EntitySystem
 {
     [Dependency] private readonly EntityLookupSystem _lookup = default!;
     [Dependency] private readonly IPrototypeManager _proto = default!;
+    [Dependency] private readonly SharedStealthSystem _stealth = default!;
     [Dependency] private readonly SharedTransformSystem _xform = default!;
+    [Dependency] private readonly IGameTiming _timing = default!;
+
+    // #Misfits Add - stealth boy users below this visibility are invisible to NPC targeting.
+    // Nightkin deep cloak sits at -1 still / 0.1 walking, the normal 0.3 shimmer stays detectable.
+    private const float NpcDetectionVisibility = 0.15f;
 
     /// <summary>
     /// To avoid prototype mutability we store an intermediary data class that gets used instead.
@@ -214,6 +224,15 @@ public sealed partial class NpcFactionSystem : EntitySystem
             if (!factions.Overlaps(ent.Comp.Factions))
                 continue;
 
+            // #Misfits Add - deeply cloaked stealth boy users don't show up on NPC
+            // senses, unless a recent attack has given them away.
+            if (TryComp<StealthBoyActiveComponent>(ent.Owner, out var active) &&
+                _timing.CurTime >= active.RevealedUntil &&
+                TryComp<StealthComponent>(ent.Owner, out var stealth) &&
+                stealth.Enabled &&
+                _stealth.GetVisibility(ent.Owner, stealth) <= NpcDetectionVisibility)
+                continue;
+
             yield return ent.Owner;
         }
     }
@@ -232,6 +251,20 @@ public sealed partial class NpcFactionSystem : EntitySystem
                 return false;
 
         return intersect.Count() > 0 || ent.Comp.FriendlyFactions.Overlaps(other.Comp.Factions);
+    }
+
+    public bool IsEntityHostile(Entity<NpcFactionMemberComponent?, FactionExceptionComponent?> ent, Entity<NpcFactionMemberComponent?> other)
+    {
+        if (!Resolve(ent, ref ent.Comp1, false) || !Resolve(other, ref other.Comp, false))
+            return false;
+
+        foreach (var faction in ent.Comp1.HostileFactions)
+        {
+            if (other.Comp.Factions.Contains(faction))
+                return true;
+        }
+
+        return Resolve(ent, ref ent.Comp2, false) && IsAggroed((ent.Owner, ent.Comp2), other.Owner);
     }
 
     public bool IsFactionFriendly(string target, string with)

@@ -1,4 +1,4 @@
-# MARK: Guns
+﻿# MARK: Guns
 
 # - type: latheRecipe
 #   id: N14WeaponPistol10mmPipe
@@ -303,6 +303,18 @@
   materials:
     Steel: 600
 
+- type: latheRecipe
+  id: N14ModularGrenade
+  icon:
+    sprite: Objects/Weapons/Grenades/modular.rsi
+    state: empty
+  result: ModularGrenade
+  category: N14Weapons
+  completetime: 10
+  materials:
+    Steel: 300
+
+
 # Misfits Add: Recipes for payloads because there is none for modular mines.
 - type: latheRecipe
   id: N14ChemicalPayload
@@ -310,7 +322,7 @@
   category: N14Weapons
   completetime: 10
   materials:
-    Circuitry: 300
+    Circuitry: 200
     Steel: 400
 
 - type: latheRecipe

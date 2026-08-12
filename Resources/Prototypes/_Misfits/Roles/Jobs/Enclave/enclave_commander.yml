@@ -17,16 +17,19 @@
     - !type:CharacterSpeciesRequirement
       species:
       - Human
-      - Ghoul
-      - SuperMutant
     - !type:CharacterDepartmentTimeRequirement # #Misfits Tweak - T7 faction timelock (40h Enclave)
       department: Enclave
       min: 144000 # 40 hours
     - !type:CharacterPlaytimeRequirement
       tracker: EnclaveSeniorOfficer
       min: 43200 # 12 hours
+    - !type:CharacterTraitRequirement
+      inverted: true
+      traits:
+        - N14Muted
+        - N14Pacifist
   startingGear: EnclaveCommanderGear
-  icon: "JobIconHeadOfSecurity"
+  icon: "JobIconEnclaveCommander"
   supervisors: job-supervisors-enclave-commander
   requireAdminNotify: true
   alwaysUseSpawner: true
@@ -38,6 +41,7 @@
       - type: NpcFactionMember
         factions:
           - Enclave
+      - type: PowerArmorProficiency
 
 - type: startingGear
   id: EnclaveCommanderGear
@@ -45,20 +49,20 @@
     head: N14ClothingHeadHatEnclaveOfficer
     back: N14ClothingBackpackMilitary
     jumpsuit: N14ClothingUniformJumpsuitEnclave
-    outerClothing: N14ClothingOuterEnclaverOfficerCoat
+    outerClothing: N14ClothingOuterPowerArmorAdvanced2HellfireMisfit
     shoes: N14ClothingBootsCombatFilled
     gloves: N14ClothingHandsGlovesCombat
-    neck: ClothingNeckPinEnclaveColonel
     belt: ClothingBeltMilitary
     ears: N14ClothingHeadsetEnclave
     pocket1: EnclaveOfficerloadoutkits
     pocket2: RadioHandheld
-    id: N14IDEnclaveOfficer
+    id: SiriusIDEnclaveCommander
   satchel: N14ClothingBackpackSatchelMilitaryFilled
   duffelbag: N14ClothingBackpackDuffelMilitaryFilled
   storage:
     back:
     - N14BoxPlasticFilledMilitary
+    - SiriusRubberStampEnclaveCommander
 
 - type: playTimeTracker
   id: EnclaveCommander

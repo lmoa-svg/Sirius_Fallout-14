@@ -4,8 +4,10 @@ using System.Collections.Generic;
 using Content.Server.Access.Components;
 using Content.Server.Chat.Managers; // #Misfits Add - faction death alert chat dispatch
 using Content.Server._Misfits.Group; // #Misfits Add - group blip injection
+using Content.Server._Misfits.Overwatch;
 using Content.Server._Misfits.TribalHunt;
 using Content.Shared.Access.Components;
+using Content.Shared.Humanoid; // #Misfits Add - Followers casualty filter for humanoid player bodies only
 using Content.Shared.Mind; // #Misfits Add - MindComponent (OriginalOwnerUserId player check)
 using Content.Shared.Mind.Components; // #Misfits Add - MindContainerComponent
 using Content.Shared.Mobs; // #Misfits Add - MobState, MobStateChangedEvent
@@ -15,11 +17,18 @@ using Content.Shared.Tag;
 using Content.Shared._Misfits.WastelandMap;
 using Content.Shared._Misfits.TribalHunt;
 using Content.Shared.NPC.Components; // NpcFactionMemberComponent
+using Content.Shared.Roles.Jobs; // #Misfits Add - leadership job lookup for Tree TacMap access
 using Content.Shared.UserInterface;
 using Robust.Server.GameObjects;
 using Robust.Shared.GameObjects;
 using Robust.Shared.Map;
+using Robust.Shared.Map.Components; // #Misfits Add - MapGridComponent for auto-bounds
 using Robust.Shared.Player; // #Misfits Add - ActorComponent for faction filter iteration
+using Robust.Shared.Utility; // #Misfits Add - ResPath for auto-detect
+// #Misfits Add - MapId→gameMap tracking for auto-detect
+using Content.Server.GameTicking;
+using Content.Server.Maps;
+using Robust.Shared.Prototypes;
 
 namespace Content.Server._Misfits.WastelandMap;
 
@@ -33,10 +42,16 @@ public sealed class WastelandMapSystem : EntitySystem
     [Dependency] private readonly UserInterfaceSystem _uiSystem = default!;
     [Dependency] private readonly SharedTransformSystem _transform = default!;
     [Dependency] private readonly TagSystem _tag = default!;
+    [Dependency] private readonly SharedMindSystem _mind = default!; // #Misfits Add - Tree map leadership lookup
+    [Dependency] private readonly SharedJobSystem _jobs = default!; // #Misfits Add - Tree map leadership lookup
     [Dependency] private readonly GroupSystem _groupSystem = default!; // #Misfits Add - group member map blips
     // #Misfits Add - Followers dead body tracking & death alerts
     [Dependency] private readonly MobStateSystem _mobState = default!;
     [Dependency] private readonly IChatManager _chatManager = default!;
+    // #Misfits Add - Auto-detect map bounds and texture
+    [Dependency] private readonly IMapManager _mapManager = default!;
+    [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
+    [Dependency] private readonly SharedMapSystem _mapSystem = default!;
 
     private const int MaxSharedAnnotations = 128;
     private const int MaxStrokePoints = 512; // 256 UV points × 2 floats each
@@ -48,6 +63,11 @@ public sealed class WastelandMapSystem : EntitySystem
 
     // #Misfits Add - Scratch buffer for Followers death-alert session dispatch.
     private readonly List<ICommonSession> _followerSessionScratch = new();
+
+    // #Misfits Add - Track which GameMapPrototype ID was used for each loaded MapId.
+    // Populated by PostGameMapLoad; used by ResolveMapConfig to look up
+    // WastelandMapConfig prototypes for auto-detecting map texture and bounds.
+    private readonly Dictionary<MapId, string> _gameMapByMapId = new();
 
     // #Misfits Add - Scratch buffers + tick-local cache for BuildState.
     // At 150 pop with many open wasteland maps, the 2.5s sweep was the single hottest user-
@@ -63,11 +83,97 @@ public sealed class WastelandMapSystem : EntitySystem
     {
         base.Initialize();
         SubscribeLocalEvent<WastelandMapComponent, AfterActivatableUIOpenEvent>(OnAfterOpen);
+        SubscribeLocalEvent<WastelandMapComponent, ActivatableUIOpenAttemptEvent>(OnOpenAttempt); // #Misfits Add - optional Tree map job gate
         SubscribeLocalEvent<WastelandMapComponent, WastelandMapAddAnnotationMessage>(OnAddAnnotationMessage);
         SubscribeLocalEvent<WastelandMapComponent, WastelandMapRemoveAnnotationMessage>(OnRemoveAnnotationMessage);
         SubscribeLocalEvent<WastelandMapComponent, WastelandMapClearAnnotationsMessage>(OnClearAnnotationsMessage);
-        // #Misfits Add - notify Followers players when any player-controlled entity dies
+        // #Misfits Add - notify Followers players when a player humanoid dies
         SubscribeLocalEvent<MindContainerComponent, MobStateChangedEvent>(OnMindedEntityMobStateChanged);
+        // #Misfits Add - track MapId→gameMap for auto-detect bounds/texture
+        SubscribeLocalEvent<PostGameMapLoad>(OnPostGameMapLoad);
+    }
+
+    // #Misfits Add - Track MapId→gameMap prototype ID so BuildState can auto-resolve
+    // the correct WastelandMapConfig (texture path + world bounds) for each game map.
+    private void OnPostGameMapLoad(PostGameMapLoad ev)
+    {
+        _gameMapByMapId[ev.Map] = ev.GameMap.ID;
+    }
+
+    // #Misfits Add - Resolve map texture path and world bounds for auto-detect.
+    // Priority:
+    //   1. If component has explicit MapTexturePath/WorldBounds (not default), use them.
+    //   2. If component has MapConfigId set, look up that WastelandMapConfig prototype.
+    //   3. If we know the MapId's game map (from PostGameMapLoad), look up config by that ID.
+    //   4. Fall back to computing world bounds from all grids on the given MapId.
+    private (ResPath TexturePath, Box2 Bounds) ResolveMapConfig(
+        WastelandMapComponent comp, MapId mapId)
+    {
+        // Priority 1: component has explicit values
+        if (comp.MapTexturePath != null && comp.WorldBounds != default)
+            return (comp.MapTexturePath.Value, comp.WorldBounds);
+
+        // Priority 2: explicit MapConfigId on the component
+        WastelandMapConfigPrototype? config = null;
+        if (comp.MapConfigId != null)
+            _prototypeManager.TryIndex(comp.MapConfigId, out config);
+
+        // Priority 3: look up by game map ID from PostGameMapLoad tracking
+        if (config == null && _gameMapByMapId.TryGetValue(mapId, out var gameMapId))
+            _prototypeManager.TryIndex(gameMapId, out config);
+
+        if (config != null)
+        {
+            var texPath = comp.MapTexturePath ?? config.MapTexturePath;
+            var bounds = comp.WorldBounds != default ? comp.WorldBounds : config.WorldBounds;
+            // If still default after config, compute from grids
+            if (bounds == default)
+                bounds = ComputeMapBounds(mapId);
+            return (texPath, bounds);
+        }
+
+        // Priority 4: compute from grids
+        var fallbackTex = comp.MapTexturePath ?? new ResPath("_Misfits/Maps/wendover_map.png");
+        var fallbackBounds = comp.WorldBounds != default ? comp.WorldBounds : ComputeMapBounds(mapId);
+        return (fallbackTex, fallbackBounds);
+    }
+
+    // #Misfits Add - Compute the combined world AABB of all grids on a MapId.
+    private Box2 ComputeMapBounds(MapId mapId)
+    {
+        var bounds = new Box2(float.MaxValue, float.MaxValue, float.MinValue, float.MinValue);
+        var any = false;
+
+        foreach (var grid in _mapManager.GetAllGrids(mapId))
+        {
+            var gridBounds = grid.Comp.LocalAABB;
+            if (gridBounds.IsEmpty())
+                continue;
+            any = true;
+            // #Misfits Fix - Map-grid combos may have empty LocalAABB but non-empty tile data.
+            // Compute from tiles in that case (same pattern as MapPainter).
+            if (gridBounds.IsEmpty() && grid.Comp.ChunkCount > 0)
+            {
+                int minX = int.MaxValue, minY = int.MaxValue;
+                int maxX = int.MinValue, maxY = int.MinValue;
+                var enumerator = _mapSystem.GetAllTilesEnumerator(grid.Owner, grid.Comp);
+                while (enumerator.MoveNext(out var tileRef))
+                {
+                    if (tileRef.Value.X < minX) minX = tileRef.Value.X;
+                    if (tileRef.Value.X > maxX) maxX = tileRef.Value.X;
+                    if (tileRef.Value.Y < minY) minY = tileRef.Value.Y;
+                    if (tileRef.Value.Y > maxY) maxY = tileRef.Value.Y;
+                }
+                if (minX <= maxX)
+                {
+                    gridBounds = new Box2(minX, minY, maxX + 1, maxY + 1);
+                    any = true;
+                }
+            }
+            bounds = bounds.Union(gridBounds);
+        }
+
+        return any ? bounds : new Box2(-517, -308, 484, 311); // fallback to Wendover bounds
     }
 
     public override void Update(float frameTime)
@@ -102,7 +208,7 @@ public sealed class WastelandMapSystem : EntitySystem
                 if (firstActor == null)
                     continue;
 
-                _uiSystem.SetUiState((uid, ui), WastelandMapUiKey.Key, BuildState(map, viewerMap, actor: firstActor));
+                _uiSystem.SetUiState((uid, ui), WastelandMapUiKey.Key, BuildState(uid, map, viewerMap, actor: firstActor));
             }
         }
         finally
@@ -116,7 +222,26 @@ public sealed class WastelandMapSystem : EntitySystem
     {
         var userMap = Transform(args.User).MapID;
         // #Misfits Add - pass the user so group member blips are seeded correctly on open
-        _uiSystem.SetUiState(uid, WastelandMapUiKey.Key, BuildState(comp, userMap, actor: args.User));
+        _uiSystem.SetUiState(uid, WastelandMapUiKey.Key, BuildState(uid, comp, userMap, actor: args.User));
+    }
+
+    // #Misfits Add - preserve unrestricted maps unless they define a leadership allowlist.
+    private void OnOpenAttempt(Entity<WastelandMapComponent> ent, ref ActivatableUIOpenAttemptEvent args)
+    {
+        if (args.Cancelled || CanOpenMap(args.User, ent.Comp))
+            return;
+
+        args.Cancel();
+    }
+
+    internal bool CanOpenMap(EntityUid user, WastelandMapComponent component)
+    {
+        if (component.ActivatorJobs is not { Count: > 0 })
+            return true;
+
+        return _mind.TryGetMind(user, out var mindId, out _)
+            && _jobs.MindTryGetJob(mindId, out _, out var job)
+            && component.ActivatorJobs.Contains(job.ID);
     }
 
     private void OnAddAnnotationMessage(EntityUid uid, WastelandMapComponent comp, WastelandMapAddAnnotationMessage args)
@@ -146,20 +271,33 @@ public sealed class WastelandMapSystem : EntitySystem
     // #Misfits Add - optional actor param so group-member blips can be injected per-viewer
     public WastelandMapBoundUserInterfaceState BuildState(WastelandMapComponent comp, MapId mapId, WastelandMapTacticalFeedKind? feedOverride = null, EntityUid? actor = null)
     {
+        return BuildState(null, comp, mapId, feedOverride, actor);
+    }
+
+    // #Misfits Add - optional uid lets fixed TacMap entities expose Overwatch without leaking it to cartridges/HUDs.
+    public WastelandMapBoundUserInterfaceState BuildState(EntityUid? uid, WastelandMapComponent comp, MapId mapId, WastelandMapTacticalFeedKind? feedOverride = null, EntityUid? actor = null)
+    {
+        // #Misfits Add - auto-detect map texture and bounds if not hardcoded
+        var (texPath, bounds) = ResolveMapConfig(comp, mapId);
+
         var feed = feedOverride ?? GetEffectiveFeed(comp);
-        var trackedBlips = GetTrackedBlips(feed, mapId, comp.WorldBounds, actor);
+        var trackedBlips = GetTrackedBlips(feed, mapId, bounds, actor);
         var sharedAnnotations = GetSharedAnnotations(comp, mapId, feed).ToArray();
+        var overwatch = uid == null
+            ? null
+            : EntityManager.System<OverwatchConsoleSystem>().BuildUiState(uid.Value);
 
         return new WastelandMapBoundUserInterfaceState(
             comp.MapTitle,
-            comp.MapTexturePath.ToString(),
+            texPath.ToString(),
             comp.CompactHud,
-            comp.WorldBounds.Left,
-            comp.WorldBounds.Bottom,
-            comp.WorldBounds.Right,
-            comp.WorldBounds.Top,
+            bounds.Left,
+            bounds.Bottom,
+            bounds.Right,
+            bounds.Top,
             trackedBlips,
-            sharedAnnotations);
+            sharedAnnotations,
+            overwatch);
     }
 
     public WastelandMapTacticalFeedKind GetEffectiveFeed(WastelandMapComponent comp)
@@ -211,7 +349,18 @@ public sealed class WastelandMapSystem : EntitySystem
         if (!TryComp<UserInterfaceComponent>(uid, out var ui))
             return;
 
-        _uiSystem.SetUiState((uid, ui), WastelandMapUiKey.Key, BuildState(comp, mapId ?? Transform(uid).MapID));
+        _uiSystem.SetUiState((uid, ui), WastelandMapUiKey.Key, BuildState(uid, comp, mapId ?? Transform(uid).MapID));
+    }
+
+    public void RefreshUi(EntityUid uid, EntityUid actor)
+    {
+        if (!TryComp<WastelandMapComponent>(uid, out var comp) ||
+            !TryComp<UserInterfaceComponent>(uid, out var ui))
+        {
+            return;
+        }
+
+        _uiSystem.SetUiState((uid, ui), WastelandMapUiKey.Key, BuildState(uid, comp, Transform(actor).MapID, actor: actor));
     }
 
     private static WastelandMapAnnotation? SanitizeAnnotation(WastelandMapAnnotation annotation)
@@ -283,14 +432,15 @@ public sealed class WastelandMapSystem : EntitySystem
         {
             _blipScratch.Clear();
             AppendFactionBlips(_blipScratch, feed, mapId, bounds);
-            AppendTribalHuntTargetBlips(_blipScratch, mapId, bounds);
+            if (AllowsSharedOverlays(feed)) // #Misfits Change - Tribe maps are tagged-ID-only.
+                AppendTribalHuntTargetBlips(_blipScratch, mapId, bounds);
             nonActorBlips = _blipScratch.ToArray();
             if (_inUpdateSweep)
                 _nonActorCache[cacheKey] = nonActorBlips;
         }
 
         // Group blips are per-actor and therefore never cached across viewers.
-        if (actor.HasValue)
+        if (actor.HasValue && AllowsSharedOverlays(feed)) // #Misfits Change - Tribe maps exclude viewer-specific group overlays.
         {
             _groupScratch.Clear();
             AppendGroupMemberBlips(_groupScratch, actor.Value, mapId, bounds);
@@ -305,6 +455,12 @@ public sealed class WastelandMapSystem : EntitySystem
         }
 
         return nonActorBlips;
+    }
+
+    // #Misfits Add - keep the Tribe feed limited to its explicitly tagged identification items.
+    internal bool AllowsSharedOverlays(WastelandMapTacticalFeedKind feed)
+    {
+        return feed != WastelandMapTacticalFeedKind.Tribe;
     }
 
     // #Misfits Add - Append the faction blip set for this feed into the supplied buffer.
@@ -327,7 +483,10 @@ public sealed class WastelandMapSystem : EntitySystem
             case WastelandMapTacticalFeedKind.Legion:
                 AppendIdCardBlips(buffer, mapId, bounds, "IdCardLegion");
                 break;
-            // #Misfits Add - Followers feed shows all dead player-controlled entities
+            case WastelandMapTacticalFeedKind.Tribe:
+                AppendIdCardBlips(buffer, mapId, bounds, "IdCardTribe"); // #Misfits Add - Willower pendant feed
+                break;
+            // #Misfits Add - Followers feed shows dead player humanoids
             case WastelandMapTacticalFeedKind.Followers:
                 AppendDeadBodyBlips(buffer, mapId, bounds);
                 break;
@@ -414,8 +573,7 @@ public sealed class WastelandMapSystem : EntitySystem
         }
     }
 
-    // #Misfits Add - Blips for dead player-controlled entities; used by the Followers tac-map feed.
-    // Only shows bodies whose OriginalMind was a real player (OriginalOwnerUserId set), filtering out NPCs.
+    // #Misfits Add - Blips for dead player humanoids; used by the Followers tac-map feed.
     private void AppendDeadBodyBlips(List<WastelandMapTrackedBlip> buffer, MapId mapId, Box2 bounds)
     {
         var query = EntityQueryEnumerator<MindContainerComponent, MobStateComponent, TransformComponent>();
@@ -424,11 +582,7 @@ public sealed class WastelandMapSystem : EntitySystem
             if (!_mobState.IsDead(uid, mobState))
                 continue;
 
-            // Require the entity to have had a real player mind at some point.
-            if (mindContainer.OriginalMind == null)
-                continue;
-            if (!TryComp<MindComponent>(mindContainer.OriginalMind.Value, out var mindComp)
-                || mindComp.OriginalOwnerUserId == null)
+            if (!IsFollowersTrackableCasualty(uid, mindContainer))
                 continue;
 
             var mapCoords = _transform.GetMapCoordinates(uid, xform);
@@ -439,8 +593,22 @@ public sealed class WastelandMapSystem : EntitySystem
             if (!bounds.Contains(pos))
                 continue;
 
-            buffer.Add(new WastelandMapTrackedBlip(pos.X, pos.Y, Name(uid), WastelandMapTrackedBlipKind.DeadBody));
+            buffer.Add(new WastelandMapTrackedBlip(pos.X, pos.Y, Loc.GetString("followers-missing-person"), WastelandMapTrackedBlipKind.DeadBody));
         }
+    }
+
+    private bool IsFollowersTrackableCasualty(EntityUid uid, MindContainerComponent mindContainer)
+    {
+        // Some non-humanoid entities can temporarily have a player mind, e.g. controlled
+        // creatures or ghost roles. Followers rescue alerts are only for humanoid characters.
+        if (!HasComp<HumanoidAppearanceComponent>(uid))
+            return false;
+
+        if (mindContainer.OriginalMind == null)
+            return false;
+
+        return TryComp<MindComponent>(mindContainer.OriginalMind.Value, out var mindComp)
+            && mindComp.OriginalOwnerUserId != null;
     }
 
     // #Misfits Add - Notify Followers on player death and immediately refresh maps on revival.
@@ -452,11 +620,8 @@ public sealed class WastelandMapSystem : EntitySystem
         if (!wasDead && !isDead)
             return;
 
-        // Ignore NPCs — only act on real player characters.
-        if (comp.OriginalMind == null)
-            return;
-        if (!TryComp<MindComponent>(comp.OriginalMind.Value, out var mindComp)
-            || mindComp.OriginalOwnerUserId == null)
+        // Ignore NPCs and controlled creatures; only act on real humanoid player characters.
+        if (!IsFollowersTrackableCasualty(uid, comp))
             return;
 
         if (isDead)
@@ -478,7 +643,7 @@ public sealed class WastelandMapSystem : EntitySystem
 
             if (_followerSessionScratch.Count > 0)
             {
-                var msg = Loc.GetString("followers-death-alert", ("name", Name(uid)));
+                var msg = Loc.GetString("followers-death-alert");
                 foreach (var session in _followerSessionScratch)
                     _chatManager.DispatchServerMessage(session, msg);
             }
@@ -511,7 +676,7 @@ public sealed class WastelandMapSystem : EntitySystem
                 continue;
 
             _uiSystem.SetUiState((uid, ui), WastelandMapUiKey.Key,
-                BuildState(map, xform.MapID));
+                BuildState(uid, map, xform.MapID));
         }
     }
 
@@ -559,6 +724,11 @@ public sealed class WastelandMapSystem : EntitySystem
 
     private static WastelandMapTrackedBlipKind GetHolotagKind(IdCardComponent idCard, PresetIdCardComponent presetId, MetaDataComponent meta)
     {
+        // #Misfits Add - shared Willower marker for every tagged pendant/navigation card.
+        var jobId = presetId.JobName?.Id;
+        if (jobId is "TribalElder" or "TribalShaman" or "TribalFarmer" or "Tribal" or "SyntheticProtectronTribal")
+            return WastelandMapTrackedBlipKind.Willower;
+
         var rank = idCard.LocalizedJobTitle?.Trim();
         if (string.IsNullOrWhiteSpace(rank))
             rank = presetId.JobName?.ToString()?.Trim();
@@ -604,7 +774,7 @@ public sealed class WastelandMapSystem : EntitySystem
             source.Contains("vexillarius", StringComparison.OrdinalIgnoreCase) ||
             source.Contains("houndmaster", StringComparison.OrdinalIgnoreCase) ||
             source.Contains("frumentarii", StringComparison.OrdinalIgnoreCase) ||
-            source.Contains("orator", StringComparison.OrdinalIgnoreCase) ||
+            source.Contains("optio", StringComparison.OrdinalIgnoreCase) ||
             source.Contains("explorer", StringComparison.OrdinalIgnoreCase))
         {
             return WastelandMapTrackedBlipKind.LegionWarrior;

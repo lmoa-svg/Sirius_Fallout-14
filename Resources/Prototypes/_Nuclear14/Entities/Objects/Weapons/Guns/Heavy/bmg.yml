@@ -1,0 +1,63 @@
+#sirius change
+- type: entity
+  name: Browning Machine Gun
+  parent: BaseWeaponRifle
+  id: N14WeaponBMGSirius
+  description: The most significant Browning machine gun associated with the 1938 period is the M2HB (Heavy Barrel). Developed in 1938, this legendary .50-caliber (12.7 mm) heavy machine gun featured a lengthened, air-cooled barrel to improve sustained fire, striking energy, and range for ground and vehicle use.
+  components:
+  - type: Clothing
+    sprite: _Nuclear14/Objects/Weapons/Guns/Heavy/bmg.rsi
+  - type: Sprite
+    sprite: _Nuclear14/Objects/Weapons/Guns/Heavy/bmg.rsi
+    layers:
+      - state: base
+        map: ["enum.GunVisualLayers.Base"]
+      - state: mag-3
+        map: ["enum.GunVisualLayers.Mag"]
+  - type: Item
+    size: Huge
+    sprite: _Nuclear14/Objects/Weapons/Guns/Heavy/bmg.rsi
+  - type: Wieldable
+    wieldedSpeedModifier: 0.5
+  - type: GunRequiresWield
+  - type: GunWieldBonus
+    minAngle: -19
+    maxAngle: -30
+  - type: Gun
+    minAngle: 24
+    maxAngle: 60
+    angleIncrease: 4
+    angleDecay: 16
+    fireRate: 3
+    soundGunshot:
+      path: /Audio/Weapons/Guns/Gunshots/Heavyburst2.ogg
+    selectedMode: FullAuto
+    availableModes:
+    - FullAuto
+  - type: ItemSlots
+    slots:
+      gun_magazine:
+        name: Magazine
+        startingItem: Magazine50ammoBelt
+        insertSound: /Audio/Weapons/Guns/MagIn/ltrifle_magin.ogg
+        ejectSound: /Audio/Weapons/Guns/MagOut/ltrifle_magout.ogg
+        priority: 2
+        whitelist:
+          tags:
+            - N14Magazine50ammoBelt
+      gun_chamber:
+        name: Chamber
+        startingItem: N14Cartridge50
+        priority: 1
+        whitelist:
+          tags:
+            - N14Cartridge50
+  - type: MagazineVisuals
+    magState: mag
+    steps: 4
+    zeroVisible: true
+  - type: Appearance
+  - type: FollowDistance
+    backStrength: 3
+  - type: StaticPrice
+    price: 200

@@ -25,7 +25,7 @@
   startingGear: CaesarLegionLegionnaireVeteranGear
   alwaysUseSpawner: true
   icon: "JobIconlegionerVeteran"
-  supervisors: job-name-caesar-legion-other
+  supervisors: job-supervisor-caesar-legion-dean
   canBeAntag: false
   accessGroups:
   - CaesarLegionLegionnaireVeteran
@@ -52,7 +52,6 @@
     head: N14ClothingHeadHatBaseballHelmet # #Misfits Change /Tweak/: Veteran Legionary wears a baseball helmet
     outerClothing: N14ClothingOuterLegionnaireVeteranArmor
     gloves: N14ClothingHandsGlovesTribal
-    pocket1: LegionVeteranloadoutkits
     id: N14IDLegionaryMedalSilver2
   innerClothingSkirt: N14ClothingUniformJumpsuitLegionnaireOther
   storage:

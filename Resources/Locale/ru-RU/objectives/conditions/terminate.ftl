@@ -1,0 +1,1 @@
+objective-terminate-title = Завершить { $targetName }, { CAPITALIZE($job) }

@@ -1,0 +1,102 @@
+# MARK: Plasma
+
+- type: latheRecipe
+  id: SiriusPlasmaRifle
+  result: N14WeaponPlasmaRifle
+  category: N14Weapons
+  availableFaction:
+  - Enclave
+  completetime: 25
+  materials:
+    Circuitry: 1200
+    Steel: 2800
+    ScrapElectronic: 400
+    Glass: 2000
+
+- type: latheRecipe
+  id: SiriusPlasmaRifleAuto
+  result: N14WeaponPlasmaRifleAuto
+  category: N14Weapons
+  availableFaction:
+  - Enclave
+  completetime: 40
+  materials:
+    Circuitry: 1500
+    Steel: 3500
+    ScrapElectronic: 700
+    Glass: 2500
+    Plastic: 1000
+
+- type: latheRecipe
+  id: SiriusPlasmaPistol
+  result: N14WeaponPlasmaPistol
+  category: N14Weapons
+  availableFaction:
+  - Enclave
+  completetime: 15
+  materials:
+    Circuitry: 150
+    Steel: 1500
+    ScrapElectronic: 300
+    Glass: 1000
+    Plastic: 700
+
+# MARK: Laser
+
+- type: latheRecipe
+  id: SiriusLaserRifle
+  result: N14WeaponLaserRifle
+  category: N14Weapons
+  availableFaction:
+  - Enclave
+  completetime: 20
+  materials:
+    Circuitry: 110
+    Steel: 2400
+    ScrapElectronic: 400
+    Glass: 200
+    Plastic: 500
+
+- type: latheRecipe
+  id: SiriusLaserRifleAuto
+  result: N14WeaponLaserRifleAuto
+  category: N14Weapons
+  availableFaction:
+  - Enclave
+  completetime: 20
+  materials:
+    Circuitry: 110
+    Steel: 2900
+    ScrapElectronic: 400
+    Glass: 200
+    N14Gold: 100
+    Plastic: 500
+
+- type: latheRecipe
+  id: SiriusLaserRifleAER12
+  result: N14WeaponLaserRifleAER12
+  category: N14Weapons
+  availableFaction:
+  - Enclave
+  completetime: 27
+  materials:
+    Circuitry: 145
+    Steel: 2800
+    ScrapElectronic: 700
+    Glass: 400
+    N14Gold: 150
+    Plastic: 750
+
+- type: latheRecipe
+  id: SiriusLaserPistol
+  result: N14WeaponLaserPistol
+  category: N14Weapons
+  availableFaction:
+  - Enclave
+  completetime: 12
+  materials:
+    Circuitry: 90
+    Steel: 1400
+    ScrapElectronic: 250
+    Glass: 150
+    Plastic: 250

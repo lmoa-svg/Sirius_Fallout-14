@@ -1,14 +1,13 @@
-#Misfits Change /Tweak/: NCR Medic role consolidated into NCR Specialist (NCRWS).
-#  Medic loadout kits (Surgeon, Doctor, Combat Medic) are now available in the Specialist's undecided loadout.
-#  NCRMedic access has been added to the Specialist job.
-#  Job kept defined but hidden so existing spawner/entity references don't break.
 - type: job
   id: NCRMedic
-  setPreference: false # #Misfits Tweak - hidden from character creation, role consolidated into Specialist
-  jobWhitelistBypassesRoleTimers: true # #Misfits Change
+  setPreference: true
+  hideIfPlaytimeRequirementsNotMet: false
+  jobWhitelistBypassesRoleTimers: true
   overrideConsoleVisibility: false
   canBeAntag: false
+  weight: 42
   name: job-name-ncr-medic
+  overwatchCategory: OverwatchNcrMedical
   description: job-description-ncr-medic
   playTimeTracker: NCRMedic
   requirements:
@@ -16,9 +15,12 @@
       species:
       - Human
       - Ghoul
+    - !type:CharacterDepartmentTimeRequirement # T4 faction timelock (12h NCR)
+      department: NCR
+      min: 43200 # 12 hours
   startingGear: NCRMedicGear
-  icon: "JobIconNcrMedic" # Corvax-Change
-  supervisors: job-supervisors-ncr-sergeant
+  icon: "JobIconNcrMedic"
+  supervisors: job-supervisors-ncr-nco
   alwaysUseSpawner: true
   access:
   - NCR
@@ -35,12 +37,12 @@
 - type: startingGear
   id: NCRMedicGear
   equipment:
-    jumpsuit: N14ClothingUniformNCRDesert # Corvax-Change
-    outerClothing: N14ClothingOuterNCRPouchedVestDesert # Forge-Change
+    jumpsuit: N14ClothingUniformNCRMedicVariant # Corvax-Change
+    #outerClothing: N14ClothingOuterNCRPouchedVestDesert # Forge-Change
     back: N14ClothingBackpackNCR # Corvax-Change
     shoes: N14ClothingBootsLeatherFilled
     ears: N14ClothingHeadsetNCR # #Misfits Add - NCR radio earpiece
-    neck: ClothingNeckPinNCRDoctor
+    head: N14ClothingHeadHatNCRBeretMedic #Misfits Add - Medics can spawn with a beret, since helmets are given in loadouts.
     belt: ClothingBeltNCR
     id: N14IDNCRDogtagDoctor
     pocket2: NCRmedicloadoutkits

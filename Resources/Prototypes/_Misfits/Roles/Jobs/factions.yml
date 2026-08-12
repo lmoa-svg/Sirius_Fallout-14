@@ -12,6 +12,7 @@
   - SyntheticProtectron
   - SyntheticMrGutsy
   - SyntheticRobobrain
+  - SyntheticProtectronTribal
 
 # #Misfits Change
 - type: department
@@ -31,6 +32,7 @@
   # #Misfits Removed - generic variants hidden from department; NCR-specific ones take their place
   # - SuperMutantRanger
   # - SuperMutantTrooper
+  # - SuperMutantEnclave
 
 # #Misfits Add - Enclave department is job-whitelist-only and sorted below other special departments.
 # #Misfits Change - Expanded from 3 roles to 8 (5 military + 3 science).
@@ -45,12 +47,15 @@
   - EnclaveReformer      # The Reformer (admin whitelist)  | _Misfits/Roles/Jobs/Enclave/enclave_reformer.yml  # #Misfits Add
   - EnclaveCommander
   - EnclaveSeniorOfficer
+  - EnclaveCommunicationsOfficer # Sirius Add
   - EnclaveJuniorOfficer
   - EnclaveHeadScientist
   - EnclaveScientist
   - EnclaveJuniorScientist
   - EnclaveNCO
   - EnclaveEnlisted
+  - EnclaveRecruit       # #Misfits Add - hidden job for per-round recruitment playtime tracking
+  # - SuperMutantEnclave
 
 # #Misfits Add — Caesar's Legion department. Groups all Legion roles for the
 # character-creation screen and for department-based requirements/lookups.
@@ -68,6 +73,7 @@
 #  - CaesarLegionPrimeDecanus
 #  - CaesarLegionVeteranDecanus
 #  - CaesarLegionDean
+#  - CeasarLegionForgemaster
 #  - CaesarLegionVexillarius
 #  - CaesarLegionHoundmaster
 #  - CaesarLegionFrumentarii
@@ -78,6 +84,8 @@
 #  - CaesarLegionAuxilia
 #  - CaesarLegionRecruit
 #  - CaesarLegionSlave
+#  - CaesarLegionCitizen
+#  - CaesarLegionTrader
 
 # #Misfits Change — Outlaws/Raider department dissolved. The Eighties gang is now its own
 # full department with 5 ranked roles. Khan deactivated. Raider placeholder removed.
@@ -101,6 +109,7 @@
   description: department-WhiteLegs-description
   color: "#d8d0c4"
   weight: -98
+  editorHidden: true
   uiCategory: MinorFaction
   roles:
   - WhiteLegsWarChief

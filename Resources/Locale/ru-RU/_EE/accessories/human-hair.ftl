@@ -1,0 +1,11 @@
+marking-HumanHairArabicGathered = Арабский Собранный
+marking-HumanHairClassicHair = Классические Волосы
+marking-HumanHairSideComb = Боковая расческа
+marking-HumanHairManbun2 = Бун (Манбун 2)
+marking-HumanHairPigtailTajaran = Таджаранские косички
+marking-HumanHairShavedSide = Бритая сторона
+marking-HumanHairShorthair8 = Короткие волосы 8
+marking-HumanFembun = Фембун
+marking-HumanHairAfropuffDouble = Афропуф (двойной)
+marking-HumanHairAfropuffLeft = Афропафф (слева)
+marking-HumanHairAfropuffRight = Афропафф (справа)

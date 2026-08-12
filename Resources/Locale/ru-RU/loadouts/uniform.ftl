@@ -1,0 +1,1 @@
+loadout-description-LoadoutUniformAncientJumpsuit = Легенды Грейтида.

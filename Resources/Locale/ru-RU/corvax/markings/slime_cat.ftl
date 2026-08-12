@@ -1,0 +1,17 @@
+marking-SlimeCatEars = Слизистые кошачьи уши
+marking-SlimeCatTail = Слизистый кошачий хвост
+marking-SlimeCatTail-slime_tail_cat_wag = Слизистый кошачий хвост
+marking-SlimeCatEars-ears_slime_cat_outer = Наружное ухо
+marking-SlimeCatEars-ears_slime_cat_inner = Внутреннее ухо
+marking-SlimeCatTailStripes = Слизистый кошачий хвост (полосатый)
+marking-SlimeCatTailStripes-slime_tail_cat_wag_stripes_prime = Первичные полосы
+marking-SlimeCatTailStripes-slime_tail_cat_wag_stripes_second = Вторичные полосы
+marking-SlimeCatEarsStubby = Короткие слизистые уши
+marking-SlimeCatEarsStubby-ears_slime_stubby_outer = Наружное ухо
+marking-SlimeCatEarsStubby-ears_slime_stubby_inner = Внутреннее ухо
+marking-SlimeCatEarsCurled = Завитые слизистые уши
+marking-SlimeCatEarsCurled-ears_slime_curled_outer = Наружное ухо
+marking-SlimeCatEarsCurled-ears_slime_curled_inner = Внутреннее ухо
+marking-SlimeCatEarsTorn = Порванные слизневые уши
+marking-SlimeCatEarsTorn-ears_slime_torn_outer = Наружное ухо
+marking-SlimeCatEarsTorn-ears_slime_torn_inner = Внутреннее ухо

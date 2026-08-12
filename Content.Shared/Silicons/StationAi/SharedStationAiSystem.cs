@@ -6,6 +6,7 @@ using Content.Shared.Database;
 using Content.Shared.Doors.Systems;
 using Content.Shared.DoAfter;
 using Content.Shared.Electrocution;
+using Content.Shared.Holopad;
 using Content.Shared.Intellicard;
 using Content.Shared.Interaction;
 using Content.Shared.Item.ItemToggle;
@@ -58,6 +59,19 @@ public abstract partial class SharedStationAiSystem : EntitySystem
     [Dependency] private readonly   SharedUserInterfaceSystem _uiSystem = default!;
     [Dependency] private readonly   StationAiVisionSystem _vision = default!;
 
+    // [Changed by MisfitsCrew/Operator] Gives server-side Station AI code protected access
+    // to shared power and vision systems without duplicating dependencies or subscriptions.
+    protected SharedPowerReceiverSystem PowerReceiverSystem => PowerReceiver;
+    protected StationAiVisionSystem Vision => _vision;
+
+    // [Changed by MisfitsCrew/Operator] Exposes Station AI lifecycle hooks so server-only
+    // systems can react without duplicating the shared core event subscriptions.
+    protected virtual void OnStationAiInserted(Entity<StationAiCoreComponent> core, EntityUid ai) { }
+    protected virtual void OnStationAiRemoved(Entity<StationAiCoreComponent> core, EntityUid ai) { }
+    protected virtual void OnStationAiCoreMapInitialized(Entity<StationAiCoreComponent> core, EntityUid? ai) { }
+    protected virtual void OnStationAiCoreShuttingDown(Entity<StationAiCoreComponent> core, EntityUid? ai) { }
+    protected virtual void OnStationAiCorePowerChanged(Entity<StationAiCoreComponent> core, bool powered, EntityUid? ai) { }
+
     // StationAiHeld is added to anything inside of an AI core.
     // StationAiHolder indicates it can hold an AI positronic brain (e.g. holocard / core).
     // StationAiCore holds functionality related to the core itself.
@@ -89,6 +103,11 @@ public abstract partial class SharedStationAiSystem : EntitySystem
         SubscribeLocalEvent<StationAiOverlayComponent, AccessibleOverrideEvent>(OnAiAccessible);
         SubscribeLocalEvent<StationAiOverlayComponent, InRangeOverrideEvent>(OnAiInRange);
         SubscribeLocalEvent<StationAiOverlayComponent, MenuVisibilityEvent>(OnAiMenu);
+        // [Changed by MisfitsCrew/Operator] Applies the same AI interaction range
+        // overrides when the controlled entity is the physical AI core.
+        SubscribeLocalEvent<StationAiCoreComponent, AccessibleOverrideEvent>(OnAiCoreAccessible);
+        SubscribeLocalEvent<StationAiCoreComponent, InRangeOverrideEvent>(OnAiCoreInRange);
+        SubscribeLocalEvent<StationAiCoreComponent, MenuVisibilityEvent>(OnAiCoreMenu);
 
         SubscribeLocalEvent<StationAiHolderComponent, ComponentInit>(OnHolderInit);
         SubscribeLocalEvent<StationAiHolderComponent, ComponentRemove>(OnHolderRemove);
@@ -122,27 +141,89 @@ public abstract partial class SharedStationAiSystem : EntitySystem
             Category = VerbCategory.Debug,
             Act = () =>
             {
-                if (!_containers.TryGetContainer(ent, StationAiCoreComponent.Container, out _))
-                    return;
-
-                var brain = SpawnInContainerOrDrop(DefaultAi, ent.Owner, StationAiCoreComponent.Container);
-                _mind.ControlMob(user, brain);
+                TryTakeoverEmptyCore((ent.Owner, ent.Comp), user, out _, out _);
             },
             Impact = LogImpact.High,
         });
     }
 
+    public bool TryTakeoverEmptyCore(
+        Entity<StationAiCoreComponent?> core,
+        EntityUid user,
+        [NotNullWhen(true)] out EntityUid? brain,
+        [NotNullWhen(false)] out string? error)
+    {
+        if (!TrySpawnTakeoverBrain(core, out brain, out error))
+            return false;
+
+        _mind.ControlMob(user, brain.Value);
+        return true;
+    }
+
+    public bool TryTakeoverEmptyCore(
+        Entity<StationAiCoreComponent?> core,
+        NetUserId user,
+        [NotNullWhen(true)] out EntityUid? brain,
+        [NotNullWhen(false)] out string? error)
+    {
+        if (!TrySpawnTakeoverBrain(core, out brain, out error))
+            return false;
+
+        _mind.ControlMob(user, brain.Value);
+        return true;
+    }
+
+    private bool TrySpawnTakeoverBrain(
+        Entity<StationAiCoreComponent?> core,
+        [NotNullWhen(true)] out EntityUid? brain,
+        [NotNullWhen(false)] out string? error)
+    {
+        brain = null;
+
+        if (!Resolve(core.Owner, ref core.Comp, false))
+        {
+            error = "Target is not a Station AI core.";
+            return false;
+        }
+
+        if (TryGetHeld(core, out _))
+        {
+            error = "Target Station AI core is already occupied.";
+            return false;
+        }
+
+        if (!_containers.TryGetContainer(core.Owner, StationAiCoreComponent.Container, out _))
+        {
+            error = "Target Station AI core has no AI mind slot.";
+            return false;
+        }
+
+        brain = SpawnInContainerOrDrop(DefaultAi, core.Owner, StationAiCoreComponent.Container);
+        error = null;
+        return true;
+    }
+
     private void OnAiAccessible(Entity<StationAiOverlayComponent> ent, ref AccessibleOverrideEvent args)
+    {
+        HandleAiAccessible(args.User, args.Target, ref args);
+    }
+
+    private void OnAiCoreAccessible(Entity<StationAiCoreComponent> ent, ref AccessibleOverrideEvent args)
+    {
+        HandleAiAccessible(args.User, args.Target, ref args);
+    }
+
+    private void HandleAiAccessible(EntityUid user, EntityUid target, ref AccessibleOverrideEvent args)
     {
         args.Handled = true;
 
         // Hopefully AI never needs storage
-        if (_containers.TryGetContainingContainer(args.Target, out var targetContainer))
+        if (_containers.TryGetContainingContainer(target, out var targetContainer))
         {
             return;
         }
 
-        if (!_containers.IsInSameOrTransparentContainer(args.User, args.Target, otherContainer: targetContainer))
+        if (!_containers.IsInSameOrTransparentContainer(user, target, otherContainer: targetContainer))
         {
             return;
         }
@@ -151,6 +232,16 @@ public abstract partial class SharedStationAiSystem : EntitySystem
     }
 
     private void OnAiMenu(Entity<StationAiOverlayComponent> ent, ref MenuVisibilityEvent args)
+    {
+        HandleAiMenu(ref args);
+    }
+
+    private void OnAiCoreMenu(Entity<StationAiCoreComponent> ent, ref MenuVisibilityEvent args)
+    {
+        HandleAiMenu(ref args);
+    }
+
+    private void HandleAiMenu(ref MenuVisibilityEvent args)
     {
         args.Visibility &= ~MenuVisibility.NoFov;
     }
@@ -161,6 +252,15 @@ public abstract partial class SharedStationAiSystem : EntitySystem
             return;
 
         args.Result = BoundUserInterfaceRangeResult.Fail;
+
+        if (!ent.Comp.Enabled || !PowerReceiver.IsPowered(ent.Owner))
+            return;
+
+        if (HasComp<HolopadComponent>(ent) && !HasComp<StationAiVisionComponent>(ent))
+        {
+            args.Result = BoundUserInterfaceRangeResult.Pass;
+            return;
+        }
 
         // Similar to the inrange check but more optimised so server doesn't die.
         var targetXform = Transform(args.Target);
@@ -189,14 +289,18 @@ public abstract partial class SharedStationAiSystem : EntitySystem
 
     private void OnAiInRange(Entity<StationAiOverlayComponent> ent, ref InRangeOverrideEvent args)
     {
-        args.Handled = true;
-        var targetXform = Transform(args.Target);
+        HandleAiInRange(args.User, args.Target, ref args);
+    }
 
-        // No cross-grid
-        if (targetXform.GridUid != Transform(args.User).GridUid)
-        {
-            return;
-        }
+    private void OnAiCoreInRange(Entity<StationAiCoreComponent> ent, ref InRangeOverrideEvent args)
+    {
+        HandleAiInRange(args.User, args.Target, ref args);
+    }
+
+    private void HandleAiInRange(EntityUid user, EntityUid target, ref InRangeOverrideEvent args)
+    {
+        args.Handled = true;
+        var targetXform = Transform(target);
 
         // Validate it's in camera range yes this is expensive.
         // Yes it needs optimising
@@ -326,6 +430,10 @@ public abstract partial class SharedStationAiSystem : EntitySystem
         if (_net.IsClient)
             return;
 
+        // [Changed by MisfitsCrew/Operator] Notifies server hooks before the AI eye is
+        // deleted so view subscriptions tied to this core can be cleaned up.
+        OnStationAiCoreShuttingDown(ent, GetInsertedAI(ent));
+
         QueueDel(ent.Comp.RemoteEntity);
         ent.Comp.RemoteEntity = null;
     }
@@ -339,10 +447,16 @@ public abstract partial class SharedStationAiSystem : EntitySystem
                 return;
 
             AttachEye(ent);
+            // [Changed by MisfitsCrew/Operator] Refreshes server-side AI camera view
+            // subscriptions after the core regains power and its eye is restored.
+            OnStationAiCorePowerChanged(ent, true, GetInsertedAI(ent));
         }
         else
         {
             ClearEye(ent);
+            // [Changed by MisfitsCrew/Operator] Clears server-side AI camera view
+            // subscriptions when the core loses power and should no longer supervise cameras.
+            OnStationAiCorePowerChanged(ent, false, GetInsertedAI(ent));
         }
     }
 
@@ -350,6 +464,9 @@ public abstract partial class SharedStationAiSystem : EntitySystem
     {
         SetupEye(ent);
         AttachEye(ent);
+        // [Changed by MisfitsCrew/Operator] Lets server-side systems initialize AI camera
+        // view subscriptions after the core and eye finish map initialization.
+        OnStationAiCoreMapInitialized(ent, GetInsertedAI(ent));
     }
 
     public void SwitchRemoteEntityMode(Entity<StationAiCoreComponent> ent, bool isRemote)
@@ -457,6 +574,9 @@ public abstract partial class SharedStationAiSystem : EntitySystem
         _metadata.SetEntityName(ent.Owner, MetaData(args.Entity).EntityName);
 
         AttachEye(ent);
+        // [Changed by MisfitsCrew/Operator] Lets server-side systems register camera PVS
+        // subscriptions after an AI is inserted into the core.
+        OnStationAiInserted(ent, args.Entity);
     }
 
     private void OnAiRemove(Entity<StationAiCoreComponent> ent, ref EntRemovedFromContainerMessage args)
@@ -478,6 +598,9 @@ public abstract partial class SharedStationAiSystem : EntitySystem
         }
 
         ClearEye(ent);
+        // [Changed by MisfitsCrew/Operator] Lets server-side systems remove camera PVS
+        // subscriptions after an AI is removed from the core.
+        OnStationAiRemoved(ent, args.Entity);
     }
 
     private void UpdateAppearance(Entity<StationAiHolderComponent?> entity)
@@ -545,6 +668,26 @@ public abstract partial class SharedStationAiSystem : EntitySystem
 
         parentEnt = new Entity<StationAiCoreComponent>(parent, stationAiCore);
 
+        return true;
+    }
+
+    protected bool TryGetContainingStationAiCore(
+        EntityUid contained,
+        [NotNullWhen(true)] out Entity<StationAiCoreComponent>? core)
+    {
+        // [Changed by MisfitsCrew/Operator] Resolves the AI core from the actual
+        // station_ai_mind_slot container owner, covering positronic-brain setmind cases
+        // where dynamic held components or transform parenting are not reliable yet.
+        core = null;
+
+        if (!_containers.TryGetContainingContainer((contained, null, null), out var container) ||
+            container.ID != StationAiCoreComponent.Container ||
+            !TryComp(container.Owner, out StationAiCoreComponent? coreComp))
+        {
+            return false;
+        }
+
+        core = (container.Owner, coreComp);
         return true;
     }
 

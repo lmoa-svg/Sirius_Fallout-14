@@ -1,0 +1,216 @@
+- type: entity
+  parent: BaseStructureDynamic
+  id: SiriusAutodoc
+  name: autodoc
+  description: A pre-war medical autodoc, capable of performing complex medical procedures.
+  components:
+  - type: Sprite
+    sprite: _Nuclear14/Structures/Machines/autodoc.rsi
+    drawdepth: Mobs
+    noRot: true
+    offset: 0, 0.5
+    layers:
+      - state: autodoc_off
+        map: ["enum.AutodocVisualLayers.Base"]
+      - state: autodoc_door
+        map: ["enum.AutodocVisualLayers.Door"]
+        visible: false
+  - type: InteractionOutline
+  - type: Transform
+    noRot: true
+    anchored: true
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.5,-0.5,0.5,0.90"
+        density: 200
+        mask:
+          - MachineMask
+        layer:
+          - MachineLayer
+  - type: ContainerContainer
+    containers:
+      autodoc-body:
+        !type:ContainerSlot
+        showEnts: true
+      brainSlot: !type:ContainerSlot
+      eyesSlot: !type:ContainerSlot
+      heartSlot: !type:ContainerSlot
+      liverSlot: !type:ContainerSlot
+      lungsSlot: !type:ContainerSlot
+      stomachSlot: !type:ContainerSlot
+      kidneysSlot: !type:ContainerSlot
+      appendixSlot: !type:ContainerSlot
+      tongueSlot: !type:ContainerSlot
+      earsSlot: !type:ContainerSlot
+      leftArmSlot: !type:ContainerSlot
+      rightArmSlot: !type:ContainerSlot
+      leftHandSlot: !type:ContainerSlot
+      rightHandSlot: !type:ContainerSlot
+      leftLegSlot: !type:ContainerSlot
+      rightLegSlot: !type:ContainerSlot
+      leftFootSlot: !type:ContainerSlot
+      rightFootSlot: !type:ContainerSlot
+      headSlot: !type:ContainerSlot
+      torsoSlot: !type:ContainerSlot
+  - type: Appearance
+  - type: SiriusAutodoc
+    entryDelay: 2
+    treatmentDuration: 10
+    isOpen: true
+  - type: SiriusAutodocSurgery
+  - type: Damageable
+    damageContainer: Inorganic
+    damageModifierSet: Metallic
+  - type: Destructible
+    thresholds:
+    - trigger:
+        !type:DamageTrigger
+        damage: 250
+      behaviors:
+        - !type:EmptyAllContainersBehaviour
+        - !type:PlaySoundBehavior
+          sound:
+            collection: MetalBreak
+        - !type:SpawnEntitiesBehavior
+          spawn:
+            SheetSteel1:
+              min: 4
+              max: 8
+            CableMVStack:
+              min: 3
+              max: 6
+        - !type:DoActsBehavior
+          acts: [ "Destruction" ]
+  - type: ApcPowerReceiver
+    powerLoad: 2000
+  - type: ExtensionCableReceiver
+  - type: PointLight
+    color: "#4a9eff"
+    radius: 2
+    energy: 8
+    enabled: false
+  - type: ActivatableUI
+    key: enum.SiriusAutodocUiKey.Key
+    requiresComplex: false
+  - type: ActivatableUIRequiresPower
+  - type: UserInterface
+    interfaces:
+      enum.SiriusAutodocUiKey.Key:
+        type: SiriusAutodocBoundUserInterface
+  - type: ItemSlots
+    slots:
+      siriusBeakerSlot:
+        name: siriusBeakerSlot-name
+        whitelist:
+          components:
+            - SolutionContainerManager
+            - FitsInDispenser
+        blacklist:
+          components:
+            - Organ
+            - BodyPart
+      brainSlot:
+        name: brain-slot
+        whitelist:
+          components:
+            - Organ
+      eyesSlot:
+        name: eyes-slot
+        whitelist:
+          components:
+            - Organ
+      heartSlot:
+        name: heart-slot
+        whitelist:
+          components:
+            - Organ
+      liverSlot:
+        name: liver-slot
+        whitelist:
+          components:
+            - Organ
+      lungsSlot:
+        name: lungs-slot
+        whitelist:
+          components:
+            - Organ
+      stomachSlot:
+        name: stomach-slot
+        whitelist:
+          components:
+            - Organ
+      kidneysSlot:
+        name: kidneys-slot
+        whitelist:
+          components:
+            - Organ
+      appendixSlot:
+        name: appendix-slot
+        whitelist:
+          components:
+            - Organ
+      tongueSlot:
+        name: tongue-slot
+        whitelist:
+          components:
+            - Organ
+      earsSlot:
+        name: ears-slot
+        whitelist:
+          components:
+            - Organ
+      leftArmSlot:
+        name: left-arm-slot
+        whitelist:
+          components:
+            - BodyPart
+      rightArmSlot:
+        name: right-arm-slot
+        whitelist:
+          components:
+            - BodyPart
+      leftHandSlot:
+        name: left-hand-slot
+        whitelist:
+          components:
+            - BodyPart
+      rightHandSlot:
+        name: right-hand-slot
+        whitelist:
+          components:
+            - BodyPart
+      leftLegSlot:
+        name: left-leg-slot
+        whitelist:
+          components:
+            - BodyPart
+      rightLegSlot:
+        name: right-leg-slot
+        whitelist:
+          components:
+            - BodyPart
+      leftFootSlot:
+        name: left-foot-slot
+        whitelist:
+          components:
+            - BodyPart
+      rightFootSlot:
+        name: right-foot-slot
+        whitelist:
+          components:
+            - BodyPart
+      headSlot:
+        name: head-slot
+        whitelist:
+          components:
+            - BodyPart
+      torsoSlot:
+        name: torso-slot
+        whitelist:
+          components:
+            - BodyPart
+  - type: ContainerFill
+    containers: {}

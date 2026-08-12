@@ -58,6 +58,7 @@
   overrideConsoleVisibility: true
   canBeAntag: false
   name: job-name-bos-paladin
+  overwatchCategory: OverwatchBosPaladin
   description: job-description-bos-paladin
   playTimeTracker: BoSPaladin
   requirements:
@@ -67,9 +68,9 @@
     - !type:CharacterDepartmentTimeRequirement # #Misfits Tweak - T4 faction timelock (12h BoS)
       department: BrotherhoodOfSteel
       min: 43200 # 12 hours
-    #- !type:CharacterPlaytimeRequirement # TEMP REMOVED
-    #  tracker: BoSMidSquire
-    #  min: 72000 # 20 hours
+    - !type:CharacterPlaytimeRequirement
+      tracker: BoSMidSquire
+      min: 36000 # 10 hours as paladins need to learn how to be a proper paladin via time
   startingGear: BoSPaladinGear
   alwaysUseSpawner: true
   icon: "JobIconBosMPaladin"
@@ -91,9 +92,8 @@
     back: N14ClothingBackpackMilitary
     shoes: N14ClothingBootsLeatherFilled
     head: N14ClothingHeadHatCapkhighBoS
-    outerClothing: N14ClothingOuterPowerArmorT45
+    outerClothing: MisfitsT45ClothingOuterPowerArmorBoS
     hands: N14ClothingHandsGlovesCombat
-    pocket1: BoSBrotherhoodPaladinKits
     id: N14IDBrotherhoodOfSteelHolotagPaladin
     ears: N14ClothingHeadsetBrotherhoodOfSteel
     belt: N14ClothingBeltBoSWebbing

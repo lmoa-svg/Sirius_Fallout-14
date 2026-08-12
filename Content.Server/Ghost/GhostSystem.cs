@@ -1,5 +1,7 @@
 using System.Linq;
 using System.Numerics;
+using Content.Shared._Misfits.Ghost; // #Misfits Add - ghost color presets
+using Content.Shared._Misfits.Special.Components;
 using Content.Server._NC.Sponsor; // Forge-Change
 using Content.Server.GameTicking;
 using Content.Server.Ghost.Components;
@@ -24,6 +26,7 @@ using Robust.Shared.Map;
 using Robust.Shared.Physics.Components;
 using Robust.Shared.Physics.Systems;
 using Robust.Shared.Player;
+using Robust.Shared.Prototypes; // #Misfits Add - IPrototypeManager
 using Robust.Shared.Timing;
 
 namespace Content.Server.Ghost
@@ -46,6 +49,7 @@ namespace Content.Server.Ghost
         [Dependency] private readonly VisibilitySystem _visibilitySystem = default!;
         [Dependency] private readonly MetaDataSystem _metaData = default!;
         [Dependency] private readonly SponsorManager _sponsors = default!; // Forge-Change
+        [Dependency] private readonly IPrototypeManager _proto = default!; // #Misfits Add - ghost color presets
 
         private EntityQuery<GhostComponent> _ghostQuery;
         private EntityQuery<PhysicsComponent> _physicsQuery;
@@ -469,6 +473,10 @@ namespace Content.Server.Ghost
 
             var ghostComponent = Comp<GhostComponent>(ghost);
 
+            // Ghosts are observers, not character bodies; sponsor/custom ghost
+            // prototypes should not carry player SPECIAL stats.
+            RemCompDeferred<SpecialComponent>(ghost);
+
             // Try setting the ghost entity name to either the character name or the player name.
             // If all else fails, it'll default to the default entity prototype name, "observer".
             // However, that should rarely happen.
@@ -484,12 +492,33 @@ namespace Content.Server.Ghost
 
             SetCanReturnToBody(ghostComponent, canReturn);
 
+            // #Misfits Add - apply YAML-driven ghost color presets (e.g. engineer yellow)
+            ApplyMisfitsGhostColor(ghost, ghostComponent, mind.Comp);
+
             if (canReturn)
                 _minds.Visit(mind.Owner, ghost, mind.Comp);
             else
                 _minds.TransferTo(mind.Owner, ghost, mind: mind.Comp);
             Log.Debug($"Spawned ghost \"{ToPrettyString(ghost)}\" for {mind.Comp.CharacterName}.");
             return ghost;
+        }
+
+        // #Misfits Add - apply YAML-driven ghost color presets
+        public void ApplyMisfitsGhostColor(EntityUid ghost, GhostComponent ghostComp, MindComponent mind)
+        {
+            var sessionName = mind.Session?.Name;
+            if (string.IsNullOrWhiteSpace(sessionName))
+                return;
+
+            foreach (var preset in _proto.EnumeratePrototypes<MisfitsGhostColorPrototype>())
+            {
+                if (preset.Users.Any(u => string.Equals(u, sessionName, StringComparison.OrdinalIgnoreCase)))
+                {
+                    ghostComp.color = preset.Color;
+                    Dirty(ghost, ghostComp);
+                    break;
+                }
+            }
         }
     }
 }

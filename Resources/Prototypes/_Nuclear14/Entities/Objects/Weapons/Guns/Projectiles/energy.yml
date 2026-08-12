@@ -4,11 +4,6 @@
   parent: BaseBullet
   categories: [ HideSpawnMenu ]
   components:
-  - type: FlyBySound
-    sound:
-      collection: EnergyMiss
-      params:
-        volume: 5
   - type: Sprite #Misfits Fix — was using stretched ballistic bullet sprite (projectiles2.rsi 'bullet' scale 1.2,0.5). Now uses the proper plasma bolt from plasma.rsi.
     sprite: _Nuclear14/Objects/Weapons/Guns/Ammunition/Projectiles/plasma.rsi
     layers:
@@ -24,23 +19,15 @@
         mask:
         - Impassable
         - BulletImpassable
-      fly-by: &flybyfixture
-        shape: !type:PhysShapeCircle
-          radius: 1.5
-        layer:
-        - Impassable
-        - MidImpassable
-        - HighImpassable
-        - LowImpassable
-        hard: False
   - type: Ammo
     muzzleFlash: PlasmaMuzzleFlashEffect
   - type: Projectile
     impactEffect: BulletPlasmaImpactEffect
     damage:
       types:
-        Heat: 20
-        Radiation: 3
+        Caustic: 30
+        Radiation: 5
+        Structural: 50
     soundHit:
       path: "/Audio/Weapons/Guns/Hits/energy_meat1.ogg"
 
@@ -56,7 +43,8 @@
     impactEffect: BulletPlasmaImpactEffect
     damage:
       types:
-        Heat: 18
+        Caustic: 18
+        Structural: 25
     soundHit:
       path: "/Audio/Weapons/Guns/Hits/energy_meat1.ogg"
 
@@ -72,8 +60,9 @@
     impactEffect: BulletPlasmaImpactEffect
     damage:
       types:
-        Heat: 24
-        Radiation: 6
+        Caustic: 35
+        Radiation: 5
+        Structural: 100
     soundHit:
       path: "/Audio/Weapons/Guns/Hits/energy_meat1.ogg"
 
@@ -83,11 +72,6 @@
   parent: BaseBullet
   categories: [ HideSpawnMenu ]
   components:
-  - type: FlyBySound
-    sound:
-      collection: EnergyMiss
-      params:
-        volume: 5
   - type: Sprite
     sprite: Objects/Weapons/Guns/Projectiles/projectiles_tg.rsi
     layers:
@@ -103,7 +87,6 @@
         hard: false
         mask:
         - Opaque
-      fly-by: *flybyfixture
   - type: Projectile
     impactEffect: BulletImpactEffect
     damage:
@@ -112,17 +95,12 @@
     soundHit:
       collection: MeatLaserImpact
 
-- type: entity 
+- type: entity
   name: recharger laser
   id: BulletRechargerLaser
   parent: BaseBullet
   categories: [ HideSpawnMenu ]
   components:
-  - type: FlyBySound
-    sound:
-      collection: EnergyMiss
-      params:
-        volume: 5
   - type: Sprite
     sprite: Objects/Weapons/Guns/Projectiles/projectiles_tg.rsi
     layers:
@@ -138,7 +116,6 @@
         hard: false
         mask:
         - Opaque
-      fly-by: *flybyfixture
   - type: Projectile
     impactEffect: BulletImpactEffect
     damage:

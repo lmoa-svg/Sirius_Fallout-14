@@ -1,0 +1,1 @@
+misfits-foldable-ammo-box-verb = Складываем в картон

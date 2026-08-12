@@ -8,6 +8,12 @@
   hostile:
   - Raider
 
+# #Misfits Add - Classification faction for the Eighties biker gang. Members retain
+# PlayerRaider for their existing NPC relationships; this marker lets war and raid
+# systems distinguish them from unrelated player raiders.
+- type: npcFaction
+  id: Eighties
+
 # #Misfits Add - Player Robot faction for Synthetic job prototypes (Mr. Handy, Protectron, etc.).
 # Kept separate from HostileRobot so NPC robots don't auto-aggro player bots.
 # #Misfits Fix - Added hostile list so player robots are enemies to all NPC factions
@@ -124,6 +130,7 @@
   - Deathclaw #Misfits Add - Deathclaw is enemy of everything
   - Raider
   - HostileRobot
+  - Enclave
   - Feral
 
 - type: npcFaction
@@ -150,6 +157,7 @@
   - Raider
   - CaesarLegion
   - HostileRobot
+  - Enclave
   - Feral
 
 # #Misfits Add - Enclave remnant faction for player jobs and future map-side automation.
@@ -165,7 +173,6 @@
   - WastelandAnimal
   - Deathclaw
   - Raider
-  - HostileRobot
   - Feral
 
 # #Misfits Add - Followers of the Apocalypse player faction.
@@ -200,3 +207,4 @@
   - Feral
   - CaesarLegion
   - SuperMutant
+  - Enclave

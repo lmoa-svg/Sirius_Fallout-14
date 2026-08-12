@@ -14,7 +14,7 @@
   # Repair with a welder to restore the pool and re-enable absorption.
   - type: Damageable
   - type: PowerArmorIntegrity
-    maxIntegrity: 200        # #Misfits Add - FAR lighter salvaged plating
+    maxIntegrity: 300        # #Misfits Add - FAR lighter salvaged plating
     brokenBleedthroughRatio: 1.0  # #Misfits Add - when broken, only armor coefficients apply (35% mitigation from plates alone)
     disableServosLock: true       # #Misfits Add - no servo-lock speed debuff when armor breaks
   - type: Repairable
@@ -31,7 +31,14 @@
   - type: ClothingSpeedModifier
     walkModifier: 0.85
     sprintModifier: 0.85
+  - type: UserInterface
+    interfaces:
+      enum.ToggleClothingUiKey.Key:
+        type: ToggleableClothingBoundUserInterface
   - type: ToggleableClothing
+    requiredSlot: outerClothing
+    blockUnequipWhenAttached: true
+    replaceCurrentClothing: false
     clothingPrototypes:
       head: N14ClothingHeadHatLegionpa
       gloves: N14ClothingPAGauntlets
@@ -56,7 +63,7 @@
     reflects:
       - SmallCaliber
       - MediumCaliber
-    reflectProb: 0.3
+    reflectProb: 0.35
     reflectProbByType:
       MediumCaliber: 0.10 #less armor. less reflect.
     innate: true
@@ -67,8 +74,8 @@
       params:
         volume: -6
     requiresWorn: true
-    distanceWalking: 2
-    distanceSprinting: 3
+    distanceWalking: 3
+    distanceSprinting: 4
       # #Misfits Tweak - Disable brace stance (servos stripped); slot mismatch prevents action from being granted.
   - type: PowerArmorBrace
     requiredSlot: BELT

@@ -16,6 +16,7 @@
   setPreference: true
   overrideConsoleVisibility: true
   canBeAntag: false
+  overwatchCategory: OverwatchMedical
   playTimeTracker: VaultDoctor
   startingGear: VaultDoctorGear
   alwaysUseSpawner: true
@@ -39,7 +40,7 @@
   id: VaultDoctorGear
   equipment:
     jumpsuit: N14ClothingUniformJumpsuitVault14
-    back: N14ClothingBackpackVaultBlue # Forge-Change
+    back: ClothingBackpackSatchelLeather
     shoes: N14ClothingBootsBlack
     outerClothing: N14ClothingOuterCoatLab
     id: N14VaultDoctorPDA

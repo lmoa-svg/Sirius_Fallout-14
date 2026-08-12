@@ -10,18 +10,18 @@ job-description-bos-mid-scribe = Coordinate research, catalog technology, and ad
 job-name-bos-mid-squire = Brotherhood Squire
 job-description-bos-mid-squire = Train under the Brotherhood's veterans and prove you are ready for higher duties.
 
-#Misfits Change /Comment-out/: Washington BoS job names removed — will create new prototypes.
+# Misfits Change /Comment-out/: Washington BoS job names removed — will create new prototypes.
 ## Washington Brotherhood
-#job-name-bos-washington-commander = Brotherhood Head Knight
-#job-description-bos-washington-commander = Oversee the Brotherhood's knightly orders, logistics, and battlefield readiness.
-#job-name-bos-washington-initiate = Brotherhood Initiate
-#job-description-bos-washington-initiate = Learn the Brotherhood's code, follow orders, and earn your place in the chapter.
-#job-name-bos-washington-knight = Brotherhood Knight
-#job-description-bos-washington-knight = Protect the chapter, escort missions, and recover technology in the field.
-#job-name-bos-washington-paladin = Brotherhood Paladin
-#job-description-bos-washington-paladin = Fight as the Brotherhood's frontline heavy infantry and defend the chapter's interests.
-#job-name-bos-washington-scribe = Brotherhood Scribe
-#job-description-bos-washington-scribe = Support the chapter with research, medicine, and technical expertise.
+# job-name-bos-washington-commander = Brotherhood Head Knight
+# job-description-bos-washington-commander = Oversee the Brotherhood's knightly orders, logistics, and battlefield readiness.
+# job-name-bos-washington-initiate = Brotherhood Initiate
+# job-description-bos-washington-initiate = Learn the Brotherhood's code, follow orders, and earn your place in the chapter.
+# job-name-bos-washington-knight = Brotherhood Knight
+# job-description-bos-washington-knight = Protect the chapter, escort missions, and recover technology in the field.
+# job-name-bos-washington-paladin = Brotherhood Paladin
+# job-description-bos-washington-paladin = Fight as the Brotherhood's frontline heavy infantry and defend the chapter's interests.
+# job-name-bos-washington-scribe = Brotherhood Scribe
+# job-description-bos-washington-scribe = Support the chapter with research, medicine, and technical expertise.
 
 # Caravan
 job-name-caravan-leader = Caravan Leader
@@ -32,48 +32,48 @@ job-name-caravan-guard = Caravan Guard
 job-description-caravan-guard = Protect the caravan company traders, their livestock, and their inventory.
 
 # NCR
-job-name-ncr-recruit = NCR Recruit
-job-description-ncr-recruit = Learn the ropes, follow orders, and prove that you are ready for full service in the NCR.
-job-name-ncr-cadet = NCR Recruit
-job-description-ncr-cadet = Learn the ropes, follow orders, and prove that you are ready for full service in the NCR.
+job-name-ncr-recruit = NCR Trooper
+job-description-ncr-recruit = Junior enlisted trooper. Perform basic duties, follow lawful orders from your Squad Leader, and earn promotions through service and discipline.
+job-name-ncr-cadet = NCR Trooper
+job-description-ncr-cadet = Training trooper learning basic soldiering. Follow orders from your Squad Leader and train to become an effective member of the squad.
 job-name-ncr-doctor = NCR Medical Doctor
-job-description-ncr-doctor = Oversee battlefield care, keep the detachment alive, and direct NCR medical treatment.
+job-description-ncr-doctor = Provide and coordinate battlefield medical care. Follow mission medical orders from your Squad Leader and the medical chain of command.
 job-name-ncr-medic = NCR Medic
-job-description-ncr-medic = Treat wounded NCR personnel in the field and keep the column moving.
-job-name-ncr-first-sergeant = NCR Sergeant First Class
-job-description-ncr-first-sergeant = Maintain discipline, coordinate the enlisted ranks, and keep the NCR line together under the captain and lieutenant.
+job-description-ncr-medic = Stabilise and treat casualties on the line; follow orders from your Squad Leader and the unit's medical Officer.
+job-name-ncr-first-sergeant = NCR First Sergeant
+job-description-ncr-first-sergeant = Senior NCO responsible for enlisted discipline and unit administration; implement orders from command and issue direction to the enlisted line — take and give orders through your Senior NCO and Officer.
 job-name-ncr-staff-sergeant = NCR Staff Sergeant
-job-description-ncr-staff-sergeant = Lead NCR troops in the field and enforce the orders of the command staff.
+job-description-ncr-staff-sergeant = Lead squads or sections in the field; issue and execute orders within the chain of command and act on directions from your Senior NCO and Officer.
 job-name-ncr-sergeant = NCR Sergeant
-job-description-ncr-sergeant = Lead a fireteam, maintain order, and execute the plans of the senior NCOs and officers.
+job-description-ncr-sergeant = Squad-level NCO. Lead a fireteam, give orders to troopers, and execute plans received from your Senior NCO and officers.
 job-name-ncr-sgt = NCR Sergeant
-job-description-ncr-sgt = Lead a fireteam, maintain order, and execute the plans of the senior NCOs and officers.
+job-description-ncr-sgt = Squad-level NCO. Lead a fireteam, give orders to troopers, and execute plans received from your Senior NCO and officers.
 # #Misfits Removed - NCR Major locale moved to _Misfits/corvax-jobs.ftl (authoritative Misfits version)
 # job-name-ncr-major = NCR Major
 # job-description-ncr-major = Serve as the senior Command officer of the NCR detachment, answerable only to high command. Set operational priorities, adjudicate disputes between officers, and ensure the mission succeeds.
 job-name-ncr-captain = NCR Captain
-job-description-ncr-captain = Command the detachment, set priorities, and answer only to NCR high command and the mission.
+job-description-ncr-captain = Detachment commander. Set mission priorities, coordinate officers and NCOs, and execute orders from higher command while issuing orders to your immediate subordinates.
 job-name-ncr-lt = NCR Lieutenant
-job-description-ncr-lt = Serve as the captain's second, direct the NCOs, and keep the detachment operating smoothly.
+job-description-ncr-lt = Platoon or detachment second-in-command. Direct NCOs and ensure orders from the captain and higher command are carried out by the line; pass and receive orders via your Senior NCO.
 job-name-ncr-private-first-class = NCR Private First Class
-job-description-ncr-private-first-class = Act as a seasoned line trooper and help steady the ranks below the NCO corps.
+job-description-ncr-private-first-class = Experienced line trooper. Carry out orders from your Squad Leader and support the squad as directed.
 job-name-ncr-private = NCR Private
-job-description-ncr-private = Serve as a line trooper of the NCR and carry out orders from your NCOs and officers.
+job-description-ncr-private = Entry-level line trooper. Carry out orders from your immediate Squad Leader and learn the basics of squad discipline.
 job-name-ncr-soldier = NCR Private
-job-description-ncr-soldier = Serve as a line trooper of the NCR and carry out orders from your NCOs and officers.
+job-description-ncr-soldier = Entry-level line trooper. Carry out orders from your immediate Squad Leader and learn the basics of squad discipline.
 job-name-ncr-engineer = NCR Engineer
-job-description-ncr-engineer = Maintain NCR equipment, build defenses, and keep the detachment operational.
-job-name-ncr-corporal = NCR Specialist
-job-description-ncr-corporal = Serve as a trained specialist — whether in combat, engineering, or medicine — and anchor the line under the NCO corps.
+job-description-ncr-engineer = Maintain equipment, emplace defenses, and repair systems. Follow technical and tactical orders from your Squad Leader and engineering NCOs.
+job-name-ncr-corporal = NCR Corporal
+job-description-ncr-corporal = Junior NCO/specialist. Supervise small teams, execute orders from your Squad Leader, and provide direction to the line.
 job-name-ncr-ws = NCR Specialist
-job-description-ncr-ws = Serve as a trained specialist — whether in combat, engineering, or medicine — and anchor the line under the NCO corps.
+job-description-ncr-ws = Trained specialist. Perform specialized tasks and support the unit under orders from your Squad Leader.
 # #Misfits Add - new locale keys for the Specialist rename
 job-name-ncr-specialist = NCR Specialist
-job-description-ncr-specialist = Serve as a trained specialist — whether in combat, engineering, or medicine — and anchor the line under the NCO corps.
+job-description-ncr-specialist = Trained specialist. Perform specialized tasks and support the unit under orders from your Squad Leader.
 job-name-ncr-ranger = NCR Ranger
-job-description-ncr-ranger = The most experienced and robust soldiers form part of this elite group of the NCR Army, lead troops or act by yourself under the orders of the Republic.
+job-description-ncr-ranger = Elite scout and combat trooper. Operate independently or lead small teams under orders from your Squad Leader and mission command.
 job-name-ncr-ranger-veteran = NCR Ranger Veteran
-job-description-ncr-ranger-veteran = The most experienced and robust soldiers form part of this elite group of the NCR Army, lead troops or act by yourself under the orders of the Republic.
+job-description-ncr-ranger-veteran = Veteran Ranger. Lead Ranger operations, make tactical decisions, and follow orders when directed by your Squad Leader or mission command.
 
 # Rangers
 job-name-ranger-patrol = Patrol Ranger
@@ -91,16 +91,16 @@ job-description-ranger-veteran-n14 = Lead Ranger operations in the region, choos
 job-name-ranger-veteran = Veteran Ranger
 job-description-ranger-veteran = Lead Ranger operations in the region, choose your methods, and answer only to your mission and your code.
 
-# #Misfits Change - rename tribe role display names to Yuma variants without changing job IDs.
+# #Misfits Change - rename tribe role display names to Willowers variants without changing job IDs.
 # Tribal
-job-name-tribal = Yuma Tribal
-job-description-tribal = Maintain the Yuma Tribe's way of life in the wasteland at all costs. Security, crafting, homelife, you do it all.
-job-name-tribal-elder = Yuma Chieftan
-job-description-tribal-elder = Lead the Yuma Tribe through good times and bad times and maintain your beliefs.
-job-name-tribal-farmer = Yuma Farmer
-job-description-tribal-farmer = Produce food and goods for the Yuma Tribe to sustain your living.
-job-name-tribal-shaman = Yuma Shaman
-job-description-tribal-shaman = Produce medicines and compounds for the Yuma Tribe, as is tradition.
+job-name-tribal = Willowers Tribal
+job-description-tribal = Maintain the Willowers' way of life in the wasteland at all costs. Security, crafting, homelife, you do it all.
+job-name-tribal-elder = Willowers Chieftan
+job-description-tribal-elder = Lead the Willowers through good times and bad times and maintain your beliefs.
+job-name-tribal-farmer = Willowers Farmer
+job-description-tribal-farmer = Produce food and goods for the Willowers to sustain your living.
+job-name-tribal-shaman = Willowers Shaman
+job-description-tribal-shaman = Produce medicines and compounds for the Willowers, as is tradition.
 
 # Vault
 job-name-overseer = Vault Overseer
@@ -113,6 +113,12 @@ job-name-vault-engineer = Vault Engineer
 job-description-vault-engineer = Maintain the Vault and all its vital systems to ensure a comfortable and safe life.
 job-name-vault-security = Vault Security
 job-description-vault-security = Keep order within the Vault and report to the Overseer. For the good of the Vault!
+job-name-vault-cargo-specialist = Cargo Specialist
+job-description-vault-cargo-specialist = Manage the Vault's stockpiles and requisition supplies.
+job-name-vault-courier = Courier
+job-description-vault-courier = Carry messages, mail, and small packages between the Vault and potentially wasteland beyond.
+job-name-vault-salvage-specialist = Salvage Specialist
+job-description-vault-salvage-specialist = Venture into the caves to extract resources & even the wasteland if times get desperate.
 
 # Wasteland
 # #Misfits Change - renamed for Town faction clarity

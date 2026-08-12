@@ -18,7 +18,7 @@
   startingGear: CaesarLegionHoundmasterGear
   alwaysUseSpawner: true
   icon: "JobIconlegionerWarrior"
-  supervisors: job-name-caesar-legion-other
+  supervisors: job-supervisor-caesar-legion-dean
   canBeAntag: false
   accessGroups:
   - CaesarLegionHoundmaster
@@ -28,6 +28,8 @@
       - type: NpcFactionMember
         factions:
           - CaesarLegion
+      - type: FollowerCommander
+        innateFollowerCapacity: 3
       - type: ReplacementAccent
         accent: latin
   - !type:AddTraitSpecial
@@ -38,11 +40,12 @@
   equipment:
     jumpsuit: N14ClothingUniformJumpsuitLegionnaire
     ears: N14ClothingHeadsetLegion
+    neck: N14ClothingNeckCoyoteCloak
     mask: N14ClothingMaskBrownMask
     back: N14ClothingBackpackMilitary
     shoes: N14ClothingShoesKaligi
-    head: N14ClothingHeadHatTribalOutcastHood
     gloves: N14ClothingHandsGlovesTribal
+    outerClothing: N14ClothingLegionReconArmor
     belt: N14Gladius
     pocket1: LegionHoundmasterloadoutkits
     id: N14IDLegionaryMedalHoundmaster

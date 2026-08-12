@@ -16,8 +16,6 @@
     - !type:CharacterSpeciesRequirement
       species:
       - Human
-      - Ghoul
-      - SuperMutant
     - !type:CharacterDepartmentTimeRequirement
       department: Enclave
       min: 57600 # 16 hours
@@ -25,7 +23,7 @@
       tracker: EnclaveNCO
       min: 36000 # 10 hours
   startingGear: EnclaveJuniorOfficerGear
-  icon: "JobIconSecurityOfficer"
+  icon: "JobIconEnclaveJuniorOfficer"
   supervisors: job-supervisors-enclave-junior-officer
   alwaysUseSpawner: true
   accessGroups:
@@ -36,6 +34,7 @@
       - type: NpcFactionMember
         factions:
           - Enclave
+      - type: PowerArmorProficiency
 
 - type: startingGear
   id: EnclaveJuniorOfficerGear
@@ -43,15 +42,14 @@
     head: N14ClothingHeadHatEnclaveOfficer
     back: N14ClothingBackpackMilitary
     jumpsuit: N14ClothingUniformJumpsuitEnclave
-    outerClothing: N14ClothingOuterEnclaverOfficerCoat
+    outerClothing: N14ClothingOuterPowerArmorAdvanced2
     shoes: N14ClothingBootsCombatFilled
     gloves: N14ClothingHandsGlovesCombat
-    neck: ClothingNeckPinEnclaveSecondLieutenant
     belt: ClothingBeltMilitary
     ears: N14ClothingHeadsetEnclave
     pocket1: EnclaveOfficerloadoutkits
     pocket2: RadioHandheld
-    id: N14IDEnclaveOfficer
+    id: SiriusIDEnclaveJuniorOfficer
   satchel: N14ClothingBackpackSatchelMilitaryFilled
   duffelbag: N14ClothingBackpackDuffelMilitaryFilled
   storage:

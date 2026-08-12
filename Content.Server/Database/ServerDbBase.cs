@@ -10,6 +10,7 @@ using Content.Server.Administration.Logs;
 using Content.Server.Administration.Managers;
 using Content.Shared.Administration.Logs;
 using Content.Shared._Misfits.Administration;
+using Content.Shared._Misfits.Special;
 using Content.Shared.Clothing.Loadouts.Systems;
 using Content.Shared.Database;
 using Content.Shared.Humanoid;
@@ -234,8 +235,18 @@ namespace Content.Server.Database
 
             var barkVoice = profile.BarkVoice ?? SharedHumanoidAppearanceSystem.DefaultBarkVoice; // Corvax-Fallout-Barks
             var speechVerbPreference = string.IsNullOrEmpty(profile.SpeechVerbPreference) ? "Default" : profile.SpeechVerbPreference; // #Misfits Add - vocal style
+            var special = SpecialProfile.EnsureValid(new SpecialProfile
+            {
+                Strength = profile.SpecialStrength,
+                Perception = profile.SpecialPerception,
+                Endurance = profile.SpecialEndurance,
+                Charisma = profile.SpecialCharisma,
+                Intelligence = profile.SpecialIntelligence,
+                Agility = profile.SpecialAgility,
+                Luck = profile.SpecialLuck,
+            });
 
-            return new HumanoidCharacterProfile(
+            var humanoid = new HumanoidCharacterProfile(
                 profile.CharacterName,
                 profile.FlavorText,
                 profile.Species,
@@ -273,6 +284,8 @@ namespace Content.Server.Database
                 barkVoice, // Corvax-Fallout-Barks
                 speechVerbPreference // #Misfits Add - vocal style
             );
+
+            return humanoid.WithSpecial(special);
         }
 
         private static Profile ConvertProfiles(HumanoidCharacterProfile humanoid, int slot, Profile? profile = null)
@@ -311,6 +324,14 @@ namespace Content.Server.Database
             profile.Markings = markings;
             profile.Slot = slot;
             profile.PreferenceUnavailable = (DbPreferenceUnavailableMode) humanoid.PreferenceUnavailable;
+            var special = SpecialProfile.EnsureValid(humanoid.Special);
+            profile.SpecialStrength = special.Strength;
+            profile.SpecialPerception = special.Perception;
+            profile.SpecialEndurance = special.Endurance;
+            profile.SpecialCharisma = special.Charisma;
+            profile.SpecialIntelligence = special.Intelligence;
+            profile.SpecialAgility = special.Agility;
+            profile.SpecialLuck = special.Luck;
 
             profile.Jobs.Clear();
 
@@ -656,6 +677,37 @@ namespace Content.Server.Database
                 .SingleOrDefaultAsync(p => p.UserId == userId.UserId, cancel);
 
             return record == null ? null : MakePlayerRecord(record);
+        }
+
+        public async Task<string?> GetPlayerDiscordIdAsync(NetUserId userId, CancellationToken cancel)
+        {
+            await using var db = await GetDb(cancel);
+
+            return await db.DbContext.Player
+                .Where(p => p.UserId == userId.UserId)
+                .Select(p => p.DiscordId)
+                .SingleOrDefaultAsync(cancel);
+        }
+
+        public async Task SetPlayerDiscordIdAsync(NetUserId userId, string discordId)
+        {
+            await using var db = await GetDb();
+
+            var existingLinkedPlayer = await db.DbContext.Player
+                .Where(p => p.DiscordId == discordId && p.UserId != userId.UserId)
+                .SingleOrDefaultAsync();
+
+            if (existingLinkedPlayer != null)
+                throw new InvalidOperationException("Discord account is already linked to another player account.");
+
+            var record = await db.DbContext.Player
+                .SingleOrDefaultAsync(p => p.UserId == userId.UserId);
+
+            if (record == null)
+                throw new InvalidOperationException($"No player record exists for {userId}.");
+
+            record.DiscordId = discordId;
+            await db.DbContext.SaveChangesAsync();
         }
 
         protected async Task<bool> PlayerRecordExists(DbGuard db, NetUserId userId)

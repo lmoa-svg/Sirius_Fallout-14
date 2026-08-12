@@ -1,0 +1,1 @@
+panic-bunker-account-reason-vpn = Серверу запрещен доступ через VPN-соединение

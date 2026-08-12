@@ -1,0 +1,1 @@
+chat-system-repeated-message-counter = {" "}[font size=__PH0__][color=#DD3333][bold]x{$count}![/bold][/color][/font]

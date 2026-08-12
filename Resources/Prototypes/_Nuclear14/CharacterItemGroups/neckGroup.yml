@@ -30,6 +30,8 @@
     - type: loadout
       id: MisfitsLoadoutNeckTownGuardMantle # #Misfits Add - cosmetic army rain mantle
     - type: loadout
+      id: MisfitsLoadoutNeckNCRmantleQM # #Misfits Add - cosmetic NCR Requisitons Officer's mantle
+    - type: loadout
       id: ClothingNeckShawl
     - type: loadout # #Misfits Add - NCR faction cloaks and mantles
       id: MisfitsLoadoutNeckCloakNCR
@@ -51,3 +53,43 @@
       id: ClothingNeckScarfStripedBrown
     - type: loadout
       id: ClothingNeckScarfStripedBlue
+    - type: loadout
+      id: ClothingLoadoutNeckScarfChaplainStole #Sirius Add
+    - type: loadout
+      id: ClothingLoadoutNeckScarfStripedgray #Sirius Add
+    - type: loadout
+      id: ClothingLoadoutNeckScarfStripedpink #Sirius Add
+    - type: loadout
+      id: ClothingLoadoutNeckScarfStripedwhite #Sirius Add
+    - type: loadout
+      id: ClothingLoadoutNeckScarfStripedyellow #Sirius Add
+    - type: loadout
+      id: ClothingLoadoutNeckScarfStripedPurple #Sirius Add
+    - type: loadout
+      id: ClothingLoadoutNeckScarfStripedOrange #Sirius Add
+    - type: loadout
+      id: ClothingLoadoutNeckScarfStripedZebra #Sirius Add
+    - type: loadout
+      id: ClothingLoadoutNeckMothFluffyWings #Sirius Add
+    - type: loadout
+      id: N14LoadoutUniversalNeckCloakBrotherhoodWashington
+    - type: loadout
+      id: N14LoadoutUniversalNeckCloakDarkCloak
+    - type: loadout
+      id: N14LoadoutUniversalNeckCloakLeather
+    - type: loadout
+      id: N14LoadoutUniversalNeckCloakYaoguai
+    - type: loadout
+      id: N14LoadoutUniversalNeckMantleBrotherhoodWashington
+    - type: loadout
+      id: N14LoadoutUniversalNeckMantleLeather
+    - type: loadout
+      id: N14LoadoutUniversalNeckShawl
+    - type: loadout
+      id: N14LoadoutUniversalNeckTownGuardCloak
+    - type: loadout
+      id: N14LoadoutUniversalNeckTribalCloak
+    - type: loadout
+      id: N14LoadoutUniversalNeckTribalCloakBr
+    - type: loadout
+      id: MisfitsLoadoutOuterCloakWesternPoncho

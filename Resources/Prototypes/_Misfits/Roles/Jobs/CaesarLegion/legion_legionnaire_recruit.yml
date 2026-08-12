@@ -8,10 +8,6 @@
   description: job-description-caesar-legionnaire-recruit
   playTimeTracker: CaesarLegionLegionnaireRecruit
   requirements:
-    # #Misfits Tweak - T1 (no timelock, open entry rank)
-    # TEMP REMOVED - !type:CharacterDepartmentTimeRequirement
-    #   department: CaesarLegion
-    #   min: 18000 # 5 hours (was T2)
     - !type:CharacterSpeciesRequirement
       species:
       - Human
@@ -22,7 +18,7 @@
   startingGear: CaesarLegionLegionnaireRecruitGear
   alwaysUseSpawner: true
   icon: "JobIconlegionerRecruit"
-  supervisors: job-name-caesar-legion-other
+  supervisors: job-supervisor-caesar-legion-dean
   canBeAntag: false
   accessGroups:
   - CaesarLegionLegionnaireRecruit
@@ -49,7 +45,6 @@
     head: N14ClothingHeadHatTribalOutcastHood
     outerClothing: N14ClothingOuterLegionnaireRecruitArmor
     gloves: N14ClothingHandsGlovesTribal
-    pocket1: LegionLegionnaireRecruitloadoutkits
     id: N14IDLegionaryMedalLegionnaireRecruit
   innerClothingSkirt: N14ClothingUniformJumpsuitLegionnaireOther
   storage:

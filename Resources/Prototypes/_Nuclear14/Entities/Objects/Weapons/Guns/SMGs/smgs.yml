@@ -155,7 +155,7 @@
       - state: mag-0
         map: ["enum.GunVisualLayers.Mag"]
   - type: Gun
-    fireRate: 6
+    fireRate: 4 #sirius change
     soundGunshot:
       collection: N14Pistol12mmGunshot
     selectedMode: FullAuto
@@ -212,7 +212,7 @@
     - state: mag-0
       map: ["enum.GunVisualLayers.Mag"]
   - type: Gun
-    fireRate: 4
+    fireRate: 3 #sirius change
     soundGunshot:
       collection: N14Pistol12mmGunshot
     selectedMode: Fullauto
@@ -248,7 +248,10 @@
             - N14CartridgePistol127
   - type: StaticPrice
     price: 10
-
+  - type: GunDamageBonus
+    bonusDamage:
+      types:
+        Piercing: -3
 
 - type: entity
   parent: N14WeaponSMG12mmPipe
@@ -274,6 +277,10 @@
   - type: Construction
     graph: N14WeaponSMG12mmPipeEmpty
     node: start
+  - type: GunDamageBonus
+    bonusDamage:
+      types:
+        Piercing: -3
 
 - type: entity
   name: 10mm pipe SMG
@@ -354,6 +361,10 @@
   - type: Construction
     graph: N14WeaponSMG10mmPipeEmpty
     node: start
+  - type: GunDamageBonus
+    bonusDamage:
+      types:
+        Piercing: -2
 
 - type: entity
   name: advanced 12.7mm SMG
@@ -375,7 +386,7 @@
       - state: mag-0
         map: ["enum.GunVisualLayers.Mag"]
   - type: Gun
-    fireRate: 7
+    fireRate: 6 #sirius change
     soundGunshot:
       collection: N14Pistol12mmGunshot
     selectedMode: FullAuto
@@ -672,7 +683,7 @@
       - state: mag-0
         map: ["enum.GunVisualLayers.Mag"]
   - type: Gun
-    fireRate: 5
+    fireRate: 4 #sirius change
     soundGunshot:
       collection: N14Pistol12mmGunshot
     selectedMode: FullAuto
@@ -729,7 +740,7 @@
       - state: mag-0
         map: ["enum.GunVisualLayers.Mag"]
   - type: Gun
-    fireRate: 7
+    fireRate: 5 #sirius change
     soundGunshot:
       collection: N14Pistol12mmGunshot
     selectedMode: FullAuto
@@ -765,6 +776,10 @@
             - N14CartridgePistol127
   - type: StaticPrice
     price: 175
+  - type: GunDamageBonus
+    bonusDamage:
+      types:
+        Piercing: 2
 
 - type: entity
   name: chinese SMG
@@ -826,6 +841,10 @@
             - N14CartridgePistol10
   - type: StaticPrice
     price: 100
+  - type: GunDamageBonus
+    bonusDamage:
+      types:
+        Piercing: 1
 
 # #Misfits Add — PPSh-41, M3A1 Grease Gun, American 180
 # Ported from Fortune13/LoneStar (https://github.com/Cythisiax/LoneStar/), a SS13 Fallout fork.
@@ -887,6 +906,10 @@
             - N14CartridgePistol9
   - type: StaticPrice
     price: 150
+  - type: GunDamageBonus
+    bonusDamage:
+      types:
+        Piercing: 5
 
 - type: entity
   name: M3A1 grease gun
@@ -1003,3 +1026,113 @@
             - N14CartridgePistol22
   - type: StaticPrice
     price: 250
+#sirius change start
+- type: entity
+  name: infiltratorMk2
+  parent: N14WeaponSMG9mminfiltrator
+  id: N14WeaponSMG9mminfiltratorMk2Sirius
+  description: A special metallic pre-war submachine gun modified with a integrated suppressor, chambered in 9mm ammo.
+  components:
+  - type: Clothing
+    sprite: _Nuclear14/Objects/Weapons/Guns/SMGs/infiltratormk2.rsi
+    quickEquip: false
+    slots:
+    - Back
+    - suitStorage
+  - type: Sprite
+    scale: 0.8, 0.8
+    sprite: _Nuclear14/Objects/Weapons/Guns/SMGs/infiltratormk2.rsi
+    layers:
+    - state: base
+      map: ["enum.GunVisualLayers.Base"]
+    - state: mag-0
+      map: ["enum.GunVisualLayers.Mag"]
+  - type: Gun
+    fireRate: 10
+    soundGunshot:
+      collection: N14PistolSpyGunshot
+    selectedMode: Fullauto
+    availableModes:
+    - Fullauto
+    minAngle: 4
+    maxAngle: 14
+    angleIncrease: 2
+    angleDecay: 16
+  - type: ChamberMagazineAmmoProvider
+    soundRack:
+      path: /Audio/_Nuclear14/Weapons/Effects/Reload/SMGs/smg_cock.ogg
+  - type: GunWieldBonus
+    minAngle: -3
+    maxAngle: -7
+  - type: StaticPrice
+    price: 50
+  - type: GunDamageBonus
+    bonusDamage:
+      types:
+        Piercing: 5
+
+- type: entity
+  name: P90
+  parent: N14WeaponSMG9mm
+  id: N14P909mmSirius
+  description: The FN P90 is a personal defense weapon, also classified as a submachine gun, designed and manufactured by FN Herstal in Belgium.
+  components:
+  - type: Clothing
+    sprite: _Nuclear14/Objects/Weapons/Guns/SMGs/p90.rsi
+    quickEquip: false
+    slots:
+    - Back
+    - suitStorage
+  - type: Item # Forge-Change
+    size: Large
+    shape:
+    - 0,0,2,1
+    - 0,1,0,1
+  - type: Sprite
+    sprite: _Nuclear14/Objects/Weapons/Guns/SMGs/p90.rsi
+    layers:
+    - state: base
+      map: ["enum.GunVisualLayers.Base"]
+    - state: mag-0
+      map: ["enum.GunVisualLayers.Mag"]
+  - type: Gun
+    fireRate: 9.5
+    soundGunshot:
+      collection: N14Pistol9mmGunshot
+    selectedMode: Fullauto
+    availableModes:
+    - Fullauto
+    minAngle: 4
+    maxAngle: 20
+    angleIncrease: 2
+    angleDecay: 16
+  - type: ChamberMagazineAmmoProvider
+    soundRack:
+      path: /Audio/_Nuclear14/Weapons/Effects/Reload/SMGs/smg_cock.ogg
+  - type: GunWieldBonus
+    minAngle: -3
+    maxAngle: -15
+  - type: ItemSlots
+    slots:
+      gun_magazine:
+        name: Magazine
+        startingItem: N14MagazineSMG9mmP90
+        insertSound: /Audio/_Nuclear14/Weapons/Effects/Reload/SMGs/smg_magin.ogg
+        ejectSound: /Audio/_Nuclear14/Weapons/Effects/Reload/SMGs/smg_magout.ogg
+        whitelist:
+          tags:
+            - N14MagazineSMG9mmP90
+      gun_chamber:
+        name: Chamber
+        startingItem: N14CartridgePistol9
+        priority: 1
+        whitelist:
+          tags:
+            - N14CartridgePistol9
+  - type: StaticPrice
+    price: 200
+  - type: GunDamageBonus
+    bonusDamage:
+      types:
+        Piercing: 2
+#sirius change end

@@ -1,11 +1,15 @@
 - type: loadout
   id: N14ClothingBackpackTrekker
   category: Backpacks
-  cost: 2
+  cost: 0
   exclusive: true
   customName: false
   customDescription: false
   requirements:
+    - !type:CharacterJobRequirement
+      inverted: true
+      jobs:
+      - NCRPrisoner
     - !type:CharacterDepartmentRequirement
       inverted: true
       departments:
@@ -20,11 +24,15 @@
 - type: loadout
   id: N14ClothingBackpackHiking
   category: Backpacks
-  cost: 2
+  cost: 0
   exclusive: true
   customName: false
   customDescription: false
   requirements:
+    - !type:CharacterJobRequirement
+      inverted: true
+      jobs:
+      - NCRPrisoner
     - !type:CharacterDepartmentRequirement
       inverted: true
       departments:
@@ -39,11 +47,15 @@
 - type: loadout
   id: N14ClothingBackpackExplorer
   category: Backpacks
-  cost: 2
+  cost: 0
   exclusive: true
   customName: false
   customDescription: false
   requirements:
+    - !type:CharacterJobRequirement
+      inverted: true
+      jobs:
+      - NCRPrisoner
     - !type:CharacterDepartmentRequirement
       inverted: true
       departments:
@@ -58,11 +70,15 @@
 - type: loadout
   id: N14ClothingBackpackMilitary
   category: Backpacks
-  cost: 2
+  cost: 0
   exclusive: true
   customName: false
   customDescription: false
   requirements:
+    - !type:CharacterJobRequirement
+      inverted: true
+      jobs:
+      - NCRPrisoner
     - !type:CharacterDepartmentRequirement
       inverted: true
       departments:
@@ -77,11 +93,15 @@
 - type: loadout
   id: N14ClothingBackpackTribal
   category: Backpacks
-  cost: 2
+  cost: 0
   exclusive: true
   customName: false
   customDescription: false
   requirements:
+    - !type:CharacterJobRequirement
+      inverted: true
+      jobs:
+      - NCRPrisoner
     - !type:CharacterDepartmentRequirement
       inverted: true
       departments:
@@ -96,7 +116,7 @@
 - type: loadout
   id: N14ClothingBackpackVaultBlueDark
   category: Backpacks
-  cost: 2
+  cost: 0
   exclusive: true
   customName: false
   customDescription: false
@@ -114,7 +134,7 @@
 - type: loadout
   id: N14ClothingBackpackVaultOrange
   category: Backpacks
-  cost: 2
+  cost: 0
   exclusive: true
   customName: false
   customDescription: false
@@ -132,7 +152,7 @@
 - type: loadout
   id: N14ClothingBackpackVaultGreen
   category: Backpacks
-  cost: 2
+  cost: 0
   exclusive: true
   customName: false
   customDescription: false
@@ -150,7 +170,7 @@
 - type: loadout
   id: N14ClothingBackpackVaultGreenDark
   category: Backpacks
-  cost: 2
+  cost: 0
   exclusive: true
   customName: false
   customDescription: false
@@ -168,7 +188,7 @@
 - type: loadout
   id: N14ClothingBackpackVaultPurple
   category: Backpacks
-  cost: 2
+  cost: 0
   exclusive: true
   customName: false
   customDescription: false
@@ -186,7 +206,7 @@
 - type: loadout
   id: N14ClothingBackpackVaultRed
   category: Backpacks
-  cost: 2
+  cost: 0
   exclusive: true
   customName: false
   customDescription: false
@@ -204,15 +224,15 @@
 - type: loadout
   id: N14ClothingBackpackRadioNCR
   category: Backpacks
-  cost: 3
+  cost: 1
   exclusive: true
   customName: false
   customDescription: false
   requirements:
     - !type:CharacterJobRequirement
       jobs:
-        - NCRSGT
-    # Misfits Tweak - Removed the NCRNCO hour gate so any NCRSGT can take the NCR radio backpack.
+        - NCRNCO
+    # Misfits Tweak - Removed the NCRNCO hour gate so any NCO can take the NCR radio backpack.
     # - !type:CharacterPlaytimeRequirement
     #   tracker: NCRNCO
     #   min: 36000 # 10 hours
@@ -220,5 +240,55 @@
       group: N14LodaoutBags
   items:
     - N14ClothingBackpackRadioNCR
+  functions:
+  - !type:LoadoutFiledStorage
+
+- type: loadout
+  id: MisfitsLoadoutLegionBackpackCapeRed
+  category: Backpacks
+  cost: 0
+  exclusive: true
+  customName: false
+  customDescription: false
+  requirements:
+    - !type:CharacterDepartmentRequirement
+      departments:
+      - CaesarLegion
+    - !type:CharacterItemGroupRequirement
+      group: N14LodaoutBags
+    - !type:CharacterJobRequirement
+      jobs:
+      - CaesarLegionLegate
+      - CaesarLegionCenturion
+      - CaesarLegionVeteranDecanus
+      - CaesarLegionPrimeDecanus
+      - CaesarLegionVexillarius
+  items:
+    - M14LegionBackpackCapeRed
+  functions:
+  - !type:LoadoutFiledStorage
+
+- type: loadout
+  id: MisfitsLoadoutLegionBackpackCapeBlack
+  category: Backpacks
+  cost: 0
+  exclusive: true
+  customName: false
+  customDescription: false
+  requirements:
+    - !type:CharacterDepartmentRequirement
+      departments:
+      - CaesarLegion
+    - !type:CharacterItemGroupRequirement
+      group: N14LodaoutBags
+    - !type:CharacterJobRequirement
+      jobs:
+      - CaesarLegionLegate
+      - CaesarLegionCenturion
+      - CaesarLegionVeteranDecanus
+      - CaesarLegionPrimeDecanus
+      - CaesarLegionVexillarius
+  items:
+    - M14LegionBackpackCapeBlack
   functions:
   - !type:LoadoutFiledStorage

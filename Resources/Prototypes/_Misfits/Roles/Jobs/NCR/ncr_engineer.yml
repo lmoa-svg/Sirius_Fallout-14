@@ -1,13 +1,13 @@
-#Misfits Change /Tweak/: NCR Engineer role consolidated into NCR Specialist (NCRWS).
-#  Engineer loadout kits (Mechanic, Demolition, Breacher) are now available in the Specialist's undecided loadout.
-#  Job kept defined but hidden so existing spawner/entity references don't break.
 - type: job
   id: NCREngineer
-  setPreference: false # #Misfits Tweak - hidden from character creation, role consolidated into Specialist
-  jobWhitelistBypassesRoleTimers: true # #Misfits Change
+  setPreference: true
+  hideIfPlaytimeRequirementsNotMet: false
+  jobWhitelistBypassesRoleTimers: true
   overrideConsoleVisibility: false
   canBeAntag: false
+  weight: 41
   name: job-name-ncr-engineer
+  overwatchCategory: OverwatchNcrSupport
   description: job-description-ncr-engineer
   playTimeTracker: NCREngineer
   requirements:
@@ -15,9 +15,12 @@
       species:
       - Human
       - Ghoul
+    - !type:CharacterDepartmentTimeRequirement # T4 faction timelock (12h NCR)
+      department: NCR
+      min: 43200 # 12 hours
   startingGear: NCREngineerGear
   icon: "JobIconWarden"
-  supervisors: job-supervisors-ncr-sergeant
+  supervisors: job-supervisors-ncr-nco
   alwaysUseSpawner: true
   access:
   - NCR
@@ -32,13 +35,15 @@
 - type: startingGear
   id: NCREngineerGear
   equipment:
-    head: N14ClothingHeadHatNCRHelmetMetalDesert # Corvax-Change
+    head: N14ClothingHeadHatNCRHelmetNoCover # Corvax-Change
     back: N14ClothingBackpackNCR # Corvax-Change
     jumpsuit: N14ClothingUniformNCRDesert # Corvax-Change
-    outerClothing: N14ClothingOuterNCRPouchedVestDesert # Forge-Change
+    outerClothing: N14ClothingOuterNCREngineerVest # Forge-Change #Misfits Add - Added a sidegrade engineer vest to give the role some unique flair.
     shoes: N14ClothingBootsLeatherFilled
     ears: N14ClothingHeadsetNCR # #Misfits Add - NCR radio earpiece
     hands: N14ClothingHandsGlovesCombat
+    eyes: N14ClothingEyesGlassesWelding
+
     id: N14IDNCRDogtagEngineer
     pocket1: NCRengineerloadoutkits
   innerClothingSkirt: N14ClothingUniformNCRDesert # Corvax-Change

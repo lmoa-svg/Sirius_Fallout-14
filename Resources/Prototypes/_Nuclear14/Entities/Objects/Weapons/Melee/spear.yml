@@ -38,8 +38,8 @@
     wideAnimationRotation: -135
     damage:
       types:
-        Piercing: 10
-        Slash: 2
+        Piercing: 15 #sirius change
+        Slash: 5
     angle: 0
     animation: WeaponArcThrust
     soundHit:
@@ -47,7 +47,7 @@
   - type: DamageOtherOnHit
     damage:
       types:
-        Piercing: 34
+        Piercing: 39
         Slash: 7
   - type: Item
     size: Large
@@ -95,6 +95,8 @@
       types:
         Piercing: 3
         Slash: 3
+  - type: GrantActionOnWield       # Misfits Add
+    actions: [ MisfitsActionMeleeCharge ]
   - type: EmbeddableProjectile
     offset: 0.15,0.15
   - type: EmbedPassiveDamage
@@ -129,7 +131,7 @@
     wideAnimationRotation: -135
     damage:
       types:
-        Piercing: 24
+        Piercing: 29 #sirius change
         Slash: 10
     angle: 0
     animation: WeaponArcThrust
@@ -138,7 +140,7 @@
   - type: DamageOtherOnHit
     damage:
       types:
-        Piercing: 24
+        Piercing: 29 #sirius change
         Slash: 5
   - type: Item
     size: Large
@@ -282,10 +284,37 @@
   - type: MeleeWeapon
     damage:
       types:
-        Piercing: 18
+        Piercing: 23
   - type: DamageOtherOnHit
     damage:
       types:
-        Piercing: 36
+        Piercing: 41
         Slash: 6
 
+- type: entity
+  name: Twin spear
+  parent: N14WastelandSpear
+  id: N14TwinspearSirius
+  #Misfits Change /Fix:/ removed duplicate damage mapping key.
+  description: Strong and with a devastating attack, these spears are commonly made and used by tribals.
+  components:
+  - type: Clothing
+    sprite: _Nuclear14/Objects/Weapons/Melee/twinspear.rsi
+    quickEquip: false
+    slots:
+    - back
+    - suitStorage
+  - type: Sprite
+    sprite: _Nuclear14/Objects/Weapons/Melee/twinspear.rsi
+    netsync: false
+    state: spear
+  - type: MeleeWeapon
+    damage:
+      types:
+        Piercing: 38
+        Slash: 10
+  - type: DamageOtherOnHit
+    damage:
+      types:
+        Piercing: 40
+        Slash: 5

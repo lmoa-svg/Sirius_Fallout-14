@@ -1,28 +1,32 @@
 ﻿trait-name-LanguageTribal = Tribal Language
-trait-description-LanguageTribal = You can understand and speak the local Tribal language. Whether through learning or backstory.
+trait-description-LanguageTribal = You can understand and speak the local Tribal language, whether through learning or backstory.
 
 trait-name-LanguageChinese = Chinese Language
-trait-description-LanguageChinese = You can understand and speak the Chinese language. Whether through learning or backstory.
+trait-description-LanguageChinese = You can understand and speak the Chinese language, whether through learning or backstory.
 
 trait-name-LanguageSpanish = Spanish Language
-trait-description-LanguageSpanish = You can understand and speak the Spanish language. Whether through learning or backstory.
+trait-description-LanguageSpanish = You can understand and speak the Spanish language, whether through learning or backstory.
 
 trait-name-N14SignLanguage = Sign Language
 trait-description-N14SignLanguage =
-    You can understand and use a basic & generally accepted sign language.
+    You can understand and use a basic and generally accepted sign language.
     If you are mute for any reason, you can still communicate with sign language.
 
 trait-name-LanguageTribalRanger = Tribal Language
-trait-description-LanguageTribalRanger = You can understand and speak the local Tribal language. Whether through learning or backstory.
+trait-description-LanguageTribalRanger = You can understand and speak the local Tribal language, whether through learning or backstory.
 
 trait-name-N14SignLanguageRanger = Sign Language
 trait-description-N14SignLanguageRanger =
-    You can understand and use a basic & generally accepted sign language.
+    You can understand and use a basic and generally accepted sign language.
     If you are mute for any reason, you can still communicate with sign language.
 
 trait-name-N14ScottishAccent = Scottish Accent
 trait-description-N14ScottishAccent =
-    Fer tha folk who come frae Hielan clan.  You have Scottish accent, that's about it. Do I have to explain it?
+    Fer tha folk who come frae Hielan clan. You have Scottish accent, that's about it. Do I have to explain it?
+
+trait-name-N14FrenchieAccent = French Accent
+trait-description-N14FrenchieAccent =
+    Vive les goules!
 
 trait-name-N14Stutter = Stutter
 trait-description-N14Stutter =
@@ -55,7 +59,7 @@ trait-description-N14Snoring = You tend to snore loudly while sleeping.
 trait-name-N14Stomper = Stomper
 trait-description-N14Stomper =
     Your footsteps are louder than what others tend to produce.
-    It doesn't matter if it's because you want to seem more intimidating, you're stumbling or your weight.
+    You may be trying to seem more intimidating, you may be stumbling, or you may just be heavy.
 
 trait-name-N14Sneak = Sneak
 trait-description-N14Sneak =
@@ -103,14 +107,14 @@ trait-description-N14PetPigrat =
     Pigrats don't eat a lot and are common enough that it's easy to replace them, or you can protect them for their mutated cuteness.
     (The trait creates a ghost role for another player, there is guarantee that someone takes it.)
 
-trait-name-N14PetAnt = Muleant (Pet) 
+trait-name-N14PetAnt = Muleant (Pet)
 trait-description-N14PetAnt =
     You (might) have a giant ant that follows and obeys you.
     The company somehow domesticated a giant ant queen. Eventually this lead to you getting a loyal insect friend with bags on its back to carry your burdens.
     (The trait creates a ghost role for another player, there is guarantee that someone takes it.)
 
 trait-name-N14PetDog = Dog Companion
-trait-description-N14PetDog = 
+trait-description-N14PetDog =
     You (might) have a dog companion that follows and obeys you.
     You are followed along by a canine friend. It doesn't matter if you tamed it, or purchased it. It's a human's best friend!
     (The trait creates a ghost role for another player, there is guarantee that someone takes it.)
@@ -133,9 +137,9 @@ trait-description-N14PetDogMBoS =
     Your little buddy was taught tactics and has a vest to keep him safe. You might even be able to store stuff in it.
     (The trait creates a ghost role for another player, there is guarantee that someone takes it.)
 
-#Misfits Change /Comment-out/: Washington BoS pet traits removed — will create new prototypes.
-#trait-name-N14PetDogWBoS = Cybernetic Dog
-#trait-description-N14PetDogWBoS =
+# Misfits Change /Comment-out/: Washington BoS pet traits removed — will create new prototypes.
+# trait-name-N14PetDogWBoS = Cybernetic Dog
+# trait-description-N14PetDogWBoS =
 #    You (might) have a cybernetic canine that follows and obeys you.
 #    This dog is not your best friend, it's a mutilated killing machine. At least it's immune to radiation poisoning.
 #    (The trait creates a ghost role for another player, there is guarantee that someone takes it.)
@@ -152,9 +156,9 @@ trait-description-N14PetEyebotMBoS =
     It cannot carry stuff for you, but has a laser weapon and can play tunes from the town's frequency.
     (The trait creates a ghost role for another player, there is guarantee that someone takes it.)
 
-#Misfits Change /Comment-out/: Washington BoS eyebot trait removed — will create new prototypes.
-#trait-name-N14PetEyebotWBoS = Eyebot Follower
-#trait-description-N14PetEyebotWBoS =
+# Misfits Change /Comment-out/: Washington BoS eyebot trait removed — will create new prototypes.
+# trait-name-N14PetEyebotWBoS = Eyebot Follower
+# trait-description-N14PetEyebotWBoS =
 #    You (might) have an Eyebot that follows and obeys you.
 #    It cannot carry stuff for you, but has a laser weapon and can play tunes from the town's frequency.
 #    (The trait creates a ghost role for another player, there is guarantee that someone takes it.)
@@ -171,7 +175,7 @@ trait-description-N14IronFist =
 
 trait-name-N14RadClaws = Rad Claws
 trait-description-N14RadClaws =
-    Being a ghoul is not that all bad, you got very neat sharp claws that you can use in a brawl.
+    Being a ghoul is not all that bad, you've got sharp claws that you can use in a brawl.
     You deal [color=green]+1[/color] [color=yellow]Slash[/color] and [color=yellow]Radiation[/color] damage in unarmed melee combat.
 
 trait-name-N14WeakLiquor = Weak Liquor
@@ -188,11 +192,11 @@ trait-description-N14PartyAnimal =
 
 trait-name-N14ShortArms = Short Arms
 trait-description-N14ShortArms =
-    Your arms are shorter than they should be. Your [color=yellow]melee range[/color] is [color=red]decreased by 10%[/color].
+    Your arms are shorter than they should be. Your [color=yellow]unarmed melee range[/color] is [color=red]decreased by 10%[/color].
 
 trait-name-N14Blitz = Blitz
 trait-description-N14Blitz =
-    You are able to move really fast and hand slaps out from far away. Your [color=yellow]melee range[/color] is [color=green]increased by 15%[/color].
+    You are able to move really fast and hand slaps out from far away. Your [color=yellow]unarmed melee range[/color] is [color=green]increased by 15%[/color].
 
 trait-name-N14ScriptedDeath = Scripted Death
 trait-description-N14ScriptedDeath =
@@ -209,8 +213,8 @@ trait-description-N14LifeTaker =
 trait-name-N14LifeGiver = Life Giver
 trait-description-N14LifeGiver =
     Whether it be through raw grit, willpower, or some sort of augmentation you are more difficult to kill.
-    Your damage [color=yellow]threshold for Critical[/color] is [color=green]decreased by 5 points[/color].
-    And the damage [color=yellow]tresshold for Death[/color] is [color=green]decreased by 10 points[/color].
+    Your damage [color=yellow]threshold for Critical[/color] is [color=green]increased by 5 points[/color].
+    And the damage [color=yellow]tresshold for Death[/color] is [color=green]increased by 10 points[/color].
 
 trait-name-N14BadReflexes = Bad Reflexes
 trait-description-N14BadReflexes =
@@ -224,14 +228,13 @@ trait-description-N14LightningHands =
 
 trait-name-N14Poisoned = Poisoned
 trait-description-N14Poisoned =
-    A while ago you were poisoned by something or someone and it still didn't clear from your system.
-    You are constantly taking [color=red]Poison damage[/color], making you antidote dependant.
+    A while ago you were poisoned by something or someone and it still hasn't cleared from your system.
+    You are constantly taking [color=red]Poison damage[/color], making you antidote-dependant.
 
-trait-name-N14UnnaturalReg = Unnatrual Regeneration
+trait-name-N14UnnaturalReg = Unnatural Regeneration
 trait-description-N14UnnaturalReg =
     For some reason your body heals a lot faster than it normally should.
-    You just keep healing damage, not really fast but it save you from wasting meds,
-    or even bring you out of Critical state.
+    You will slowly recover from injuries on your own, even in a Critical state.
 
 trait-name-N14WorldChampion = World Champion
 trait-description-N14WorldChampion =
@@ -256,13 +259,13 @@ trait-description-N14DeskNinja =
 
 trait-name-N14SilentTakedown = Silent Takedown
 trait-description-N14SilentTakedown =
-    You were taught how to take down knock people out silently. But you're not that good at it. At least you know where to hit.
+    You were taught how to knock people out silently, but you're not that good at it. At least you know where to hit.
     Your unarmed melee attacks [color=green]deal 8 [color=yellow]Stamina damage[/color] as an extra [color=green]bonus[/color].
 
 trait-name-N14GammaShield = Gamma Shield
 trait-description-N14GammaShield =
     Through meditation you were able to channel Atom's radiation to protect you from harm.
-    Significant increase in your overall damage resistances.
+    Significantly increases your overall damage resistances.
 
 trait-name-N14HandyTools = Handy Tools
 trait-description-N14HandyTools =
@@ -271,13 +274,13 @@ trait-description-N14HandyTools =
 
 trait-name-N14DermalArmorWaster = Dermal Armor
 trait-description-N14DermalArmorWaster =
-    You have a series of armour plates & lattice implanted under your skin.
-    This grants you bonuses against physical damage types.
+    You have a series of armour plates and lattice implanted under your skin.
+    This grants you resistance against physical damage types.
 
 trait-name-N14DermalArmor = Dermal Armor
 trait-description-N14DermalArmor =
-    You have a series of armour plates & lattice implanted under your skin.
-    This grants you bonuses against physical damage types.
+    You have a series of armour plates and lattice implanted under your skin.
+    This grants you resistance against physical damage types.
     (Thanks to your faction's technological advancements this came at a discount.)
 
 trait-name-N14PhoenixArmor = Phoenix Armor
@@ -304,7 +307,7 @@ trait-description-N14ExtremeAugPaladin =
     On top of that you are able to communicate via an encoded language.
 
 trait-name-N14Pickpocket = Pickpocket
-trait-description-N14Pickpocket = 
+trait-description-N14Pickpocket =
     You are really good at taking people's things without consent. You steal from them faster and there is a chance it doesn't even get noticed.
 
 trait-name-N14Muted = Muted
@@ -339,3 +342,33 @@ trait-description-N14PowerArmorTraining =
     You have received formal training in the operation of power armor suits.
     Without this training, the weight distribution, servo-assisted limbs, and integrated systems
     of power armor are too complex to operate safely. [color=yellow]Required to equip any power armor.[/color]
+
+character-item-group-N14SpecialPerks = S.P.E.C.I.A.L.
+
+trait-name-N14SpecialStrength = Strength
+trait-description-N14SpecialStrength =
+    Hit harder and swing faster with melee weapons. You gain a little stamina resilience, but ranged weapons are slightly weaker.
+
+trait-name-N14SpecialPerception = Perception
+trait-description-N14SpecialPerception =
+    Ranged weapons hit harder, but melee attacks are slightly weaker.
+
+trait-name-N14SpecialEndurance = Endurance
+trait-description-N14SpecialEndurance =
+    Gain 20 health and more stamina resilience, but move a little slower.
+
+trait-name-N14SpecialCharisma = Charisma
+trait-description-N14SpecialCharisma =
+    Keep people moving with confidence. You walk and sprint slightly faster.
+
+trait-name-N14SpecialIntelligence = Intelligence
+trait-description-N14SpecialIntelligence =
+    Energy weapons hit harder, but other weapons are slightly weaker and less steady.
+
+trait-name-N14SpecialAgility = Agility
+trait-description-N14SpecialAgility =
+    Walk and sprint faster, but lose 10 health and deal slightly less ranged and melee damage.
+
+trait-name-N14SpecialLuck = Luck
+trait-description-N14SpecialLuck =
+    Deal slightly more ranged and melee damage, but lose a little stamina resilience.

@@ -7,6 +7,7 @@
   overrideConsoleVisibility: true
   canBeAntag: false
   name: job-name-bos-mid-scribe
+  overwatchCategory: OverwatchBosScribe
   description: job-description-bos-mid-scribe
   playTimeTracker: BoSMidScribe
   requirements:
@@ -46,8 +47,6 @@
     jumpsuit: N14ClothingUniformJumpskirtBOSBlack  #Misfits Change /Tweak/: New consolidated BoS gear
     back: N14ClothingBackpackSatchelMilitary
     shoes: N14ClothingBootsLeatherFilled
-    # outerClothing: N14ClothingOuterBrotherhoodMidwestFieldScribeCoat # #Misfits Removed - Coat now comes from loadout kit selection
-    pocket1: BoSBrotherhoodSeniorScribeKits
     id: N14IDBrotherhoodOfSteelHolotagSeniorScribe
     ears: N14ClothingHeadsetBrotherhoodOfSteelScribe
     belt: ClothingBeltMilitary

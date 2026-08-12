@@ -14,12 +14,18 @@
     whitelist:
       tags:
         - N14CartridgePistol9
-    capacity: 35
+    capacity: 71 #sirius change
     proto: N14CartridgePistol9
   - type: ContainerContainer
     containers:
       ballistic-ammo: !type:Container
   - type: Appearance
+  - type: Sprite
+    netsync: false
+    sprite: _Nuclear14/Objects/Weapons/Guns/Ammunition/Magazines/22lr/smgmag.rsi
+    layers:
+    - state: base
+      map: ["enum.GunVisualLayers.Base"]
 
 # American 180 35-round .22lr drum
 - type: entity
@@ -35,9 +41,15 @@
     whitelist:
       tags:
         - N14CartridgePistol22
-    capacity: 35
+    capacity: 165 #sirius change
     proto: N14CartridgePistol22
   - type: ContainerContainer
     containers:
       ballistic-ammo: !type:Container
   - type: Appearance
+  - type: Sprite
+    netsync: false
+    sprite: _Misfits/Objects/Weapons/Guns/Ammunition/Magazines/22lrdrum.rsi
+    layers:
+    - state: base
+      map: ["enum.GunVisualLayers.Base"]

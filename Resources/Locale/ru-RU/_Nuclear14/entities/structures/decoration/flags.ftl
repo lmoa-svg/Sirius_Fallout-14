@@ -1,0 +1,14 @@
+ent-N14DecorationFlagBearerEmpty = знаменосец
+    .desc = Столб для вывешивания флагов.
+ent-N14DecorationFlagNCR = Флаг НКР
+    .desc = Флаг с двуглавым медведем, символом Новой Калифорнийской Республики.
+ent-N14DecorationFlagBrotherhoodMidwest = Флаг Братства Стали
+    .desc = Сине-черный флаг с мечом, окруженным шестеренками и крыльями.
+ent-N14DecorationFlagFollowers = Флаг подписчиков
+    .desc = Белый флаг с черным крестом Последователей Апокалипсиса.
+ent-N14DecorationFlagGunner = Флаг наводчика
+    .desc = Флаг артиллериста на носителе.
+ent-N14DecorationFlagLocust = Флаг саранчи
+    .desc = Флаг с черепом, символом Саранчи.
+ent-N14DecorationFlagYuma = Флаг Юмы
+    .desc = Знамя, изображающее слияние трех рек в центре, покрытое початком кукурузы.

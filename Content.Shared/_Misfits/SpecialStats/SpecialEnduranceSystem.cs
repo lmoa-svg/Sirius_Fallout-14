@@ -1,99 +1,238 @@
-// #Misfits Add - Translates Endurance and Strength SPECIAL stats into body resilience buffs.
-// Endurance: scales stamina crit threshold up, and slows hunger/thirst decay slightly.
-// Strength: scales mob health thresholds up so the player takes more damage before critting.
-// All bonuses are intentionally small — at stat 10 each effect is ≈ 4.5%.
-// Since stats stack across STR/END/AGL/PER/LCK, individual effects must stay tiny.
-
-using Content.Shared._Misfits.PlayerData.Components;
+using Content.Shared._Misfits.Special;
+using Content.Shared._Misfits.Special.Components;
+using Content.Shared.Damage;
 using Content.Shared.Damage.Components;
 using Content.Shared.FixedPoint;
 using Content.Shared.Mobs;
 using Content.Shared.Mobs.Components;
 using Content.Shared.Mobs.Systems;
 using Content.Shared.Nutrition.Components;
-using MobState = Content.Shared.Mobs.MobState; // #Misfits Fix: alias guards against Content.Shared._Misfits.MobState namespace shadowing the enum
+using Robust.Shared.Maths;
 
 namespace Content.Shared._Misfits.SpecialStats;
 
 /// <summary>
-/// Applies Endurance and Strength body resilience bonuses on <see cref="SpecialStatsReadyEvent"/>.
-/// Endurance scales the stamina crit threshold and reduces hunger/thirst drain rate.
-/// Strength scales mob state thresholds so the player absorbs slightly more damage.
+/// Applies Endurance health bonuses when S.P.E.C.I.A.L. changes.
 /// </summary>
 public sealed class SpecialEnduranceSystem : EntitySystem
 {
-    [Dependency] private readonly MobThresholdSystem _mobThresholds = default!;
+    [Dependency] private readonly SharedSpecialSystem _special = default!;
+    [Dependency] private readonly MobThresholdSystem _thresholds = default!;
 
-    // END stamina: points added to CritThreshold per END point above 1.
-    // END 1: 100 (vanilla), END 10: ~200.
-    private const float EnduranceStaminaPerPoint = 11.1f;
+    private static readonly MobState[] HealthThresholdStates =
+    [
+        MobState.SoftCritical,
+        MobState.Critical,
+        MobState.Dead,
+    ];
 
-    // END hunger/thirst: fractional decay reduction per END point above 1.
-    // END 10: 4.5% slower hunger/thirst drain. Intentionally tiny.
-    private const float EnduranceDecayReductionPerPoint = 0.005f;
-
-    // STR health: fractional threshold scale per STR point above 1.
-    // STR 10: +4.5% effective HP before crit/death. Intentionally tiny.
-    private const float StrengthHealthScalePerPoint = 0.005f;
+    private static readonly string[] EnduranceResistedDamageTypes =
+    [
+        "Poison",
+        "Radiation",
+        "Caustic",
+        "Cellular",
+    ];
 
     public override void Initialize()
     {
         base.Initialize();
 
-        // Temporarily disabled — SPECIAL stat bonuses turned off server-wide.
-        // Restore by un-commenting the line below.
-        // SubscribeLocalEvent<PersistentPlayerDataComponent, SpecialStatsReadyEvent>(OnStatsReady);
+        SubscribeLocalEvent<SpecialComponent, SpecialChangedEvent>(OnSpecialChanged);
+        SubscribeLocalEvent<SpecialComponent, SpecialStatsReadyEvent>(OnStatsReady);
+        SubscribeLocalEvent<SpecialComponent, SpecialShutdownEvent>(OnSpecialShutdown);
+        SubscribeLocalEvent<SpecialComponent, DamageModifyEvent>(OnDamageModify);
     }
 
-    private void OnStatsReady(Entity<PersistentPlayerDataComponent> ent, ref SpecialStatsReadyEvent args)
+    private void OnSpecialChanged(Entity<SpecialComponent> ent, ref SpecialChangedEvent args)
     {
-        var str = ent.Comp.Strength;
-        var end = ent.Comp.Endurance;
+        ApplyEndurance(ent, false);
+    }
 
-        // ── Endurance: stamina pool ───────────────────────────────────────────
-        if (TryComp<StaminaComponent>(ent.Owner, out var stamina))
-        {
-            stamina.CritThreshold = 100f + (end - 1) * EnduranceStaminaPerPoint;
-            Dirty(ent.Owner, stamina);
-        }
+    private void OnStatsReady(Entity<SpecialComponent> ent, ref SpecialStatsReadyEvent args)
+    {
+        ApplyEndurance(ent, false);
+    }
 
-        // ── Endurance: hunger/thirst decay ───────────────────────────────────
-        // Reducing BaseDecayRate; HungerSystem/ThirstSystem recalculate ActualDecayRate
-        // from BaseDecayRate on their next tick, so no direct system call is needed.
-        if (end > 1)
-        {
-            var decayFactor = 1f - (end - 1) * EnduranceDecayReductionPerPoint;
+    private void OnSpecialShutdown(Entity<SpecialComponent> ent, ref SpecialShutdownEvent args)
+    {
+        ApplyEndurance(ent, true);
+    }
 
-            if (TryComp<HungerComponent>(ent.Owner, out var hunger))
-            {
-                hunger.BaseDecayRate *= decayFactor;
-                Dirty(ent.Owner, hunger);
-            }
-
-            if (TryComp<ThirstComponent>(ent.Owner, out var thirst))
-            {
-                thirst.BaseDecayRate *= decayFactor;
-                Dirty(ent.Owner, thirst);
-            }
-        }
-
-        // ── Strength: health thresholds ───────────────────────────────────────
-        // Scale all mob-state thresholds upward so the player can absorb more
-        // damage before going critical or dying. Each threshold is scaled
-        // proportionally so the relative gap between crit and dead stays intact.
-        if (str <= 1)
+    private void OnDamageModify(Entity<SpecialComponent> ent, ref DamageModifyEvent args)
+    {
+        if (!args.Damage.AnyPositive())
             return;
 
+        var tuning = _special.GetTuning();
+        var modifier = _special.GetCurvedEffectModifier(
+            ent.Owner,
+            SpecialStat.Endurance,
+            -tuning.EnduranceToxinDamageMultiplierPerPoint,
+            ent.Comp);
+        var multiplier = MathF.Max(0.1f, 1f + modifier);
+
+        if (MathHelper.CloseTo(multiplier, 1f))
+            return;
+
+        var damage = new DamageSpecifier(args.Damage);
+        var modified = false;
+
+        foreach (var type in EnduranceResistedDamageTypes)
+        {
+            if (!damage.DamageDict.TryGetValue(type, out var value) || value <= FixedPoint2.Zero)
+                continue;
+
+            damage.DamageDict[type] = value * multiplier;
+            modified = true;
+        }
+
+        if (modified)
+            args.Damage = damage;
+    }
+
+    private void ApplyEndurance(Entity<SpecialComponent> ent, bool reset)
+    {
+        ClearLegacyStaminaModifier(ent);
+
+        ApplyHealthThresholds(ent, reset);
+        ApplyHungerDecay(ent, reset);
+        ApplyThirstDecay(ent, reset);
+        ApplyStaminaRecovery(ent, reset);
+    }
+
+    private void ApplyHealthThresholds(Entity<SpecialComponent> ent, bool reset)
+    {
         if (!TryComp<MobThresholdsComponent>(ent.Owner, out var thresholds))
             return;
 
-        var healthScale = 1f + (str - 1) * StrengthHealthScalePerPoint;
+        var tuning = _special.GetTuning();
+        var desired = reset
+            ? 0f
+            : _special.GetCurvedEffectModifier(
+                ent.Owner,
+                SpecialStat.Endurance,
+                tuning.EnduranceHealthModifierPerPoint,
+                ent.Comp);
+        var adjustment = desired - ent.Comp.AppliedHealthThresholdModifier;
 
-        // Iterate over a snapshot to avoid modifying the collection mid-loop.
-        foreach (var (baseDamage, mobState) in new Dictionary<FixedPoint2, MobState>(thresholds.Thresholds))
+        if (MathHelper.CloseTo(adjustment, 0f))
+            return;
+
+        foreach (var state in HealthThresholdStates)
         {
-            var scaled = FixedPoint2.New((float) baseDamage * healthScale);
-            _mobThresholds.SetMobStateThreshold(ent.Owner, scaled, mobState, thresholds);
+            var threshold = _thresholds.GetThresholdForState(ent.Owner, state, thresholds);
+            if (threshold == FixedPoint2.Zero)
+                continue;
+
+            _thresholds.SetMobStateThreshold(ent.Owner, FixedPoint2.Max(1, threshold + adjustment), state, thresholds);
         }
+
+        ent.Comp.AppliedHealthThresholdModifier = desired;
+
+        Dirty(ent.Owner, ent.Comp);
+    }
+
+    private void ApplyHungerDecay(Entity<SpecialComponent> ent, bool reset)
+    {
+        if (!TryComp<HungerComponent>(ent.Owner, out var hunger))
+            return;
+
+        var desired = reset ? 1f : GetNeedDecayMultiplier(ent);
+        var previous = ent.Comp.AppliedHungerDecayMultiplier <= 0f
+            ? 1f
+            : ent.Comp.AppliedHungerDecayMultiplier;
+
+        if (MathHelper.CloseTo(desired, previous))
+            return;
+
+        var ratio = desired / previous;
+        hunger.BaseDecayRate *= ratio;
+        hunger.ActualDecayRate *= ratio;
+        ent.Comp.AppliedHungerDecayMultiplier = desired;
+
+        Dirty(ent.Owner, hunger);
+        Dirty(ent.Owner, ent.Comp);
+    }
+
+    private void ApplyThirstDecay(Entity<SpecialComponent> ent, bool reset)
+    {
+        if (!TryComp<ThirstComponent>(ent.Owner, out var thirst))
+            return;
+
+        var desired = reset ? 1f : GetNeedDecayMultiplier(ent);
+        var previous = ent.Comp.AppliedThirstDecayMultiplier <= 0f
+            ? 1f
+            : ent.Comp.AppliedThirstDecayMultiplier;
+
+        if (MathHelper.CloseTo(desired, previous))
+            return;
+
+        var ratio = desired / previous;
+        thirst.BaseDecayRate *= ratio;
+        thirst.ActualDecayRate *= ratio;
+        ent.Comp.AppliedThirstDecayMultiplier = desired;
+
+        Dirty(ent.Owner, thirst);
+        Dirty(ent.Owner, ent.Comp);
+    }
+
+    private void ApplyStaminaRecovery(Entity<SpecialComponent> ent, bool reset)
+    {
+        if (!TryComp<StaminaComponent>(ent.Owner, out var stamina))
+            return;
+
+        var desired = reset ? 1f : GetStaminaRecoveryMultiplier(ent);
+        var previous = ent.Comp.AppliedStaminaRecoveryMultiplier <= 0f
+            ? 1f
+            : ent.Comp.AppliedStaminaRecoveryMultiplier;
+
+        if (MathHelper.CloseTo(desired, previous))
+            return;
+
+        stamina.Decay *= desired / previous;
+        ent.Comp.AppliedStaminaRecoveryMultiplier = desired;
+
+        Dirty(ent.Owner, stamina);
+        Dirty(ent.Owner, ent.Comp);
+    }
+
+    private float GetNeedDecayMultiplier(Entity<SpecialComponent> ent)
+    {
+        var tuning = _special.GetTuning();
+        var modifier = _special.GetCurvedEffectModifier(
+            ent.Owner,
+            SpecialStat.Endurance,
+            -tuning.EnduranceNeedDecayMultiplierPerPoint,
+            ent.Comp);
+
+        return MathF.Max(0.1f, 1f + modifier);
+    }
+
+    private float GetStaminaRecoveryMultiplier(Entity<SpecialComponent> ent)
+    {
+        var tuning = _special.GetTuning();
+        var modifier = _special.GetCurvedEffectModifier(
+            ent.Owner,
+            SpecialStat.Endurance,
+            tuning.EnduranceStaminaRecoveryMultiplierPerPoint,
+            ent.Comp);
+
+        return MathF.Max(0.1f, 1f + modifier);
+    }
+
+    private void ClearLegacyStaminaModifier(Entity<SpecialComponent> ent)
+    {
+        if (MathHelper.CloseTo(ent.Comp.AppliedStaminaCritThresholdModifier, 0f))
+            return;
+
+        if (TryComp<StaminaComponent>(ent.Owner, out var stamina))
+        {
+            stamina.CritThreshold -= ent.Comp.AppliedStaminaCritThresholdModifier;
+            Dirty(ent.Owner, stamina);
+        }
+
+        ent.Comp.AppliedStaminaCritThresholdModifier = 0f;
+        Dirty(ent.Owner, ent.Comp);
     }
 }

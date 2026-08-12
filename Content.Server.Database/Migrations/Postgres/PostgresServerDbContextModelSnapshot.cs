@@ -755,6 +755,10 @@ namespace Content.Server.Database.Migrations.Postgres
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("last_read_rules");
 
+                    b.Property<string>("DiscordId")
+                        .HasColumnType("text")
+                        .HasColumnName("discord_id");
+
                     b.Property<IPAddress>("LastSeenAddress")
                         .IsRequired()
                         .HasColumnType("inet")
@@ -778,6 +782,9 @@ namespace Content.Server.Database.Migrations.Postgres
 
                     b.HasAlternateKey("UserId")
                         .HasName("ak_player_user_id");
+
+                    b.HasIndex("DiscordId")
+                        .IsUnique();
 
                     b.HasIndex("LastSeenUserName");
 
@@ -949,6 +956,34 @@ namespace Content.Server.Database.Migrations.Postgres
                         .IsRequired()
                         .HasColumnType("text")
                         .HasColumnName("speech_verb_preference");
+
+                    b.Property<int>("SpecialAgility")
+                        .HasColumnType("integer")
+                        .HasColumnName("special_agility");
+
+                    b.Property<int>("SpecialCharisma")
+                        .HasColumnType("integer")
+                        .HasColumnName("special_charisma");
+
+                    b.Property<int>("SpecialEndurance")
+                        .HasColumnType("integer")
+                        .HasColumnName("special_endurance");
+
+                    b.Property<int>("SpecialIntelligence")
+                        .HasColumnType("integer")
+                        .HasColumnName("special_intelligence");
+
+                    b.Property<int>("SpecialLuck")
+                        .HasColumnType("integer")
+                        .HasColumnName("special_luck");
+
+                    b.Property<int>("SpecialPerception")
+                        .HasColumnType("integer")
+                        .HasColumnName("special_perception");
+
+                    b.Property<int>("SpecialStrength")
+                        .HasColumnType("integer")
+                        .HasColumnName("special_strength");
 
                     b.Property<string>("Voice")
                         .IsRequired()

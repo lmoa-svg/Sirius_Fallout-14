@@ -5,7 +5,7 @@
   group: Chems
   desc: reagent-desc-healing-mixture
   physicalDesc: reagent-physical-desc-refreshing
-  color: "#00e5ff"
+  color: "#9e1d1d"
   metabolisms:
     Medicine:
       effects:
@@ -71,12 +71,12 @@
         moodPrototype: JetBenefit
 
 - type: reagent
-  id: RobustMovespeedMixture #used in turbo
+  id: RobustMovespeedMixture #This is Turbo
   name: reagent-name-robust-movespeedmod-mixture
   group: Chems
   desc: reagent-name-robust-movespeedmod-mixture
-  physicalDesc: reagent-physical-desc-powdery
-  color: "#D2FFFA"
+  physicalDesc: reagent-physical-desc-roaring
+  color: "#ffc8ff"
   boilingPoint: 255.0
   meltingPoint: 36.0
   metabolisms:
@@ -137,8 +137,8 @@
   name: reagent-name-damage-mod-mixture
   group: Chems
   desc: reagent-desc-damage-mod-mixture
-  physicalDesc: reagent-physical-desc-volatile
-  color: "#00e5ff"
+  physicalDesc: reagent-physical-desc-enraging
+  color: "#c6ba10"
   metabolisms:
     Medicine:
       metabolismRate: 0.2 # Effectively once every 5 seconds.
@@ -150,6 +150,10 @@
         - drug-ambience-damage-modifying-mixture-1
         - drug-ambience-damage-modifying-mixture-2
       - !type:Drunk
+      - !type:Emote
+        emote: Scream
+        showInChat: true
+        probability: 0.1
       - !type:Addicting #Misfits Change
         time: 8
         # DamageModifyingMixture (Psycho) withdrawal: aggression crash, body aching from the comedown.
@@ -218,8 +222,8 @@
   name: reagent-name-cateye
   group: Chems
   desc: reagent-desc-cateye
-  physicalDesc: reagent-physical-desc-sticky
-  color: "#00e5ff"
+  physicalDesc: reagent-physical-desc-glittery
+  color: "#924d17"
   metabolisms:
     Medicine:
       metabolismRate: 0.067 # Forge-Change
@@ -244,8 +248,8 @@
   name: reagent-name-buffout
   group: Chems
   desc: reagent-desc-buffout
-  physicalDesc: reagent-physical-desc-robust
-  color: "#00e5ff"
+  physicalDesc: reagent-physical-desc-fortifying
+  color: "#8b4513"
   metabolisms:
     Medicine:
       metabolismRate: 0.2 # Effectively once every 5 seconds.
@@ -256,7 +260,10 @@
         messageKeys:
         - drug-ambience-buffout-1
         - drug-ambience-buffout-2
-      - !type:Jitter
+      - !type:Emote #Misfits Change - something to add a visible sign of drug use
+        emote: Laugh
+        showInChat: true
+        probability: 0.05
       - !type:Addicting #Misfits Change
         time: 6
         # Buffout withdrawal: muscles ache from sudden loss of chemical strength augmentation.
@@ -296,11 +303,11 @@
   name: reagent-name-buffjet
   group: Chems
   desc: reagent-desc-buffjet
-  physicalDesc: reagent-physical-desc-robust
-  color: "#00e5ff"
+  physicalDesc: reagent-physical-desc-swirling
+  color: "#800000"
   metabolisms:
     Medicine:
-      metabolismRate: 0.2 # Effectively once every 5 seconds.
+      metabolismRate: 0.1 # Misfits Change - Temporary change to give Buffjet a reason to exist. It lasts longer than regular Jet. Should be changed/removed when SPECIAL chems are fixed.
       effects:
       - !type:AmbientDrugFlavorText
         cooldownId: BuffjetAmbient
@@ -314,6 +321,10 @@
             Poison: 0.2
           groups:
       - !type:Jitter
+      - !type:Emote
+        emote: Laugh
+        showInChat: true
+        probability: 0.05
       - !type:MovespeedModifier
         walkSpeedModifier: 1.1
         sprintSpeedModifier: 1.1
@@ -339,8 +350,8 @@
   name: reagent-name-bufftats
   group: Chems
   desc: reagent-desc-bufftats
-  physicalDesc: reagent-physical-desc-robust
-  color: "#00e5ff"
+  physicalDesc: reagent-physical-desc-bubbling
+  color: "#15162a"
   metabolisms:
     Medicine:
       metabolismRate: 0.2 # Effectively once every 5 seconds.
@@ -373,7 +384,7 @@
   group: Chems
   desc: reagent-desc-mentats
   physicalDesc: reagent-physical-desc-tangy
-  color: "#00e5ff"
+  color: "#9f321f"
   metabolisms:
     Medicine:
       metabolismRate: 0.2 # Effectively once every 5 seconds.
@@ -464,12 +475,12 @@
         withdrawalStaminaDrain: 3.0
 
 - type: reagent
-  id: DamageResistMixture
+  id: DamageResistMixture #This is Med-X
   name: reagent-name-damage-resist-mixture
   group: Medicine
   desc: reagent-desc-damage-resist-mixture
-  physicalDesc: reagent-physical-desc-reasonably-metallic
-  color: "#00e5ff"
+  physicalDesc: reagent-physical-desc-cloudy
+  color: "#581572"
   metabolisms:
     Medicine:
       metabolismRate: 0.2 # Effectively once every 5 seconds.
@@ -500,6 +511,8 @@
         - !type:MobStateCondition #Misfits Tweak: OD can push to crit but never kill
         threshold: 30
         damagePerUnit: 0.05
+      - !type:SuppressChronicPainReagent
+        SuppressionTime: 1200
 
 - type: reagent
   id: Hydra
@@ -554,7 +567,7 @@
   name: reagent-name-mourning-poultice
   group: Medicine
   desc: reagent-desc-mourning-poultice
-  physicalDesc: reagent-physical-desc-oily
+  physicalDesc: reagent-physical-desc-murky
   color: "#1d3d22"
   metabolisms:
     Medicine:

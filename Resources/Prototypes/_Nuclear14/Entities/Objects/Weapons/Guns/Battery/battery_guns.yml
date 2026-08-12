@@ -112,7 +112,7 @@
     - 0,0,1,1
     - 0,0,1,1
   - type: Gun
-    fireRate: 1.5
+    fireRate: 2
     soundGunshot:
       collection: N14LaserPistolGunshot
   - type: FollowDistance
@@ -161,7 +161,7 @@
     - 0,0,1,1
     - 0,0,1,1
   - type: Gun
-    fireRate: 1.5
+    fireRate: 2.0
     soundGunshot:
       collection: N14LaserPistolGunshot
   - type: FollowDistance
@@ -204,7 +204,7 @@
   - type: Gun
     soundGunshot:
       collection: N14PlasmaPistolGunshot
-    fireRate: 1.5
+    fireRate: 1
   - type: FollowDistance
     backStrength: 6
   - type: StaticPrice
@@ -245,7 +245,7 @@
   - type: Gun
     soundGunshot:
       collection: N14PlasmaDefenderGunshot
-    fireRate: 2.5
+    fireRate: 1.5
   - type: FollowDistance
     backStrength: 6
   - type: StaticPrice
@@ -346,8 +346,8 @@
   components:
   - type: Wieldable
   - type: GunWieldBonus
-    minAngle: -24 # #Misfits Tweak - wielded spread 1°/5°; matches RCW
-    maxAngle: -55
+    minAngle: -23 # #Misfits Tweak - wielded spread 2°/20°; fast fire. fast spread.
+    maxAngle: -46
   - type: Sprite
     sprite: _Nuclear14/Objects/Weapons/Guns/Battery/laser_autorifle.rsi
     layers:
@@ -377,7 +377,7 @@
           tags:
             - N14MicrofusionCell
   - type: Gun
-    fireRate: 5
+    fireRate: 5.0
     soundGunshot:
       collection: N14LaserAutoRifleGunshot
     selectedMode: FullAuto
@@ -433,7 +433,7 @@
     steps: 3
     zeroVisible: true
   - type: Gun
-    fireRate: 4
+    fireRate: 3
     soundGunshot:
       collection: N14PlasmaAutoRifleGunshot
     selectedMode: FullAuto
@@ -483,13 +483,13 @@
           tags:
             - N14MicrofusionCell
   - type: Gun
-    fireRate: 4
+    fireRate: 2.75
     soundGunshot:
       collection: N14LaserAutoRifleGunshot
     selectedMode: FullAuto
     availableModes:
     - FullAuto
-  # #Misfits Add - Green beam override (25 Heat); AER-14 prototype with unique green optics
+  # #Misfits Add - Green beam override ; AER-14 prototype with unique green optics
   - type: GunDamageBonus
     hitscanProtoOverride: N14MFLaserGreen
   - type: FollowDistance
@@ -506,8 +506,8 @@
   components:
   - type: Wieldable
   - type: GunWieldBonus
-    minAngle: -25 # #Misfits Tweak - wielded spread 0°/3°; 0° min for rifles
-    maxAngle: -57
+    minAngle: -25 # #Misfits Tweak - wielded spread 0°/10° post-wield
+    maxAngle: -45
   - type: Sprite
     sprite: _Nuclear14/Objects/Weapons/Guns/Battery/laser_autorifle.rsi # Reuses AER-9 Auto sprite until dedicated AER-12 art is available
     layers:
@@ -537,13 +537,15 @@
           tags:
             - N14MicrofusionCell
   - type: Gun
-    fireRate: 6 # Higher ROF than AER-9 (5); reflects advanced pre-war engineering
+    minAngle: 25
+    maxAngle: 55
+    fireRate: 4 # Higher ROF than AER-9 (2.5); reflects advanced pre-war engineering
     soundGunshot:
       collection: N14LaserAutoRifleGunshot
-    selectedMode: SemiAuto
+    selectedMode: FullAuto
     availableModes:
-    - SemiAuto
-  # Amber beam override (19 Heat) — weapon controls its own beam color
+    - FullAuto
+  # Amber beam override — weapon controls its own beam color
   - type: GunDamageBonus
     hitscanProtoOverride: N14MFLaserAmber
   - type: FollowDistance
@@ -591,13 +593,13 @@
           tags:
             - N14MicrofusionCell
   - type: Gun
-    fireRate: 3 # Low ROF compensates for highest damage output
+    fireRate: 2.5 # Low ROF compensates for highest damage output
     soundGunshot:
       collection: N14LaserAutoRifleGunshot
     selectedMode: SemiAuto
     availableModes:
     - SemiAuto
-  # Blue beam override (30 Heat) — highest damage laser weapon; T5 blueprint item
+  # Blue beam override (40 Heat) — highest damage laser weapon; T5 blueprint item
   - type: GunDamageBonus
     hitscanProtoOverride: N14MFLaserBlue
   - type: FollowDistance
@@ -615,8 +617,8 @@
   components:
   - type: Wieldable
   - type: GunWieldBonus
-    minAngle: -25 # #Misfits Tweak - wielded spread 0°/4°; 0° min for rifles
-    maxAngle: -56
+    minAngle: -24 # #Misfits Tweak - wielded spread 1°/10°; 0° min for rifles
+    maxAngle: -50
   - type: Sprite
     sprite: _Nuclear14/Objects/Weapons/Guns/Battery/laser_rifle.rsi
     layers:
@@ -646,7 +648,7 @@
           tags:
             - N14MicrofusionCell
   - type: Gun
-    fireRate: 5
+    fireRate: 3.5
     soundGunshot:
       collection: N14LaserAutoRifleGunshot
     selectedMode: SemiAuto
@@ -669,7 +671,7 @@
   - type: Wieldable
   - type: GunWieldBonus
     minAngle: -23
-    maxAngle: -56
+    maxAngle: -45
   - type: Sprite
     sprite: _Nuclear14/Objects/Weapons/Guns/Battery/laser_rifle_crude.rsi
     layers:
@@ -695,7 +697,7 @@
           tags:
             - N14MicrofusionCell
   - type: Gun
-    fireRate: 2.5
+    fireRate: 2
     soundGunshot:
       collection: N14LaserAutoRifleGunshot
     selectedMode: SemiAuto
@@ -765,8 +767,8 @@
   components:
   - type: Wieldable
   - type: GunWieldBonus
-    minAngle: -24
-    maxAngle: -58
+    minAngle: -23
+    maxAngle: -53
   - type: Sprite
     scale: 0.8, 0.8
     sprite: _Nuclear14/Objects/Weapons/Guns/Battery/plasma_rifle_icon.rsi
@@ -799,7 +801,7 @@
     steps: 3
     zeroVisible: true
   - type: Gun
-    fireRate: 3
+    fireRate: 1.5
     soundGunshot:
       collection: N14PlasmaAutoRifleGunshot
     selectedMode: SemiAuto
@@ -819,7 +821,7 @@
   - type: Wieldable
   - type: GunWieldBonus
     minAngle: -23
-    maxAngle: -56
+    maxAngle: -50
   - type: Sprite
     scale: 0.8, 0.8
     sprite: _Nuclear14/Objects/Weapons/Guns/Battery/plasma_rifle_crude_icon.rsi
@@ -848,7 +850,7 @@
           tags:
             - N14PlasmaCartridge
   - type: Gun
-    fireRate: 2.5
+    fireRate: 1
     soundGunshot:
       collection: N14PlasmaAutoRifleGunshot
     selectedMode: SemiAuto
@@ -865,8 +867,8 @@
   components:
   - type: Wieldable
   - type: GunWieldBonus
-    minAngle: -23
-    maxAngle: -55
+    minAngle: -21
+    maxAngle: -53
   - type: Sprite
     scale: 0.8, 0.8
     sprite: _Nuclear14/Objects/Weapons/Guns/Battery/plasma_urban_icon.rsi
@@ -899,12 +901,17 @@
     steps: 3
     zeroVisible: true
   - type: Gun
-    fireRate: 4
+    fireRate: 2
     soundGunshot:
       collection: N14PlasmaAutoRifleGunshot
     selectedMode: SemiAuto
     availableModes:
     - SemiAuto
+  - type: GunDamageBonus
+    bonusDamage:
+      types:
+        Heat: 5 #sirius change
+    fireCostMultiplier: 2.0
   - type: FollowDistance
     backStrength: 5
   - type: StaticPrice
@@ -951,7 +958,7 @@
     steps: 5
     zeroVisible: true
   - type: Gun
-    fireRate: 2 # #Misfits Tweak - reduced from 6; shotgun pacing (1 spread burst per 0.5s)
+    fireRate: 1 # #Misfits Tweak - reduced from 6; shotgun pacing (1 spread burst per 0.5s) THIS THING EATS PEOPLE ALIVE
     soundGunshot:
       collection: N14MultiplasGunshot
     selectedMode: SemiAuto # #Misfits Fix - was Burst; Multiplas fires multiple bolts simultaneously like a shotgun
@@ -1014,12 +1021,12 @@
     backStrength: 4
   - type: StaticPrice
     price: 300
-  # #Misfits Change - Yellow beam override + focusing optics: +23 heat damage (total 40), double fireCost (12 shots)
+  # #Misfits Change - Yellow beam override + focusing optics: +23 heat damage (total 45), double fireCost (24 shots)
   - type: GunDamageBonus
     hitscanProtoOverride: N14MFLaserYellow
     bonusDamage:
       types:
-        Heat: 23
+        Heat: 33 #sirius change
     fireCostMultiplier: 2.0
 
 - type: entity
@@ -1071,12 +1078,12 @@
     backStrength: 4
   - type: StaticPrice
     price: 400
-  # #Misfits Change - Yellow beam override + focusing optics: +13 heat damage (total 30), double fireCost (12 shots)
+  # #Misfits Change - Yellow beam override + focusing optics: +13 heat damage (total 35), double fireCost (24 shots)
   - type: GunDamageBonus
     hitscanProtoOverride: N14MFLaserYellow
     bonusDamage:
       types:
-        Heat: 13
+        Heat: 28 #sirius change
     fireCostMultiplier: 2.0
 
 #MARK: Heavy
@@ -1111,18 +1118,18 @@
     slots:
       gun_magazine:
         name: Magazine
-        startingItem: N14PlasmaCartridge
+        startingItem: N14PlasmaShell
         insertSound: /Audio/Weapons/Guns/MagIn/batrifle_magin.ogg
         ejectSound: /Audio/Weapons/Guns/MagOut/batrifle_magout.ogg
         whitelist:
           tags:
-            - N14PlasmaCartridge
+            - N14PlasmaShell
   - type: Gun
     minAngle: 2
     maxAngle: 12
     angleIncrease: 4
     angleDecay: 12
-    fireRate: 4
+    fireRate: 2
     soundGunshot:
       collection: N14PlasmaCasterGunshot
     selectedMode: FullAuto
@@ -1207,7 +1214,7 @@
   name: laser RCW
   parent: N14BaseWeaponPowerCell
   id: N14WeaponLaserRCW
-  description: A rapid-cycling laser weapon with the silhouette of a submachine gun. Designed for close-quarters energy weapon deployment. Inaccurate and battery-hungry, but capable of sustained continuous laser fire.
+  description: A rapid-cycling Electron laser weapon with the silhouette of a submachine gun. Designed for close-quarters energy weapon deployment. Inaccurate and battery-hungry, but capable of sustained continuous fire.
   components:
   - type: Sprite
     sprite: _Nuclear14/Objects/Weapons/Guns/Battery/laserrcw.rsi
@@ -1231,12 +1238,12 @@
     slots:
       gun_magazine:
         name: Power Cell
-        startingItem: N14MicrofusionCell # #Misfits Change - consolidated to single generic MFC; RCW fires red beam
+        startingItem: N14ElectronChargePack # #Misfits Change - They abused my good will and now they lose their giga yummy shit fuck these BOS players man.
         insertSound: /Audio/Weapons/Guns/MagIn/batrifle_magin.ogg
         ejectSound: /Audio/Weapons/Guns/MagOut/batrifle_magout.ogg
         whitelist:
           tags:
-            - N14MicrofusionCell
+            - N14ElectronChargePack
   - type: Item
     size: Large
     shape:
@@ -1247,7 +1254,7 @@
     minAngle: -7 # #Misfits Tweak - wielded spread 1°/5°; rapid-fire weapons keep 1° minimum
     maxAngle: -20
   - type: Gun
-    fireRate: 5 #Misfits Change — reduced from 8; RCW is rapid-cycling but not a bullet hose, 5 keeps it distinctly auto without being oppressive
+    fireRate: 5 #Misfits Change — reduced from 8; RCW is rapid-cycling and accurate. But not as fast as a rotating barrel like the AER-9 auto
     minAngle: 8
     maxAngle: 25
     angleIncrease: 4
@@ -1259,7 +1266,7 @@
       collection: N14LaserAutoRifleGunshot
   # #Misfits Add - Red beam override; weapon controls its own beam color
   - type: GunDamageBonus
-    hitscanProtoOverride: N14MFLaserRed
+    hitscanProtoOverride: N14PulseRed
   - type: FollowDistance
     backStrength: 5
   - type: StaticPrice

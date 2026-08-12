@@ -1,8 +1,11 @@
+using Content.Shared.Access;
+using Content.Shared.Access.Components;
 using Content.Shared.Actions.Events;
 using Content.Shared.IdentityManagement;
 using Content.Shared.Interaction.Events;
 using Content.Shared.Popups;
 using Content.Shared.Verbs;
+using Robust.Shared.Prototypes;
 using Robust.Shared.Serialization;
 using Robust.Shared.Utility;
 
@@ -16,6 +19,7 @@ public abstract partial class SharedStationAiSystem
 
     //TODO: Fix this, please
     private const string JobNameLocId = "job-name-station-ai";
+    private static readonly ProtoId<AccessGroupPrototype> StationAiAccessGroup = "AllAccessN14";
 
     private void InitializeHeld()
     {
@@ -26,7 +30,13 @@ public abstract partial class SharedStationAiSystem
         SubscribeLocalEvent<StationAiHeldComponent, InteractionAttemptEvent>(OnHeldInteraction);
         SubscribeLocalEvent<StationAiHeldComponent, AttemptRelayActionComponentChangeEvent>(OnHeldRelay);
         SubscribeLocalEvent<StationAiHeldComponent, JumpToCoreEvent>(OnCoreJump);
+        SubscribeLocalEvent<StationAiHeldComponent, GetAccessTagsEvent>(OnHeldGetAccessTags);
         SubscribeLocalEvent<TryGetIdentityShortInfoEvent>(OnTryGetIdentityShortInfo);
+    }
+
+    private void OnHeldGetAccessTags(Entity<StationAiHeldComponent> ent, ref GetAccessTagsEvent args)
+    {
+        args.AddGroup(StationAiAccessGroup);
     }
 
     private void OnTryGetIdentityShortInfo(TryGetIdentityShortInfoEvent args)
@@ -116,8 +126,40 @@ public abstract partial class SharedStationAiSystem
         if (!TryGetEntity(ev.Entity, out var target))
             return;
 
+        if (!ValidateAiRadialMessage(ev, target.Value))
+            return;
+
         ev.Event.User = ev.Actor;
         RaiseLocalEvent(target.Value, (object) ev.Event);
+    }
+
+    private bool ValidateAiRadialMessage(StationAiRadialMessage ev, EntityUid target)
+    {
+        if (ev.Event == null)
+            return false;
+
+        if (!TryComp(ev.Actor, out StationAiHeldComponent? aiComp) ||
+            !ValidateAi((ev.Actor, aiComp)))
+        {
+            return false;
+        }
+
+        if (!TryComp(target, out StationAiWhitelistComponent? whitelistComponent) ||
+            !whitelistComponent.Enabled)
+        {
+            if (whitelistComponent is { Enabled: false })
+                ShowDeviceNotRespondingPopup(ev.Actor);
+
+            return false;
+        }
+
+        if (!PowerReceiver.IsPowered(target))
+        {
+            ShowDeviceNotRespondingPopup(ev.Actor);
+            return false;
+        }
+
+        return _uiSystem.IsUiOpen(target, AiUi.Key, ev.Actor);
     }
 
     private void OnMessageAttempt(BoundUserInterfaceMessageAttempt ev)
@@ -127,6 +169,7 @@ public abstract partial class SharedStationAiSystem
 
         if (TryComp(ev.Actor, out StationAiHeldComponent? aiComp) &&
            (!TryComp(ev.Target, out StationAiWhitelistComponent? whitelistComponent) ||
+            !whitelistComponent.Enabled ||
             !ValidateAi((ev.Actor, aiComp))))
         {
             if (whitelistComponent is { Enabled: false })

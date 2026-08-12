@@ -5,6 +5,8 @@ using Content.Server.Chemistry.Containers.EntitySystems;
 using Content.Server.Medical.Components;
 using Content.Server.Popups;
 using Content.Server.Stack;
+using Content.Shared._Misfits.C27;
+using Content.Shared._Misfits.Special;
 using Content.Shared.Audio;
 using Content.Shared.Damage;
 using Content.Shared.Database;
@@ -41,6 +43,7 @@ public sealed class HealingSystem : EntitySystem
     [Dependency] private readonly PopupSystem _popupSystem = default!;
     [Dependency] private readonly SolutionContainerSystem _solutionContainerSystem = default!;
     [Dependency] private readonly SharedBodySystem _bodySystem = default!; // Shitmed Change
+    [Dependency] private readonly SharedSpecialSystem _special = default!;
 
     public override void Initialize()
     {
@@ -67,13 +70,15 @@ public sealed class HealingSystem : EntitySystem
             return;
         }
 
+        var intelMultiplier = _special.GetIntelligenceTopicalHealingMultiplier(args.User);
+
         // Heal some bloodloss damage.
         if (healing.BloodlossModifier != 0)
         {
             if (!TryComp<BloodstreamComponent>(entity, out var bloodstream))
                 return;
             var isBleeding = bloodstream.BleedAmount > 0;
-            _bloodstreamSystem.TryModifyBleedAmount(entity.Owner, healing.BloodlossModifier);
+            _bloodstreamSystem.TryModifyBleedAmount(entity.Owner, healing.BloodlossModifier * intelMultiplier);
             if (isBleeding != bloodstream.BleedAmount > 0)
             {
                 dontRepeat = true;
@@ -83,9 +88,9 @@ public sealed class HealingSystem : EntitySystem
 
         // Restores missing blood
         if (healing.ModifyBloodLevel != 0)
-            _bloodstreamSystem.TryModifyBloodLevel(entity.Owner, healing.ModifyBloodLevel);
+            _bloodstreamSystem.TryModifyBloodLevel(entity.Owner, healing.ModifyBloodLevel * intelMultiplier);
 
-        var healed = _damageable.TryChangeDamage(entity.Owner, healing.Damage, true, origin: args.User, canSever: false); // Shitmed Change
+        var healed = _damageable.TryChangeDamage(entity.Owner, healing.Damage * intelMultiplier, true, origin: args.User, canSever: false); // Shitmed Change
 
         if (healed == null && healing.BloodlossModifier != 0)
             return;
@@ -217,8 +222,11 @@ public sealed class HealingSystem : EntitySystem
             ? component.Delay
             : component.Delay * GetScaledHealingPenalty(user, component);
 
+        if (TryComp<MisfitsC27Component>(target, out var c27))
+            delay *= c27.SiliconRepairDelayMultiplier;
+
         var doAfterEventArgs =
-            new DoAfterArgs(EntityManager, user, delay, new HealingDoAfterEvent(), target, target: target, used: uid)
+            new DoAfterArgs(EntityManager, user, _special.GetIntelligenceMedicalActionDelay(user, TimeSpan.FromSeconds(delay)), new HealingDoAfterEvent(), target, target: target, used: uid)
             {
                 //Raise the event on the target if it's not self, otherwise raise it on self.
                 BreakOnMove = true,

@@ -40,7 +40,7 @@
   categories: [ HideSpawnMenu ]
   components:
   - type: IgniteOnCollide
-    fireStacks: 10
+    fireStacks: 12 #sirius change
   - type: ExplodeOnTrigger
   - type: Explosive
     #Misfits Change - use the structural-capable N14 explosion profile.

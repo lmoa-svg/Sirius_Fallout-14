@@ -34,13 +34,16 @@
         action: ActionTribalWarcry
         targetDepartment: Tribe
         range: 6
-        speedBonus: 0.50
+        speedBonus: 0.30
         duration: 10
         overlayColor: "#3FAF63"
         speechVerb: MisfitsTribalWarcry
         warcryMessage: warcry-message-tribal
         warcryMessageCount: 6
         buffPopup: warcry-popup-buffed-tribal
+        excludedJobs:
+        - SuperMutantTribal
+        - SyntheticProtectronTribal
       - type: TribalHuntParticipant
         targetDepartment: Tribe
       - type: TribalHuntLeader
@@ -65,7 +68,6 @@
     gloves: N14ClothingHandsGlovesTribal
     back: N14ClothingBackpackTrekker # Corvax-Change
     pocket1: N14TribalKnife
-    pocket2: Triballoadoutkits # Forge-Change
     id: N14IDTribeBossPendant
   innerClothingSkirt: N14ClothingUniformJumpskirtTribal
   satchel: N14ClothingBackpackSatchelTribalFilled

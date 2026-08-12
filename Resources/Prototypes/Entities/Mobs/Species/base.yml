@@ -19,6 +19,8 @@
     - map: [ "enum.HumanoidVisualLayers.LArm" ]
     - map: [ "enum.HumanoidVisualLayers.RLeg" ]
     - map: [ "enum.HumanoidVisualLayers.LLeg" ]
+    - map: [ "enum.HumanoidVisualLayers.UndergarmentBottom" ]
+    - map: [ "enum.HumanoidVisualLayers.UndergarmentTop" ]
     - shader: StencilClear
       sprite: Mobs/Species/Human/parts.rsi #PJB on stencil clear being on the left leg: "...this is 'fine'" -https://github.com/space-wizards/space-station-14/pull/12217#issuecomment-1291677115
       # its fine, but its still very stupid that it has to be done like this instead of allowing sprites to just directly insert a stencil clear.
@@ -269,6 +271,8 @@
   id: BaseMobSpeciesOrganic
   abstract: true
   components:
+  # Misfits: Trauma genetics integration.
+  - type: Mutatable
   - type: Flashable
   - type: Barotrauma
     damage:
@@ -291,6 +295,7 @@
     - SlowedDown
     - Stutter
     - SeeingRainbows
+    - DnaMelting
     - HealingPowderHaze
     - HydraTint
     - Electrocution
@@ -352,12 +357,27 @@
   - type: OfferItem
   - type: LayingDown
     standingUpTime: 2.5
+    critCrawlSpeedModifier: 0.5 # Misfits Add: crawling while crit is half the speed of normal lying down
   - type: Shoving
   - type: BloodstreamAffectedByMass
     power: 0.6 # A minimum size felinid will have 30% blood, a minimum size vulp will have 60%, a maximum size oni will have ~200%
   - type: PersistentCurrency # Misfits - Currency wallet
   - type: PersistentPlayerData # Misfits Add - SPECIAL stats, kill/death/round tracking, character history
-
+  - type: Ungibbable  # Misfits Add - No more gibbing
+  - type: Hunger # Misfits Change - admeme species like felinids and vulps will starve
+    starvationDamage:
+      types:
+        Starvation: 0.15
+    recoveryDamage:
+      types:
+        Starvation: -0.30
+  - type: Thirst    # Misfits Change - admeme species will dehydrate
+    dehydrationDamage:
+      types:
+        Dehydration: 0.25
+    recoveryDamage:
+      types:
+        Dehydration: -0.35
 - type: entity
   save: false
   id: BaseSpeciesDummy
@@ -385,6 +405,8 @@
     - map: [ "enum.HumanoidVisualLayers.LArm" ]
     - map: [ "enum.HumanoidVisualLayers.RLeg" ]
     - map: [ "enum.HumanoidVisualLayers.LLeg" ]
+    - map: [ "enum.HumanoidVisualLayers.UndergarmentBottom" ]
+    - map: [ "enum.HumanoidVisualLayers.UndergarmentTop" ]
     - shader: StencilClear
       sprite: Mobs/Species/Human/parts.rsi
       state: l_leg

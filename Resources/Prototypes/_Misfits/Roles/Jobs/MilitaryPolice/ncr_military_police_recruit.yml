@@ -1,12 +1,13 @@
 - type: job
   id: NCRMilitaryPoliceRecruit
   setPreference: true # #Misfits Tweak - visible in job selection
-  hideWithoutJobWhitelist: true # #Misfits Tweak - visible in all menus
+  hideWithoutJobWhitelist: false # #Misfits Tweak - visible in all menus
   hideIfPlaytimeRequirementsNotMet: false # #Misfits Tweak - all jobs visible in selection
   jobWhitelistBypassesRoleTimers: true # #Misfits Change
   overrideConsoleVisibility: false
   canBeAntag: false
   name: job-name-ncr-military-police-recruit
+  overwatchCategory: OverwatchNcrMp
   description: job-description-ncr-military-police-recruit
   playTimeTracker: NCRMilitaryPoliceRecruit
   requirements:
@@ -16,7 +17,7 @@
       - Ghoul
     - !type:CharacterDepartmentTimeRequirement
       department: NCR
-      min: 72000 # 20 hours
+      min: 36000 # 20 hours
   weight: 1
   startingGear: NCRMilitaryPoliceRecruitGear
   icon: "JobIconNcrLeader"
@@ -33,6 +34,7 @@
         factions:
           - Wastelander
           - NCR
+      - type: GrantRangerCombat
 
 - type: startingGear
   id: NCRMilitaryPoliceRecruitGear
@@ -40,11 +42,11 @@
     head: N14ClothingHeadHatNCRSidecap
     back: N14ClothingBackpackNCR
     jumpsuit: N14ClothingMPUniformNCRDesert
+    outerClothing: MisfitsNCRMPRecruitArmor
     shoes: N14ClothingBootsCombatFilled
     belt: ClothingBeltNCR
     eyes: ClothingEyesGlassesSunglasses
     ears: N14ClothingHeadsetNCR
-    pocket1: NCRMPKit_Set
     id: N14IDNCRDogtagMPRecruit
   innerClothingSkirt: N14ClothingOfficerUniformNCRDesert
   satchel: N14ClothingBackpackSatchelNCRFilled

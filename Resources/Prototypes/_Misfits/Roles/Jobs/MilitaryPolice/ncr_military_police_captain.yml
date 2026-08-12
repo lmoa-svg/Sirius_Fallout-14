@@ -1,12 +1,13 @@
 - type: job
   id: NCRMilitaryPoliceCaptain
   setPreference: true # #Misfits Tweak - visible in job selection
-  hideWithoutJobWhitelist: true # #Misfits Tweak - visible in all menus
+  hideWithoutJobWhitelist: false # #Misfits Tweak - visible in all menus
   hideIfPlaytimeRequirementsNotMet: false # #Misfits Tweak - all jobs visible in selection
   jobWhitelistBypassesRoleTimers: true # #Misfits Change
   overrideConsoleVisibility: false
   canBeAntag: false
   name: job-name-ncr-military-police-captain
+  overwatchCategory: OverwatchNcrMp
   description: job-description-ncr-military-police-captain
   playTimeTracker: NCRMilitaryPoliceCaptain
   requirements:
@@ -33,6 +34,7 @@
         factions:
           - Wastelander
           - NCR
+      - type: GrantRangerCombat
 
 - type: startingGear
   id: NCRMilitaryPoliceCaptainGear
@@ -40,11 +42,12 @@
     head: N14ClothingHeadHatNCRBeretOfficer
     back: N14ClothingBackpackNCR
     jumpsuit: N14ClothingMPUniformNCRDesert
+    outerClothing: MisfitsNCRMPLieutenantArmor
     shoes: N14ClothingBootsCombatFilled
     belt: ClothingBeltNCR
     eyes: ClothingEyesGlassesSunglasses
     ears: N14ClothingHeadsetNCR
-    pocket1: NCRMPKit_Set
+    pocket2: SiriusRubberStampNCRChiefMP
     id: N14IDNCRDogtagMPCaptain
   innerClothingSkirt: N14ClothingOfficerUniformNCRDesert
   satchel: N14ClothingBackpackSatchelNCRFilled

@@ -1,0 +1,9 @@
+research-technology-weapon-plasma-rifle = Экспериментальная плазменная винтовка
+research-technology-medical-defense = Медицинский механизм управления
+research-technology-ripley-mkii = Рипли МК-II
+research-technology-clarke = Кларк
+research-technology-gygax = Гайгакс
+research-technology-durand = Дюран
+research-technology-explosive-mech-ammunition = Взрывоопасные боеприпасы для меха
+research-technology-honk-weapons = Банановое оружие
+research-technology-modsuits = Модульные технологии

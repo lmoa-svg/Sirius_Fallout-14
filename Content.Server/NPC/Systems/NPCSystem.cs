@@ -1,31 +1,37 @@
 using System.Diagnostics.CodeAnalysis;
 using Content.Server.NPC.Components;
 using Content.Server.NPC.HTN;
+using Content.Shared.Audio; // Misfit Add for SleepNPC and WakeNPC
 using Content.Shared.CCVar;
-using Content.Shared.Mind;
 using Content.Shared.Mind.Components;
 using Content.Shared.Mobs;
 using Content.Shared.Mobs.Systems;
+using Content.Shared.Movement.Components; // Misfit Add for SleepNPC and WakeNPC
 using Content.Shared.NPC;
-using Content.Shared.NPC.Components;
-using Content.Shared.NPC.Systems;
-using Content.Shared.Verbs;
-using Robust.Server.GameObjects;
+using Content.Shared.Sound; // Misfit Add for SleepNPC and WakeNPC
+using Content.Shared.Sound.Components;
 using Robust.Shared.Configuration;
 using Robust.Shared.Player;
-using Robust.Shared.Utility;
 
 namespace Content.Server.NPC.Systems
 {
     /// <summary>
-    ///     Handles NPCs running every tick.
+    ///
+    /// Where NPC logic is ticked
+    /// Everytick calls to systems(ie HTN) to handle NPC logic
+    ///
+    /// public methods and cvars to interface with NPC behavior
+    /// and adjust systems
+    ///
     /// </summary>
     public sealed partial class NPCSystem : EntitySystem
     {
         [Dependency] private readonly IConfigurationManager _configurationManager = default!;
+
         [Dependency] private readonly HTNSystem _htn = default!;
         [Dependency] private readonly MobStateSystem _mobState = default!;
-        [Dependency] private readonly NpcFactionSystem _npcFaction = default!;
+        [Dependency] private readonly SharedAmbientSoundSystem _ambient = default!;
+        [Dependency] private readonly SharedEmitSoundSystem _emitSound = default!;
 
         /// <summary>
         /// Whether any NPCs are allowed to run at all.
@@ -40,18 +46,46 @@ namespace Content.Server.NPC.Systems
         public override void Initialize()
         {
             base.Initialize();
-
             Subs.CVar(_configurationManager, CCVars.NPCEnabled, value => Enabled = value, true);
             Subs.CVar(_configurationManager, CCVars.NPCMaxUpdates, obj => _maxUpdates = obj, true);
-
-            SubscribeLocalEvent<GetVerbsEvent<Verb>>(AddNpcOrderVerbs);
+            FollowerSystemInit();
         }
 
+        /// <inheritdoc />
+        public override void Update(float frameTime)
+        {
+            base.Update(frameTime);
+
+            if (!Enabled)
+                return;
+
+            _count = 0;
+            // Add your system here.
+            _htn.UpdateNPC(ref _count, _maxUpdates, frameTime);
+            FollowerUpdate(frameTime);
+        }
+
+        /// <summary>
+        /// BELOW ARE ALL PUBLIC METHODS TO INTERFACE WITH NPCS!
+        /// </summary>
+        /// mostly used by just HTN
+        /// TODO: maybe have other system handle this
         public void OnPlayerNPCAttach(EntityUid uid, HTNComponent component, PlayerAttachedEvent args)
         {
-            SleepNPC(uid, component);
-        }
+            // Misfit change:
 
+            SleepNPC(uid, component);
+            // [hotfix]TEMP!!!: player pets without proximityComp couldn't move without this
+            // anything with htn being possessed get sound/movement no matter what
+            // I didnt modify SleepNPC itself to not affect performance with
+            // an additional comp look up and check
+            // Super temp until I can refactor NPCs, their comps, yaml, ect...
+            EnsureComp<InputMoverComponent>(uid);
+            _emitSound.SetEnabled((uid, (SpamEmitSoundComponent?) null), true);
+            _ambient.SetAmbience(uid, true);
+
+        }
+        // todo: maybe have other system handle this
         public void OnPlayerNPCDetach(EntityUid uid, HTNComponent component, PlayerDetachedEvent args)
         {
             if (_mobState.IsIncapacitated(uid) || TerminatingOrDeleted(uid))
@@ -64,10 +98,17 @@ namespace Content.Server.NPC.Systems
             WakeNPC(uid, component);
         }
 
+        /// <summary>
+        ///
+        /// </summary>
+        /// <param name="uid"></param>
+        /// <param name="component"></param>
+        /// <param name="args"></param>
         public void OnNPCMapInit(EntityUid uid, HTNComponent component, MapInitEvent args)
         {
             component.Blackboard.SetValue(NPCBlackboard.Owner, uid);
-            WakeNPC(uid, component);
+            /// Misfit Change: <see cref="_Misfits.NPC.ProximityNPCSystem"/> would sleep almost all NPCs on init anyway
+            /// WakeNPC(uid, component);
         }
 
         public void OnNPCShutdown(EntityUid uid, HTNComponent component, ComponentShutdown args)
@@ -108,10 +149,24 @@ namespace Content.Server.NPC.Systems
             }
 
             Log.Debug($"Waking {ToPrettyString(uid)}");
-            EnsureComp<ActiveNPCComponent>(uid);
-        }
+            // Misfit add: Reduce repeated code and maintain consistency
+            //             calls to WakeNPC should always undo what SleepNPC does vice versa
 
-        public void SleepNPC(EntityUid uid, HTNComponent? component = null)
+
+            // Add InputMover BEFORE wake so steering can write to it on the first tick.
+            EnsureComp<InputMoverComponent>(uid);
+            EnsureComp<ActiveNPCComponent>(uid);
+            // re-Enable sound in-case SleepNPC disabled it
+            _emitSound.SetEnabled((uid, (SpamEmitSoundComponent?) null), true);
+            _ambient.SetAmbience(uid, true);
+
+
+            // Misfit end:
+        }
+        // TODO: on refactor make methods better convey what they do exactly
+        // ie... like a removeAI() for player possesion or just make that be handled by seperate system
+        // or just have this strictly be FOR NPCS AKA NON-PLAYABLE CHARACTERS
+        public void SleepNPC(EntityUid uid, HTNComponent? component = null, bool removeSound = true)
         {
             if (!Resolve(uid, ref component, false))
             {
@@ -132,21 +187,22 @@ namespace Content.Server.NPC.Systems
 
             Log.Debug($"Sleeping {ToPrettyString(uid)}");
             RemComp<ActiveNPCComponent>(uid);
+
+
+            // Misfit Change: remove sound and inputMover when sleeping NPCs
+            //                code below was repeated in ProximityNPCSystem
+            //                after SleepNPC, so just put it here for consistency
+
+            // entirely — no HandleMobMovement per physics substep while asleep.
+            RemCompDeferred<InputMoverComponent>(uid);
+            // In-cases where sleep is called for player's possesing NPCs
+            // though you may want to remove their audio for one reason or other like SPAM
+            if (!removeSound) return;
+            // Silence idle sounds while sleeping — no point emitting audio for NPCs
+            // that are 60+ tiles from any player.
+            _emitSound.SetEnabled((uid, (SpamEmitSoundComponent?) null), false);
+            _ambient.SetAmbience(uid, false);
         }
-
-        /// <inheritdoc />
-        public override void Update(float frameTime)
-        {
-            base.Update(frameTime);
-
-            if (!Enabled)
-                return;
-
-            _count = 0;
-            // Add your system here.
-            _htn.UpdateNPC(ref _count, _maxUpdates, frameTime);
-        }
-
         public void OnMobStateChange(EntityUid uid, HTNComponent component, MobStateChangedEvent args)
         {
             if (HasComp<ActorComponent>(uid))
@@ -159,39 +215,8 @@ namespace Content.Server.NPC.Systems
                     break;
                 case MobState.Critical:
                 case MobState.Dead:
-                    SleepNPC(uid, component);
+                    SleepNPC(uid, component); // Mob should't be able to move or act by this point
                     break;
-            }
-        }
-
-        private void AddNpcOrderVerbs(GetVerbsEvent<Verb> args)
-        {
-            if (TryComp<NpcFactionMemberComponent>(args.Target, out var member)
-                    && member.FriendlyOrderable
-                    && _npcFaction.IsEntityFriendly(args.Target, args.User))
-            {
-                var start = new Verb()
-                {
-                    Text = Loc.GetString("npc-order-start"),
-                    Icon = new SpriteSpecifier.Texture(new("/Textures/Interface/VerbIcons/sentient.svg.192dpi.png")),
-                    Act = () => WakeNPC(args.Target)
-                };
-
-                var stop = new Verb()
-                {
-                    Text = Loc.GetString("npc-order-stop"),
-                    Icon = new SpriteSpecifier.Texture(new("/Textures/Interface/VerbIcons/sentient.svg.192dpi.png")),
-                    Act = () => SleepNPC(args.Target)
-                };
-
-                if (IsAwake(args.Target))
-                {
-                    args.Verbs.Add(stop);
-                }
-                else
-                {
-                    args.Verbs.Add(start);
-                }
             }
         }
     }

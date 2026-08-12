@@ -18,7 +18,7 @@
       fix1:
         shape:
           !type:PhysShapeCircle
-            radius: 0.5
+            radius: 0.3
         density: 20
         mask:
         - MobMask
@@ -27,7 +27,16 @@
   - type: MobThresholds
     thresholds:
       0: Alive
-      300: Dead
+      320: Dead
+  - type: Reflect # #Misfits Change Tweak: Small-caliber rounds (sub-5.56mm) ricochet off power armor at 30% chance. Innate - always active regardless of movement.
+    reflects:
+      - SmallCaliber
+      - MediumCaliber
+    reflectProb: 0.3
+    reflectProbByType:
+      SmallCaliber: 0.5
+      MediumCaliber: 0.4
+    innate: true
   - type: DamageStateVisuals
     states:
       Alive:
@@ -58,15 +67,19 @@
     - Crab
     understands:
     - Crab
+    - N14Insect
     - English
     - Chinese
-    - Spanish
     - Latin
+    - Tribal
     - N14Robot
     - N14BrotherBeep
+    - Sign
   - type: Body # #Misfits Add - override N14Animal with N14PetAnimal to include heart (Medicine/Poison metabolizer)
     prototype: N14PetAnimal
   - type: Hands # #Misfits Add - allows player-controlled mirelurk pets to drag items
+  - type: Puller
+    needsHands: false
   - type: MisfitsPetNoPickup # #Misfits Add - cancels PickupAttemptEvent; drag only, no item pickup
   - type: PassiveDamage # #Misfits Add - slow natural regeneration for player-controlled pet mirelurks
     allowedStates:

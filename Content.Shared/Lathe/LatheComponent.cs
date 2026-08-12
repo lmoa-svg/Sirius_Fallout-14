@@ -28,6 +28,11 @@ namespace Content.Shared.Lathe
         public List<LatheRecipePrototype> Queue = new();
 
         /// <summary>
+        /// Server-side actor matching each queued recipe. Used for player-stat production modifiers.
+        /// </summary>
+        public List<EntityUid?> QueueActors = new();
+
+        /// <summary>
         /// The sound that plays when the lathe is producing an item, if any
         /// </summary>
         [DataField]
@@ -93,4 +98,14 @@ namespace Content.Shared.Lathe
     /// </summary>
     [ByRefEvent]
     public readonly record struct LatheStartPrintingEvent(LatheRecipePrototype Recipe);
+
+    /// <summary>
+    /// [Changed by MisfitsCrew/Operator] Raised before materials are consumed and a recipe is added to a lathe queue.
+    /// Systems may cancel recipes subject to machine-specific production limits.
+    /// </summary>
+    [ByRefEvent]
+    public record struct LatheQueueAttemptEvent(LatheRecipePrototype Recipe, EntityUid? Actor)
+    {
+        public bool Cancelled;
+    }
 }

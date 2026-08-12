@@ -25,7 +25,7 @@
   startingGear: CaesarLegionVexillariusGear
   alwaysUseSpawner: true
   icon: "JobIconlegionerVenator"
-  supervisors: job-name-caesar-legion-other
+  supervisors: job-supervisor-caesar-legion-centurion
   canBeAntag: false
   accessGroups:
   - CaesarLegionVexillarius
@@ -37,6 +37,29 @@
           - CaesarLegion
       - type: ReplacementAccent
         accent: latin
+      - type: Warcry
+        action: ActionLegionWarcry
+        targetDepartment: CaesarLegion
+        range: 6
+        speedBonus: 0.30 # #Misfits Tweak - reduced from 0.50, was too strong
+        duration: 10
+        overlayColor: "#D64545"
+        speechVerb: MisfitsLegionWarcry
+        warcryMessage: warcry-message-legion
+        warcryMessageCount: 6
+        buffPopup: warcry-popup-buffed-legion
+        excludedJobs:
+        - SuperMutantGladiator
+        cautionPopup: true
+        activatorJobs:
+        - CaesarLegionVexillarius
+        - CaesarLegionDean
+        - CaesarLegionPrimeDecanus
+        - CaesarLegionVeteranDecanus
+        - CaesarLegionCenturion
+        - CaesarLegionLegate
+        - CaesarLegionOrator
+        - CaesarLegionPriestessOfMars
   - !type:AddTraitSpecial
     traits: [ LanguageLatin ]
 
@@ -54,7 +77,6 @@
     gloves: N14ClothingHandsGlovesTribal
     belt: N14Gladius
     suitstorage: N14PilumSpear
-    pocket1: LegionVexillariusloadoutkits
     id: N14IDLegionaryMedalVexillarius
   innerClothingSkirt: N14ClothingUniformJumpsuitLegionnaireOther
   storage:

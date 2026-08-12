@@ -1,0 +1,1 @@
+admin-ui-panic-bunker-deny-vpn = Блокировать VPN-доступ

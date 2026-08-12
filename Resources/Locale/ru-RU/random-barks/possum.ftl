@@ -1,0 +1,24 @@
+# Possum <3
+bark-possum-1 = шипение шипение
+bark-possum-2 = Шипение шипение шипение
+bark-possum-3 = Еда
+bark-possum-4 = Голодный
+bark-possum-5 = Больше еды
+bark-possum-6 = шипение
+bark-possum-7 = Притвориться мертвым
+bark-possum-8 = Испуганный
+bark-possum-9 = Скрывать
+bark-possum-10 = Темный, пожалуйста
+bark-possum-11 = Дом на дереве
+bark-possum-12 = Шипение шипение шипение шипение
+bark-possum-13 = Еда сейчас
+bark-possum-14 = Сонный
+bark-possum-15 = Шипение шипение шипение
+bark-possum-16 = Ночью хорошо
+bark-possum-17 = Фрукты, пожалуйста
+bark-possum-18 = Нет света
+bark-possum-19 = Шипение шипение шипение шипение
+bark-possum-20 = Безопасная темнота
+bark-possum-21 = Нужно спрятаться
+bark-possum-22 = Шип... Держись подальше
+bark-possum-count = 22

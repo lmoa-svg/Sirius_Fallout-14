@@ -3,12 +3,14 @@
   setPreference: true
   hideIfPlaytimeRequirementsNotMet: false # #Misfits Tweak - all jobs visible in selection
   jobWhitelistBypassesRoleTimers: true # #Misfits Change
+  showBorder: true # #Misfits Add - show border for NCR Recruit to make it visually distinct in the job selection screen
   weight: 10
   overrideConsoleVisibility: true
   canBeAntag: false
   name: job-name-ncr-recruit
+  overwatchCategory: OverwatchNcrEnlisted
   description: job-description-ncr-recruit
-  playTimeTracker: NCRCadet
+  playTimeTracker: NCRTrooper
   requirements:
     - !type:CharacterSpeciesRequirement
       species:
@@ -38,9 +40,8 @@
     jumpsuit: N14ClothingUniformNCRDesert # Corvax-Change
     shoes: N14ClothingBootsLeatherFilled
     ears: N14ClothingHeadsetNCR # #Misfits Add - NCR radio earpiece
-    neck: ClothingNeckPinNCRRecruit
-    belt: ClothingBeltNCR
-    pocket1: NCRcadetloadoutkits
+
+    #belt: ClothingBeltNCR #Misfits Change - Belts spawn in loadouts now, so Recruit doesn't get one in their starting gear to avoid inventory clutter for new players.
     id: N14IDNCRDogtag
   innerClothingSkirt: N14ClothingUniformNCRDesert # Corvax-Change
   satchel: N14ClothingBackpackSatchelNCRFilled
@@ -49,4 +50,4 @@
     - N14BoxPlasticFilledMilitaryNCR
 
 - type: playTimeTracker
-  id: NCRCadet
+  id: NCRTrooper

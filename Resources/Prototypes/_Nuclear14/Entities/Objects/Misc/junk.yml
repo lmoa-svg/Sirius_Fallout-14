@@ -107,6 +107,8 @@
   - type: PhysicalComposition
     materialComposition:
       Plastic: 50
+  - type: Item
+    storedRotation: 90
 
 - type: entity
   parent: N14JunkItemBase
@@ -183,7 +185,7 @@
     materialComposition:
       Plastic: 100
   - type: Tag
-    tags: 
+    tags:
       - Abraxo
 
 - type: entity
@@ -227,7 +229,8 @@
   description: A large metal cooking pot.
   components:
   - type: Sprite
-    state: cookpot
+    sprite: _Nuclear14/Objects/Misc/cookpot.rsi
+    state: icon
   - type: Tag
     tags:
     - JunkItem
@@ -237,6 +240,17 @@
     solutions:
       cookpot:
         maxVol: 100
+  - type: Clothing
+    sprite: _Nuclear14/Objects/Misc/cookpot.rsi
+    slots:
+    - HEAD
+    quickEquip: false
+  - type: Armor
+    modifiers:
+      coefficients:
+        Slash: 0.95
+        Piercing: 0.95
+        Heat: 0.95
 
 - type: entity
   parent: N14JunkItemBaseWood
@@ -380,6 +394,7 @@
   - type: Tag
     tags:
     - JunkKettle
+
 - type: entity
   parent: N14JunkItemBasePlastic
   id: N14JunkTimer
@@ -389,8 +404,18 @@
   - type: Sprite
     state: timer
   - type: Tag
-    tags: 
+    tags:
     - JunkTimer
+  - type: PayloadTrigger
+    components:
+    - type: OnUseTimerTrigger
+      delay: 5
+      delayOptions: [3, 5, 10, 15, 30]
+      initialBeepDelay: 0
+      beepSound:
+        path: /Audio/Machines/Nuke/general_beep.ogg
+        params:
+          volume: -2
 
 - type: entity
   parent: FoodTinBaseTrash
@@ -447,7 +472,7 @@
         - ReagentId: Turpentine
           Quantity: 50
   - type: Tag
-    tags: 
+    tags:
       - Turpentine
 
 - type: entity
@@ -798,9 +823,17 @@
   components:
   - type: Tag # Corvax-Change
     tags:
+    # Misfits Change: Make N14 Capacitors compatible with the other capacitors and vice versa
+    - CapacitorStockPart
     - N14Capacitor
     - JunkItem
     - Trash
+  - type: MachinePart
+    part: Capacitor
+    rating: 1
+  - type: ReverseEngineering # Nyano
+    recipes:
+      - CapacitorStockPart
   - type: Sprite
     state: capacitor_1
 
@@ -865,6 +898,9 @@
   - type: Tag
     tags:
     - Mainboard
+  - type: Item
+    size: Small
+    storedRotation: 90
 
 - type: entity
   parent: N14JunkComponentElectronic
@@ -940,6 +976,8 @@
   - type: PhysicalComposition
     materialComposition:
       Circuitry: 20
+  - type: Item
+    size: Tiny
 
 - type: entity
   parent: N14JunkComponentElectronic
@@ -986,6 +1024,8 @@
     - JunkItem
     - Trash
     - Screw
+  - type: Item
+    size: Tiny
 
 - type: entity
   parent: N14JunkComponentElectronic
@@ -998,6 +1038,9 @@
   - type: Tag
     tags:
     - Sensor
+  - type: Item
+    size: Small
+    storedRotation: 90
 
 - type: entity
   parent: N14JunkComponentElectronic
@@ -1012,7 +1055,7 @@
     - SensorModule
 
 - type: entity
-  parent: N14JunkItemBasePlastic
+  parent: N14JunkComponentElectronic
   id: N14JunkComponentSwitch
   name: switch module #Misfits Change: Why was this called a sensor module if its a switch??
   description: An electronics switch.
@@ -1022,6 +1065,16 @@
   - type: Tag
     tags:
     - Switch
+    - SignalTrigger
+  - type: PayloadTrigger
+    components:
+    - type: TriggerOnSignal
+    - type: DeviceNetwork
+      deviceNetId: Wireless
+      receiveFrequencyId: BasicDevice
+    - type: WirelessNetworkConnection
+      range: 200
+    - type: DeviceLinkSink
 
 - type: entity
   parent: N14JunkComponentElectronic

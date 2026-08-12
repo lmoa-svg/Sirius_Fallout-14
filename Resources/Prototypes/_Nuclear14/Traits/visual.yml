@@ -14,19 +14,22 @@
     - TribalElder
     - TownMayor
     - TownSheriff
-    - NCRCaptain
-    - NCRLT
+    - NCRCommander
+    - NCRExecutiveOfficer
+    - NCRPlatoonLeader
     - NCRDoctor
     - NCRVeteranRanger
     - NCRFieldRanger
     - NCRPatrolRanger
+    - NCRRangerRecruit
     - NCRFirstSergeant
     - NCRStaffSergeant
-    - NCRSGT
-    - NCRMPinvestigator
+    - NCRNCO
+    - NCRRO
     - NCRWS
-    #- NCREngineer #Misfits Change /Comment-out/: consolidated into Specialist
-    #- NCRMedic #Misfits Change /Comment-out/: consolidated into Specialist
+    - NCRHeavyTrooper
+    - NCREngineer
+    - NCRMedic
     - NCRPrivateFirstClass
     - NCRSoldier
     - NCRCadet
@@ -46,6 +49,7 @@
     - CaesarLegionExplorer
     - CaesarLegionOrator
     - CaesarLegionDean
+    - CaesarLegionForgemaster
     - CaesarLegionLegionnaireVeteran
     - CaesarLegionLegionnaireWarrior
     - CaesarLegionLegionnaireRecruit

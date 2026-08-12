@@ -9,7 +9,6 @@
       types:
         Piercing: 30
         Blunt: 20
-    ignoreResistances: true
   # Misfits Add - .50 BMG anti-materiel; extreme range caliber — minimal falloff
   - type: BallisticDamageFalloff
     falloffStartTiles: 12.0
@@ -27,8 +26,7 @@
   - type: Projectile
     damage:
       types:
-        Piercing: 40 # medium decrease for explosion numerics
-    ignoreResistances: true
+        Piercing: 50 #sirius change
   # Misfits Add - .50 HEIAP; same caliber as AP, same minimal falloff on direct hit damage
   - type: BallisticDamageFalloff
     falloffStartTiles: 12.0

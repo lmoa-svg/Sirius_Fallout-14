@@ -3,6 +3,7 @@ using Content.Shared.Silicons.StationAi;
 using Robust.Client.Graphics;
 using Robust.Client.Player;
 using Robust.Shared.Enums;
+using Robust.Shared.Map;
 using Robust.Shared.Map.Components;
 using Robust.Shared.Physics;
 using Robust.Shared.Prototypes;
@@ -121,8 +122,8 @@ public sealed class StationAiOverlay : Overlay
         worldHandle.UseShader(_proto.Index<ShaderPrototype>("StencilDraw").Instance());
         worldHandle.DrawTextureRect(_staticTexture!.Texture, worldBounds);
 
+        // [Changed by MisfitsCrew/Operator] Keep this overlay core-camera-only; shunted command feedback is rendered separately.
         worldHandle.SetTransform(Matrix3x2.Identity);
         worldHandle.UseShader(null);
-
     }
 }

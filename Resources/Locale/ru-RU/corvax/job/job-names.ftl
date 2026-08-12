@@ -1,0 +1,61 @@
+job-name-iaa = Агент внутренних дел
+job-name-pilot = Пилот
+JobIAA = Агент внутренних дел
+JobPilot = Пилот
+# Corvax N14
+job-name-caesar-legion-legate = Легат
+job-description-caesar-legion-legate = Командуйте Легионом Цезаря как его высшая полевая власть и выполняйте волю Цезаря выше всех других легионеров.
+job-name-caesar-legion-centurion = Центурион
+job-description-caesar-legion-centurion = Возглавьте Легион под началом Легата, координируйте действия офицеров и руководите основными кампаниями воинства.
+job-name-caesar-legion-veteran-decanus = Декан-ветеран
+job-description-caesar-legion-veteran-decanus = Служите опытным деканом, которому поручено командовать ветеранами-легионерами и обеспечивать дисциплину в рядах Цезаря.
+job-name-caesar-legion-frumentarii = Фрументарий
+job-description-caesar-legion-frumentarii = Служите Цезарю самыми надежными глазами, ушами и клинками. Фрументарии собирают разведданные, устраняют угрозы из тени и обеспечивают выполнение воли Цезаря за пределами основных сил Легиона.
+job-name-caesar-legion-prime-decanus = Прайм Декан
+job-description-caesar-legion-prime-decanus = Командуйте отрядом закаленных легионеров в роли Прайм Декануса. Вы — проверенный костяк офицерского корпуса Легиона — опытный в боях, дисциплинированный и пользующийся большим авторитетом, чем обычный Декан.
+job-name-caesar-legion-vexillarius = Вексилларий
+job-description-caesar-legion-vexillarius = Несите знамя Легиона в битву и сплачивайте воинов Цезаря там, где линия обороны начинает рушиться.
+job-name-caesar-legion-explorer = Разведчик Легиона
+job-description-caesar-legion-explorer = Будьте впереди основных сил Легиона в роли разведчика и охотника. Твои глаза и твой клинок — это досягаемость Цезаря до диких земель.
+job-name-caesar-legion-orator = Оратор Легиона
+job-description-caesar-legion-orator = Озвучьте философию Цезаря и распространите доктрину Легиона. Оратор сражается словами не меньше, чем сталью.
+job-name-caesar-legion-dean = Декан Легиона
+job-description-caesar-legion-dean = Возглавьте небольшое боевое подразделение Легиона и держите легионеров под собой готовыми к бою и послушными.
+job-name-caesar-legion-forgemaster = Мастер кузни Легиона
+job-description-caesar-legion-forgemaster = Руководите кузницами и мастерской легиона по производству и обслуживанию оборудования для военной машины Цезаря. Определите, какие приказы отдавать в приоритетном порядке, а какие отклонять, чтобы беспокойные новобранцы не тратили впустую всю сталь.
+job-name-caesar-legion-legionnaire-veteran = Легионер-ветеран
+job-description-caesar-legion-legionnaire-veteran = Сражайтесь в роли закаленного ветерана Легиона Цезаря, которому доверена самая жестокая работа на передовой.
+job-description-caesar-legionnaire-veteran = Сражайтесь в роли закаленного ветерана Легиона Цезаря, которому доверена самая жестокая работа на передовой.
+job-name-caesar-legion-legionnaire-warrior = Прайм Легионер
+job-description-caesar-legion-legionnaire-warrior = Станьте проверенным легионером на главной боевой линии Легиона и поддержите знамя Цезаря в бою.
+job-description-caesar-legionnaire-warrior = Станьте проверенным легионером на главной боевой линии Легиона и поддержите знамя Цезаря в бою.
+job-name-caesar-legion-legionnaire-recruit = Легионер
+job-description-caesar-legionnaire-recruit = Начните свою службу в качестве линейного легионера, изучая дисциплину и насилие под командованием легионера.
+job-name-caesar-legion-houndmaster = Погонщик Легиона
+job-description-caesar-legion-houndmaster = Надзирайте за рабами в лагере и обеспечивайте их бесперебойный труд. Вы так же управляете боевыми собаками Легиона и направляете их против врагов Цезаря.
+job-name-caesar-legion-auxilia = Ауксиляр Легиона
+job-description-caesar-legion-auxilia = Поддерживайте воинов Цезаря в бою с помощью медицины пустошей, медицинской сортировки на поле боя и дисциплины, равной любому другому легионеру.
+job-name-caesar-legion-priestess-of-mars = Жрица Марса
+job-description-caesar-legion-priestess-of-mars = Служите священной женщиной Легиона, заботясь о духовных нуждах воинов Цезаря, совершая священные обряды во имя Марса и оказывая помощь тем, кто сражается во имя его.
+# #Misfits Change: Legion Recruit removed — replaced by Legionnaire as the entry-level rank.
+# job-name-caesar-legion-recruit = Legion Recruit
+# job-description-caesar-legion-recruit = Enter the Legion at its lowest free rank and prove you deserve to join the legionaries.
+job-name-caesar-legion-citizen = Гражданский Легиона
+job-description-caesar-legion-citizen = Вы гражданский из подчинённого Легиону города. Вы подчиняетесь закону Легиона и Марсу, но не являетесь ни рабом, ни легионером.
+job-name-caesar-legion-trader = Торговец Легиона
+job-description-caesar-legion-trader = Вы караванщик, который работает с и на территории Легиона. Местные торговые пути всегда куда безопаснее, чем у НКР!
+job-name-caesar-legion-slave = Раб Легиона
+job-description-caesar-legion-slave = Вы раб Легиона Цезаря. Подчиняйтесь, выживайте и помните, что ваша жизнь принадлежит вашим хозяевам.
+
+# Misfits Change /Comment-out/: Western BoS chapter removed.
+# # Western BoS
+# job-name-bos-west-elder-comm = Brotherhood Elder
+# job-description-bos-west-elder-comm = Command the entire Brotherhood chapter and decide its doctrine, diplomacy, and strategic goals.
+# job-name-bos-west-paladin = Brotherhood Senior Paladin
+# job-description-bos-west-paladin = Serve as a seasoned paladin trusted with the Brotherhood's most dangerous operations.
+# job-name-bos-west-knight = Brotherhood Senior Knight
+# job-description-bos-west-knight = Act as an experienced knight who anchors Brotherhood patrols and defends recovered assets.
+# job-name-bos-west-scribe = Brotherhood Head Scribe
+# job-description-bos-west-scribe = Lead the scribes, control technical doctrine, and safeguard the chapter's knowledge.
+# job-name-bos-west-gunsmith = Brotherhood Squire
+# job-description-bos-west-gunsmith = Maintain Brotherhood equipment while training under the chapter's senior members.

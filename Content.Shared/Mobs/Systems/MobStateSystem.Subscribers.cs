@@ -15,7 +15,9 @@ using Content.Shared.Pointing;
 using Content.Shared.Pulling.Events;
 using Content.Shared.Speech;
 using Content.Shared.Standing;
+using Content.Shared._Misfits.C27;
 using Content.Shared._Misfits.Standing;
+using Content.Shared.Silicon.Components;
 using Content.Shared.Strip.Components;
 using Content.Shared.Throwing;
 using Robust.Shared.Configuration;
@@ -74,6 +76,9 @@ public partial class MobStateSystem
             || ent.Comp.CurrentState is MobState.Critical
             && ent.Comp.AllowMovementWhileCrit
             && _configurationManager.GetCVar(CCVars.AllowMovementWhileCrit)
+            // #Misfits Add - robots/silicons/C27s never crit crawl
+            && !HasComp<SiliconComponent>(ent)
+            && !HasComp<MisfitsC27Component>(ent)
             || ent.Comp.CurrentState is MobState.SoftCritical
             && ent.Comp.AllowMovementWhileSoftCrit
             || ent.Comp.CurrentState is MobState.Dead
@@ -166,16 +171,22 @@ public partial class MobStateSystem
                 // leave them on the ground — player must press ToggleStanding to get up manually
                 if (!HasComp<LayingDownComponent>(target) || !_standing.IsDown(target))
                     _standing.Stand(target);
+                // #Misfits Add - refresh speed when exiting crit (remove CritCrawlSpeedModifier)
+                _movementSpeed.RefreshMovementSpeedModifiers(target);
                 _appearance.SetData(target, MobStateVisuals.State, MobState.Alive);
                 break;
             case MobState.Critical:
                 if (component.DownWhenCrit)
                     _standing.Down(target);
+                // #Misfits Add - refresh speed when entering crit (LayingDownComponent applies CritCrawlSpeedModifier)
+                _movementSpeed.RefreshMovementSpeedModifiers(target);
                 _appearance.SetData(target, MobStateVisuals.State, MobState.Critical);
                 break;
             case MobState.SoftCritical:
                 if (component.DownWhenSoftCrit)
                     _standing.Down(target);
+                // #Misfits Add - refresh speed when entering soft-crit
+                _movementSpeed.RefreshMovementSpeedModifiers(target);
                 _appearance.SetData(target, MobStateVisuals.State, MobState.Critical);
                 break;
             case MobState.Dead:

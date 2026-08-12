@@ -8,6 +8,7 @@ using Content.Server.Chat.Managers;
 using Content.Server.Connection;
 using Content.Server.JoinQueue;
 using Content.Server._NC.Discord;
+using Content.Server._Misfits.DiscordLink; // #Misfits Add - player Discord account linking
 using Content.Server.Database;
 //using Content.Server.DiscordAuth;
 using Content.Server.EUI;
@@ -126,6 +127,7 @@ namespace Content.Server.Entry
                 IoCManager.Resolve<ServerInfoManager>().Initialize();
                 IoCManager.Resolve<JoinQueueManager>().Initialize();
                 IoCManager.Resolve<DiscordAuthManager>().Initialize();
+                IoCManager.Resolve<MisfitsDiscordLinkManager>().Initialize(); // #Misfits Add
                 IoCManager.Resolve<TTSManager>().Initialize(); // Corvax-TTS
                 IoCManager.Resolve<ServerApi>().Initialize();
                 IoCManager.Resolve<JoinQueueManager>().Initialize();
@@ -172,7 +174,7 @@ namespace Content.Server.Entry
                 IoCManager.Resolve<IConnectionManager>().PostInit();
                 IoCManager.Resolve<SponsorManager>().Initialize(); // Forge-Change
                 IoCManager.Resolve<ISupporterManager>().Initialize(); // #Misfits Add
-                IoCManager.Resolve<IConsoleHost>().ExecuteCommand("populationadjust 121");
+                IoCManager.Resolve<IConsoleHost>().ExecuteCommand("populationadjust 200");
             }
         }
 
